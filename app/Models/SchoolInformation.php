@@ -9,14 +9,14 @@ class SchoolInformation extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['education_level_id', 'academic_year_id', 'news_from', 'last_school'];
 
-    public function edulevel()
+    public function educationLevel()
     {
         return $this->belongsTo(EducationLevel::class);
     }
 
-    public function academicyear()
+    public function academicYear()
     {
         return $this->belongsTo(AcademicYear::class);
     }

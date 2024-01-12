@@ -9,7 +9,7 @@ class EducationLevel extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['level_name'];
 
     public function schoolInformation()
     {

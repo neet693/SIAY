@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('school_information', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('education_level_id')->constrained('education_levels');
             $table->foreignId('academic_year_id')->constrained('academic_years');
+            $table->foreignId('education_level_id')->constrained('education_levels');
             $table->string('news_from');
             $table->string('last_school');
             $table->timestamps();
