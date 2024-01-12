@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\StudentParent;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -13,7 +14,8 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
-        return view('Student.student_detail', compact('students'));
+        $parents = StudentParent::all();
+        return view('Student.student_index', compact('students', 'parents'));
     }
 
     /**
@@ -35,9 +37,17 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
+    // public function show(Student $student)
+    // {
+    //     $studentParent = $student->studentParent->where('student_id', $student->id);
+    //     return view('Student.student_show', compact('student', 'studentParent'));
+    // }
+
     public function show(Student $student)
     {
-        //
+        $studentParent = $student->studentParent;
+
+        return view('Student.student_show', compact('student', 'studentParent'));
     }
 
     /**

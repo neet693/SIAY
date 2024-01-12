@@ -12,7 +12,9 @@
 
       <h5 class="sidebar-title">Daily Use</h5>
 
-      <a href="{{ url()->previous() }}" class="sidebar-item active" onclick="toggleActive(this)">
+      {{-- <a href="{{ route('dashboard.index') }}" class="sidebar-item" onclick="toggleActive(this)"> --}}
+      <a href="{{ route('dashboard.index') }}" class="sidebar-item {{ request()->is('/') ? 'active' : '' }}"
+          onclick="toggleActive(this)">
           <!-- <img src="./assets/img/global/grid.svg" alt=""> -->
 
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,12 +28,14 @@
                   stroke-linejoin="round" />
           </svg>
 
-          <span>Overview</span>
+          <span>Dashboard</span>
       </a>
 
       <!-- <a href="./employees.html" class="sidebar-item"> -->
       <!-- <img src="./assets/img/global/users.svg" alt=""> -->
-      <a href="#" class="sidebar-item" onclick="toggleActive(this)">
+      {{-- <a href="{{ route('students.index') }}" class="sidebar-item" onclick="toggleActive(this)"> --}}
+      <a href="{{ route('students.index') }}" class="sidebar-item {{ request()->is('students*') ? 'active' : '' }}"
+          onclick="toggleActive(this)">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                   d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13"
@@ -47,7 +51,7 @@
                   stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
 
-          <span>Employees</span>
+          <span>Students</span>
       </a>
 
       <a href="#" class="sidebar-item" onclick="toggleActive(this)">

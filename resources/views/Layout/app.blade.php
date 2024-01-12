@@ -34,7 +34,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
 
-    <script>
+    {{-- <script>
         const navbar = document.querySelector('.col-navbar')
         const cover = document.querySelector('.screen-cover')
 
@@ -52,7 +52,33 @@
             e.closest('.sidebar-item').classList.add('active')
 
         }
+    </script> --}}
+
+    <script>
+        const navbar = document.querySelector('.col-navbar')
+        const cover = document.querySelector('.screen-cover')
+
+        const sidebarItems = document.querySelectorAll('.sidebar-item')
+
+        function toggleNavbar() {
+            navbar.classList.toggle('d-none')
+            cover.classList.toggle('d-none')
+        }
+
+        function toggleActive(element) {
+            // Menghapus kelas 'active' dari semua elemen dengan kelas 'sidebar-item'
+            sidebarItems.forEach(item => item.classList.remove('active'));
+
+            // Menentukan route dari href elemen yang diklik
+            const route = element.getAttribute('href');
+
+            // Menambahkan kelas 'active' pada elemen yang sesuai dengan route saat ini
+            if (window.location.pathname === route) {
+                element.classList.add('active');
+            }
+        }
     </script>
+
 </body>
 
 </html>

@@ -25,4 +25,19 @@ class Student extends Model
     {
         return $this->hasOne(StudentAddress::class)->withDefault();
     }
+
+    public function bloodType()
+    {
+        return $this->belongsTo(BloodType::class);
+    }
+
+    public function residenceStatus()
+    {
+        return $this->belongsTo(ResidenceStatus::class);
+    }
+
+    public function studentParent()
+    {
+        return $this->hasMany(StudentParent::class);
+    }
 }
