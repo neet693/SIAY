@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class EducationLevel extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function schoolInformation()
+    {
+        return $this->hasMany(SchoolInformation::class);
+    }
 }

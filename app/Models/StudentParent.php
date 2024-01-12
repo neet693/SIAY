@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class StudentParent extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function studentParentAddress()
+    {
+        return $this->hasOne(StudentParentAddress::class);
+    }
 }
