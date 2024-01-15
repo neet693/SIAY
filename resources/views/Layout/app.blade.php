@@ -20,14 +20,15 @@
 
     <div class="row">
         <div class="col-12 col-lg-3 col-navbar d-none d-xl-block">
-
-            @include('Navbar.sidebar')
-
+            @auth
+                @include('Navbar.sidebar')
+                @include('Navbar.navbar')
+            @endauth
         </div>
 
 
         <div class="col-12 col-xl-9">
-            @include('Navbar.navbar')
+            {{-- @include('Navbar.navbar') --}}
             @yield('content')
         </div>
     </div>
@@ -55,6 +56,8 @@
 
         }
     </script> --}}
+
+    <script src="{{ asset('template/assets/script.js') }}"></script>
 
     <script>
         const navbar = document.querySelector('.col-navbar')
