@@ -3,7 +3,7 @@
     <div class="content">
         <div class="row">
             {{-- Student Statistics --}}
-            <div class="col-12 col-md-8 col-lg-4">
+            <div class="col-12 col-md-8 col-lg-8">
                 <div class="statistics-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column justify-content-between align-items-start">
@@ -15,27 +15,124 @@
                         </button>
                     </div>
 
+                    <div class="d-flex align-items-center">
+                        {{-- Student Level and Academic Year --}}
+                        <div class="d-flex flex-column justify-content-between align-items-start">
+                            <span class="document-desc">{{ $student->schoolInformation->academicYear->name }}
+                                •
+                                {{ $student->schoolInformation->educationLevel->level_name }}</span>
+                        </div>
+
+                        {{-- Student Modal --}}
+                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#contactModal">
+                            Contact Info
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="contactModalLabel">{{ $student->fullname }}
+                                        </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5 class="content-desc mb-4">Nickname: {{ $student->nickname }}</h5>
+                                        <h5 class="content-desc mb-4">Citizenship: {{ $student->citizenship }}</h5>
+                                        <h5 class="content-desc mb-4">Gender: {{ $student->gender }}</h5>
+                                        <h5 class="content-desc mb-4">Tempat, Tanggal Lahir:
+                                            {{ $student->birth_place }},
+                                            {{ $student->birth_date }}</h5>
+                                        <h5 class="content-desc mb-4"> Agama: {{ $student->religion->religion_name }}
+                                            |
+                                            Bergereja di
+                                            {{ $student->church_domicile }}</h5>
+                                        <h5 class="content-desc mb-4">Anak ke - {{ $student->child_position }} Dari
+                                            {{ $student->child_number }} Bersaudara</h5>
+                                        <h5 class="content-desc mb-4">Golongan Darah:
+                                            {{ $student->bloodType->type_name }}</h5>
+                                        <h5 class="content-desc mb-4"><i class="bi bi-envelope"></i> :
+                                            {{ $student->email }}</h5>
+                                        <h5 class="content-desc mb-4">Status Tinggal:
+                                            {{ $student->residenceStatus->status_name }}
+                                        </h5>
+                                        <h5 class="content-desc mb-4">Alamat Siswa:
+                                            {{ $student->studentAddress->student_province }},
+                                            {{ $student->studentAddress->student_regency }},
+                                            {{ $student->studentAddress->student_district }},
+                                            {{ $student->studentAddress->student_village }},
+                                            {{ $student->studentAddress->address }}
+                                        </h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Student Parent Modal --}}
+                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#parentModal">
+                            Parent Info
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="parentModal" tabindex="-1" aria-labelledby="parentModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="parentModalLabel">Parent Of
+                                            {{ $student->fullname }}
+                                        </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    @if (!empty($studentParent))
+                                        <div class="modal-body">
+                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_name }}</h5>
+                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_name }}</h5>
+                                            <!-- tambahkan penanganan untuk kemungkinan nilai null -->
+                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_degree ?? 'N/A' }}
+                                            </h5>
+                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_degree ?? 'N/A' }}
+                                            </h5>
+                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_job ?? 'N/A' }}</h5>
+                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_job ?? 'N/A' }}</h5>
+                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_tel ?? 'N/A' }}</h5>
+                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_tel ?? 'N/A' }}</h5>
+                                            <!-- tambahkan penanganan untuk alamat orang tua -->
+                                            @if ($studentParent->studentParentAddress)
+                                                <h5 class="content-desc mb-4">Alamat Orang Tua:
+                                                    {{ $studentParent->studentParentAddress->parent_province ?? 'N/A' }},
+                                                    {{ $studentParent->studentParentAddress->parent_regency ?? 'N/A' }},
+                                                    {{ $studentParent->studentParentAddress->parent_district ?? 'N/A' }},
+                                                    {{ $studentParent->studentParentAddress->parent_village ?? 'N/A' }},
+                                                    {{ $studentParent->studentParentAddress->address ?? 'N/A' }}
+                                                </h5>
+                                            @else
+                                                <p>Alamat Orang Tua tidak tersedia.</p>
+                                            @endif
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column justify-content-between align-items-start">
-                            <h5 class="content-desc mb-4">{{ $student->nickname }}</h5>
-                            <h5 class="content-desc mb-4">{{ $student->citizenship }}</h5>
-                            <h5 class="content-desc mb-4">{{ $student->gender }}</h5>
-                            <h5 class="content-desc mb-4">{{ $student->birth_place }}</h5>
-                            <h5 class="content-desc mb-4">{{ $student->birth_date }}</h5>
-                            <h5 class="content-desc mb-4"> Agama:{{ $student->religion->religion_name }} | Bergereja di
-                                {{ $student->church_domicile }}</h5>
-                            <h5 class="content-desc mb-4">Anak ke - {{ $student->child_position }} Dari
-                                {{ $student->child_number }} Bersaudara</h5>
-                            <h5 class="content-desc mb-4">Golongan Darah: {{ $student->bloodType->type_name }}</h5>
-                            <h5 class="content-desc mb-4">Email: {{ $student->email }}</h5>
-                            <h5 class="content-desc mb-4">Status Tinggal: {{ $student->residenceStatus->status_name }}</h5>
-                            <h5 class="content-desc mb-4">Alamat Siswa:
-                                {{ $student->studentAddress->student_province }},
-                                {{ $student->studentAddress->student_regency }},
-                                {{ $student->studentAddress->student_district }},
-                                {{ $student->studentAddress->student_village }},
-                                {{ $student->studentAddress->address }}
-                            </h5>
+                            Data Sekolah
                         </div>
                     </div>
 
@@ -67,29 +164,7 @@
                             <img src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
                         </button>
                     </div>
-                    @foreach ($studentParent as $item)
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex flex-column justify-content-between align-items-start">
-                                <h5 class="content-desc mb-4">{{ $item->dad_name }}</h5>
-                                <h5 class="content-desc mb-4">{{ $item->mom_name }}</h5>
-                                <h5 class="content-desc mb-4">{{ $item->dad_degree }}</h5>
-                                <h5 class="content-desc mb-4">{{ $item->mom_degree }}</h5>
-                                <h5 class="content-desc mb-4">{{ $item->dad_job }}</h5>
-                                <h5 class="content-desc mb-4">{{ $item->mom_job }}</h5>
-                                <h5 class="content-desc mb-4">{{ $item->dad_tel }}</h5>
-                                <h5 class="content-desc mb-4">{{ $item->mom_tel }}</h5>
-                                @if ($item->studentParentAddress)
-                                    <h5 class="content-desc mb-4">Alamat Orang Tua:
-                                        {{ $item->studentParentAddress->parent_province }},
-                                        {{ $item->studentParentAddress->parent_regency }},
-                                        {{ $item->studentParentAddress->parent_district }},
-                                        {{ $item->studentParentAddress->parent_village }},
-                                        {{ $item->studentParentAddress->address }}
-                                    </h5>
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
+                    Box Untuk Yang lain
 
                     <div class="statistics-list">
                         <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-4.png') }}"

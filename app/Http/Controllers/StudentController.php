@@ -45,10 +45,12 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
-        $studentParent = $student->studentParent;
+        // Mendapatkan data student parent beserta alamatnya
+        $studentParent = $student->studentParent()->with('studentParentAddress')->first();
 
         return view('Student.student_show', compact('student', 'studentParent'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
