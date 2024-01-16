@@ -232,9 +232,9 @@
                                     <div class="d-flex flex-column justify-content-between align-items-start">
                                         <h2 class="document-title">{{ $item->fullname }}</h2>
 
-                                        <span class="document-desc">
-                                            {{ $item->schoolInformation->academicYear->name }} -
-                                            {{ $item->schoolInformation->educationLevel->level_name }}</span>
+                                        {{ $item->schoolInformation->academicYear->name ?? 'Not available' }}
+                                        •
+                                        {{ $item->schoolInformation->educationLevel->level_name ?? 'Not available' }}</span>
                                     </div>
                                 </div>
                             </a>

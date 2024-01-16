@@ -9,7 +9,23 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'fullname',
+        'nickname',
+        'citizenship',
+        'gender',
+        'birth_place',
+        'birth_date',
+        'religion_id',
+        'church_domicile',
+        'child_position',
+        'child_number',
+        'blood_type_id',
+        'email',
+        'residence_status_id',
+        'dad_tel',
+        'mom_tel'
+    ];
 
     public function religion()
     {

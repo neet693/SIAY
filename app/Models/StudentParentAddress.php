@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class StudentParentAddress extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'student_parent_id',
+        'parent_province',
+        'parent_regency',
+        'parent_district',
+        'parent_village',
+        'address',
+    ];
 
     public function studentParent()
     {

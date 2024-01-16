@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('student_parent_addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_parent_id')->constrained('student_parents');
-            $table->string('parent_province');
-            $table->string('parent_regency');
-            $table->string('parent_district');
-            $table->string('parent_village');
+            $table->string('parent_province')->nullable();
+            $table->string('parent_regency')->nullable();
+            $table->string('parent_district')->nullable();
+            $table->string('parent_village')->nullable();
             $table->text('address');
             $table->timestamps();
         });

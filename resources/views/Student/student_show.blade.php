@@ -18,9 +18,9 @@
                     <div class="d-flex align-items-center">
                         {{-- Student Level and Academic Year --}}
                         <div class="d-flex flex-column justify-content-between align-items-start">
-                            <span class="document-desc">{{ $student->schoolInformation->academicYear->name }}
-                                •
-                                {{ $student->schoolInformation->educationLevel->level_name }}</span>
+                            {{ $student->schoolInformation->academicYear->name ?? 'Not available' }}
+                            •
+                            {{ $student->schoolInformation->educationLevel->level_name ?? 'Not available' }}</span>
                         </div>
 
                         {{-- Student Modal --}}

@@ -163,7 +163,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="village">Village:</label>
-                        <select class="form-control" id="village" name="student_district" required>
+                        <select class="form-control" id="village" name="student_village" required>
                             <!-- Options will be added dynamically by JavaScript -->
                         </select>
                     </div>
@@ -393,7 +393,7 @@
                 <!-- Akhir Bagian Address -->
 
                 <!-- Payment Method -->
-                <div class="col-lg">
+                {{-- <div class="col-lg">
                     <div class="form-group">
                         <label for="paymentMethod">Metode Pembayaran:</label>
                         <select class="form-control" id="paymentMethod" name="paymentMethod" required>
@@ -402,7 +402,7 @@
                             <option value="2">Transfer</option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <button type="button" class="btn btn-secondary" onclick="prevStep(2)">

@@ -9,7 +9,13 @@ class StudentAddress extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'student_province',
+        'student_regency',
+        'student_district',
+        'student_village',
+        'address',
+    ];
 
     public function student()
     {

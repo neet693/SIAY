@@ -9,7 +9,12 @@ class SchoolInformation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['education_level_id', 'academic_year_id', 'news_from', 'last_school'];
+    protected $fillable = [
+        'education_level_id',
+        'academic_year_id',
+        'news_from',
+        'last_school',
+    ];
 
     public function educationLevel()
     {
