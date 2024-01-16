@@ -139,6 +139,8 @@
                             <option selected>Select Province</option>
                             <!-- Options will be added dynamically by JavaScript -->
                         </select>
+                        <input type="hidden" id="student_province" name="province" />
+                        <input type="hidden" id="student_province_name" name="student_province_name" readonly />
                     </div>
                 </div>
 
@@ -148,6 +150,8 @@
                         <select class="form-control" id="regency" name="student_regency" required>
                             <!-- Options will be added dynamically by JavaScript -->
                         </select>
+                        <input type="hidden" id="student_regency" name="regency" />
+                        <input type="hidden" id="student_regency_name" name="student_regency_name" readonly />
                     </div>
                 </div>
 
@@ -157,6 +161,8 @@
                         <select class="form-control" id="district" name="student_district" required>
                             <!-- Options will be added dynamically by JavaScript -->
                         </select>
+                        <input type="hidden" id="student_district" name="district" />
+                        <input type="hidden" id="student_district_name" name="student_district_name" readonly />
                     </div>
                 </div>
 
@@ -166,6 +172,9 @@
                         <select class="form-control" id="village" name="student_village" required>
                             <!-- Options will be added dynamically by JavaScript -->
                         </select>
+
+                        <input type="hidden" id="student_village" name="village" />
+                        <input type="hidden" id="student_village_name" name="student_village_name" readonly />
                     </div>
                 </div>
 
@@ -351,6 +360,9 @@
                             <option selected>Select Province</option>
                             <!-- Options will be added dynamically by JavaScript -->
                         </select>
+
+                        <input type="hidden" id="provinceParent" name="provinceParent" />
+                        <input type="hidden" id="parent_province_name" name="parent_province_name" readonly />
                     </div>
                 </div>
 
@@ -361,6 +373,8 @@
                         <select class="form-control" id="regencyParent" name="parent_regency" required>
                             <!-- Options will be added dynamically by JavaScript -->
                         </select>
+                        <input type="hidden" id="regencyParent" name="regencyParent" />
+                        <input type="hidden" id="parent_regency_name" name="parent_regency_name" readonly />
                     </div>
                 </div>
 
@@ -371,6 +385,8 @@
                         <select class="form-control" id="districtParent" name="parent_district" required>
                             <!-- Options will be added dynamically by JavaScript -->
                         </select>
+                        <input type="hidden" id="districtParent" name="districtParent" />
+                        <input type="hidden" id="parent_district_name" name="parent_district_name" readonly />
                     </div>
                 </div>
 
@@ -380,6 +396,8 @@
                         <select class="form-control" id="villageParent" name="parent_village" required>
                             <!-- Options will be added dynamically by JavaScript -->
                         </select>
+                        <input type="hidden" id="villageParent" name="villageParent" />
+                        <input type="hidden" id="parent_village_name" name="parent_village_name" readonly />
                     </div>
                 </div>
 

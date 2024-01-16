@@ -96,10 +96,10 @@ class PPDBController extends Controller
             'residence_status_id' => $request->input('residence_status_id'),
         ]);
         $student->studentAddress()->create([
-            'student_province' => $request->input('student_province'),
-            'student_regency' => $request->input('student_regency'),
-            'student_district' => $request->input('student_district'),
-            'student_village' => $request->input('student_village'),
+            'student_province' => $request->input('student_province_name'),
+            'student_regency' => $request->input('student_regency_name'),
+            'student_district' => $request->input('student_district_name'),
+            'student_village' => $request->input('student_village_name'),
             'address' => $request->input('address'),
         ]);
 
@@ -116,10 +116,10 @@ class PPDBController extends Controller
             'mom_tel' => $request->input('mom_tel'),
         ]);
         $studentParent->studentParentAddress()->create([
-            'parent_province' => $request->input('parent_province'),
-            'parent_regency' => $request->input('parent_regency'),
-            'parent_district' => $request->input('parent_district'),
-            'parent_village' => $request->input('parent_village'),
+            'parent_province' => $request->input('parent_province_name'),
+            'parent_regency' => $request->input('parent_regency_name'),
+            'parent_district' => $request->input('parent_district_name'),
+            'parent_village' => $request->input('parent_village_name'),
             'address' => $request->input('address'),
         ]);
     }

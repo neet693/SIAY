@@ -23,11 +23,15 @@ function validateStep(step) {
     return true;
 }
 
-// document.getElementById('enrollmentForm').addEventListener('submit', function (e) {
-//     e.preventDefault();
-//     // Add logic to submit the form data to the server
-//     console.log('Form submitted successfully!');
-// });
+// document
+//     .getElementById("enrollmentForm")
+//     .addEventListener("submit", function (e) {
+//         e.preventDefault();
+//         const studentProvince =
+//             document.getElementById("student_province").value;
+//         console.log("Nama provinsi: ", studentProvince);
+//         // Add logic to submit the form data to the server
+//     });
 showStep(1);
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -138,24 +142,51 @@ document.addEventListener("DOMContentLoaded", function () {
     document
         .getElementById("province")
         .addEventListener("change", function (event) {
-            const selectedProvinceId = event.target.value;
-            fetchRegencies(selectedProvinceId);
+            const selectedProvinceName =
+                event.target.options[event.target.selectedIndex].text;
+            fetchRegencies(event.target.value);
             document.getElementById("student_province").value =
-                selectedProvince;
+                event.target.value; // Simpan ID provinsi
+            document.getElementById("student_province_name").value =
+                selectedProvinceName; // Simpan nama provinsi
         });
 
     document
         .getElementById("regency")
         .addEventListener("change", function (event) {
             const selectedRegencyId = event.target.value;
+            const selectedRegencyName =
+                event.target.options[event.target.selectedIndex].text;
             fetchDistricts(selectedRegencyId);
+            document.getElementById("student_regency").value =
+                selectedRegencyId; // Simpan ID regency
+            document.getElementById("student_regency_name").value =
+                selectedRegencyName; // Simpan nama regency
         });
 
     document
         .getElementById("district")
         .addEventListener("change", function (event) {
             const selectedDistrictId = event.target.value;
+            const selectedDistrictName =
+                event.target.options[event.target.selectedIndex].text;
             fetchVillages(selectedDistrictId);
+            document.getElementById("student_district").value =
+                selectedDistrictId; // Simpan ID district
+            document.getElementById("student_district_name").value =
+                selectedDistrictName; // Simpan nama district
+        });
+
+    document
+        .getElementById("village")
+        .addEventListener("change", function (event) {
+            const selectedVillageId = event.target.value;
+            const selectedVillageName =
+                event.target.options[event.target.selectedIndex].text;
+            document.getElementById("student_village").value =
+                selectedVillageId; // Simpan ID village
+            document.getElementById("student_village_name").value =
+                selectedVillageName; // Simpan nama village
         });
 
     fetchProvinces();
@@ -273,6 +304,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .addEventListener("change", function (event) {
             const selectedProvinceId = event.target.value;
             fetchRegenciesParent(selectedProvinceId);
+            const selectedProvinceName =
+                event.target.options[event.target.selectedIndex].text;
+            document.getElementById("parent_province_name").value =
+                selectedProvinceName;
         });
 
     document
@@ -280,6 +315,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .addEventListener("change", function (event) {
             const selectedRegencyId = event.target.value;
             fetchDistrictsParent(selectedRegencyId);
+            const selectedRegencyName =
+                event.target.options[event.target.selectedIndex].text;
+            document.getElementById("parent_regency_name").value =
+                selectedRegencyName;
         });
 
     document
@@ -287,6 +326,10 @@ document.addEventListener("DOMContentLoaded", function () {
         .addEventListener("change", function (event) {
             const selectedDistrictId = event.target.value;
             fetchVillagesParent(selectedDistrictId);
+            const selectedDistrictName =
+                event.target.options[event.target.selectedIndex].text;
+            document.getElementById("parent_district_name").value =
+                selectedDistrictName;
         });
 
     fetchProvincesParent();
