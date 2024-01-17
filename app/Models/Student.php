@@ -58,9 +58,10 @@ class Student extends Model
         return $this->hasMany(StudentParent::class);
     }
 
-    public function getPaymentAttribute()
+    public function setPaymentMethodAttribute($value)
     {
-        return $this->convertPayment($this->attributes['payment_method']);
+        $convertedValue = $this->convertPayment($value);
+        $this->attributes['payment_method'] = $convertedValue;
     }
 
     protected function convertPayment($method)

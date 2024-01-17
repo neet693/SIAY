@@ -21,6 +21,8 @@
                             {{ $student->schoolInformation->academicYear->name ?? 'Not available' }}
                             •
                             {{ $student->schoolInformation->educationLevel->level_name ?? 'Not available' }}</span>
+                            •
+                            {{ $student->payment_method ?? 'Not available' }}</span>
                         </div>
 
                         {{-- Student Modal --}}
