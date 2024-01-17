@@ -24,7 +24,8 @@ class Student extends Model
         'email',
         'residence_status_id',
         'dad_tel',
-        'mom_tel'
+        'mom_tel',
+        'payment_method'
     ];
 
     public function religion()
@@ -55,5 +56,23 @@ class Student extends Model
     public function studentParent()
     {
         return $this->hasMany(StudentParent::class);
+    }
+
+    public function getPaymentAttribute()
+    {
+        return $this->convertPayment($this->attributes['payment_method']);
+    }
+
+    protected function convertPayment($method)
+    {
+        // Konversi nilai degree ke gelar sesuai kebutuhan
+        switch ($method) {
+            case 1:
+                return 'Tunai';
+            case 2:
+                return 'Transfer';
+            default:
+                return 'Tunai';
+        }
     }
 }

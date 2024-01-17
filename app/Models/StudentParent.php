@@ -53,10 +53,16 @@ class StudentParent extends Model
             case 3:
                 return 'SMA';
             case 4:
-                return 'S1';
+                return 'D1';
             case 5:
-                return 'S2';
+                return 'D2';
             case 6:
+                return 'D3';
+            case 7:
+                return 'S1';
+            case 8:
+                return 'S2';
+            case 9:
                 return 'S3';
             default:
                 return 'Tidak Diketahui';

@@ -27,7 +27,7 @@ class PPDBController extends Controller
      */
     public function create()
     {
-        //
+        return view('PPDB.create');
     }
 
     public function store(Request $request)
@@ -68,6 +68,7 @@ class PPDBController extends Controller
             'parent_district' => 'required',
             'parent_village' => 'required',
             'address' => 'required',
+            'payment_method' => 'required'
         ]);
 
         $schoolInformation = SchoolInformation::create([
@@ -94,6 +95,7 @@ class PPDBController extends Controller
             'blood_type_id' => $request->input('blood_type_id'),
             'email' => $request->input('email'),
             'residence_status_id' => $request->input('residence_status_id'),
+            'payment_method' => $request->input('payment_method'),
         ]);
         $student->studentAddress()->create([
             'student_province' => $request->input('student_province_name'),
@@ -122,6 +124,8 @@ class PPDBController extends Controller
             'parent_village' => $request->input('parent_village_name'),
             'address' => $request->input('address'),
         ]);
+
+        return view('PPDB.index');
     }
 
     /**
@@ -129,10 +133,10 @@ class PPDBController extends Controller
      */
     public function show(Request $request, $step)
     {
-        $step = $request->input('step', 1);
+        // $step = $request->input('step', 1);
 
-        // Tampilkan view sesuai dengan langkah
-        return view('PPDB.step1');
+        // // Tampilkan view sesuai dengan langkah
+        // return view('PPDB.step1', compact('step'));
     }
 
     /**

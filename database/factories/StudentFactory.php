@@ -33,6 +33,7 @@ class StudentFactory extends Factory
             'child_position' => $this->faker->numberBetween(1, 5),
             'child_number' => $this->faker->numberBetween(1, 5),
             'email' => $this->faker->unique()->safeEmail,
+            'payment_method' => $this->faker->numberBetween(1, 2),
         ];
     }
 }

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreignId('blood_type_id')->constrained('blood_types');
             $table->string('email')->unique();
             $table->foreignId('residence_status_id')->constrained('residence_statuses');
+            $table->string('payment_method');
             $table->timestamps();
         });
     }
