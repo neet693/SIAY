@@ -22,3 +22,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::resource('students', StudentController::class);
 Route::resource('ppdb', PPDBController::class);
+Route::get('/ppdb/process/{student_id}', [PPDBController::class, 'process'])->name('ppdb.process');
