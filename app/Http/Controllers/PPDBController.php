@@ -81,7 +81,7 @@ class PPDBController extends Controller
 
         // Step 2: Save Student Information
         $student = Student::create([
-            'school_information_id' => $schoolInformation->id,
+            // 'school_information_id' => $schoolInformation->id,
             'fullname' => $request->input('fullname'),
             'nickname' => $request->input('nickname'),
             'citizenship' => $request->input('citizenship'),
@@ -97,6 +97,7 @@ class PPDBController extends Controller
             'residence_status_id' => $request->input('residence_status_id'),
             'payment_method' => $request->input('payment_method'),
         ]);
+
         $student->studentAddress()->create([
             'student_province' => $request->input('student_province_name'),
             'student_regency' => $request->input('student_regency_name'),
@@ -125,7 +126,14 @@ class PPDBController extends Controller
             'address' => $request->input('address'),
         ]);
 
-        return view('PPDB.index');
+        $student->school_information_id = $schoolInformation->id;
+        $student->save();
+
+        if ($student->payment_method === 'Tunai') {
+            return view('PPDB.tunai', compact('student'));
+        } elseif ($student->payment_method === 'Transfer') {
+            return view('PPDB.transfer', compact('student'));
+        }
     }
 
     /**

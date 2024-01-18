@@ -72,8 +72,6 @@ class Student extends Model
                 return 'Tunai';
             case 2:
                 return 'Transfer';
-            default:
-                return 'Tunai';
         }
     }
 }

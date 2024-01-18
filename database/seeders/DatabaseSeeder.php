@@ -26,11 +26,11 @@ class DatabaseSeeder extends Seeder
                 BloodTypeSeeder::class,
                 ResidenceStatusSeeder::class,
                 ReligionSeeder::class,
-                SchoolInformationSeeder::class,
-                StudentSeeder::class,
-                StudentParentSeeder::class,
-                StudentAddressSeeder::class,
-                StudentParentAddressSeeder::class,
+                // SchoolInformationSeeder::class,
+                // StudentSeeder::class,
+                // StudentParentSeeder::class,
+                // StudentAddressSeeder::class,
+                // StudentParentAddressSeeder::class,
             ]
         );
     }
