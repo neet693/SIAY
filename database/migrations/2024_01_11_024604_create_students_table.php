@@ -28,8 +28,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->foreignId('residence_status_id')->constrained('residence_statuses');
             $table->string('payment_method');
-            $table->string('snap_token')->nullable();
-            $table->enum('payment_status', ['pending', 'success', 'failed'])->default('pending');
+            // $table->string('snap_token')->nullable();
+            // $table->enum('payment_status', ['pending', 'success', 'failed'])->default('pending');
             $table->timestamps();
         });
     }

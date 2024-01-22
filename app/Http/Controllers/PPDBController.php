@@ -132,54 +132,50 @@ class PPDBController extends Controller
         if ($student->payment_method === 'Tunai') {
             return view('PPDB.tunai', compact('student'));
         } elseif ($student->payment_method === 'Transfer') {
-            return redirect()->route('ppdb.process', ['student_id' => $student->id]);
+            return redirect()->route('transaction.process', ['student_id' => $student->id]);
         }
     }
 
-    public function process(Request $request, $student_id)
-    {
-        // Ambil data student berdasarkan student_id
-        $student = Student::findOrFail($student_id);
+    // public function process(Request $request, $student_id)
+    // {
+    //     // Ambil data student berdasarkan student_id
+    //     $student = Student::findOrFail($student_id);
 
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config('midtrans.serverKey');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+    //     // Set your Merchant Server Key
+    //     \Midtrans\Config::$serverKey = config('midtrans.serverKey');
+    //     // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+    //     \Midtrans\Config::$isProduction = false;
+    //     // Set sanitization on (default)
+    //     \Midtrans\Config::$isSanitized = true;
+    //     // Set 3DS transaction for credit card to true
+    //     \Midtrans\Config::$is3ds = true;
 
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => $student->id, // 
-                'gross_amount' => 150000,
-            ),
-            'customer_details' => array(
-                'name' => $student->fullname,
-                'email' => $student->email,
-            ),
-            'item_details' => array(
-                array(
-                    'id' => 'PPDB- ' . $student->id,
-                    'price' => 150000,
-                    'quantity' => 1,
-                    'name' => 'Pembayaran PPDB' . $student->fullname,
-                ),
-            ),
-        );
+    //     $params = array(
+    //         'transaction_details' => array(
+    //             'order_id' => $student->id, // 
+    //             'gross_amount' => 150000,
+    //         ),
+    //         'customer_details' => array(
+    //             'name' => $student->fullname,
+    //             'email' => $student->email,
+    //         ),
+    //         'item_details' => array(
+    //             array(
+    //                 'id' => 'PPDB- ' . $student->id,
+    //                 'price' => 150000,
+    //                 'quantity' => 1,
+    //                 'name' => 'Pembayaran PPDB' . $student->fullname,
+    //             ),
+    //         ),
+    //     );
 
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
+    //     $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-        $student->snap_token = $snapToken;
-        $student->save();
+    //     $student->snap_token = $snapToken;
+    //     $student->save();
 
-        return view('PPDB.transfer', compact('snapToken', 'student'));
-    }
-
-
-
-
+    //     return view('PPDB.transfer', compact('snapToken', 'student'));
+    // }
 
     /**
      * Display the specified resource.

@@ -26,8 +26,8 @@ class Student extends Model
         'dad_tel',
         'mom_tel',
         'payment_method',
-        'snap_token',
-        'payment_status',
+        // 'snap_token',
+        // 'payment_status',
     ];
 
     public function religion()
