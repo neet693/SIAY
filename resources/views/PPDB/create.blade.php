@@ -2,6 +2,7 @@
 @section('content')
     <form action="{{ route('ppdb.store') }}" id="enrollmentForm" method="post">
         @csrf
+        <input type="hidden" name="transaction_type_id" value="1">
         <div class="step" id="step1">
             <h2>Step 1: School Information</h2>
             <div class="row mb-3">

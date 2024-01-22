@@ -9,7 +9,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id', 'transaction_type_id', 'snap_token', 'is_success'];
+    protected $fillable = ['student_id', 'transaction_type_id', 'snap_token', 'is_success', 'price'];
 
     public function student()
     {

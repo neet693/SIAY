@@ -128,11 +128,12 @@ class PPDBController extends Controller
 
         $student->school_information_id = $schoolInformation->id;
         $student->save();
+        $transaction_type = 1;
 
         if ($student->payment_method === 'Tunai') {
             return view('PPDB.tunai', compact('student'));
         } elseif ($student->payment_method === 'Transfer') {
-            return redirect()->route('transaction.process', ['student_id' => $student->id]);
+            return redirect()->route('transaction.process', ['student_id' => $student->id, 'transaction_type_id' => $transaction_type]);
         }
     }
 
@@ -152,7 +153,7 @@ class PPDBController extends Controller
 
     //     $params = array(
     //         'transaction_details' => array(
-    //             'order_id' => $student->id, // 
+    //             'order_id' => $student->id, //
     //             'gross_amount' => 150000,
     //         ),
     //         'customer_details' => array(

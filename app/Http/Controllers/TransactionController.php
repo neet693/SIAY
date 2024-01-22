@@ -6,23 +6,25 @@ use App\Models\Student;
 use App\Models\Transaction;
 use App\Models\TransactionType;
 use Illuminate\Http\Request;
+use Midtrans\Notification;
 
 class TransactionController extends Controller
 {
-
-    public function process(Request $request, $student_id)
+    public function process(Request $request, $student_id, $transaction_type_id)
     {
+
+        $uniqueKey = 'payment_process_' . $student_id . '_' . $transaction_type_id;
+
+        // Check if the unique key exists in the cache
+        if (cache()->has($uniqueKey)) {
+            // Redirect to an error page
+            return redirect()->route('students.index');
+        }
         // Ambil data student berdasarkan student_id
         $student = Student::findOrFail($student_id);
 
-        // Check if the student is already registered
-        if (!$student->is_registered) {
-            // If the student is not registered, set the transaction type to PPDB
-            $transactionType = TransactionType::where('name', 'PPDB')->firstOrFail();
-        } else {
-            // If the student is already registered, get the appropriate transaction type
-            $transactionType = TransactionType::where('name', 'Pembayaran Bulanan')->firstOrFail();
-        }
+        // Ambil data transaction type berdasarkan transaction_type_id
+        $transactionType = TransactionType::findOrFail($transaction_type_id);
 
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.serverKey');
@@ -35,7 +37,7 @@ class TransactionController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => date('YmdHis') . '-' . $student->id, // 
+                'order_id' => date('YmdHis') . '-' . $student->id, //
                 'gross_amount' => $transactionType->price,
             ),
             'customer_details' => array(
@@ -47,20 +49,22 @@ class TransactionController extends Controller
                     'id' => 'Pembayaran- ' . $student->id,
                     'price' => $transactionType->price,
                     'quantity' => 1,
-                    'name' => $transactionType->name . $student->fullname,
+                    'name' => $transactionType->name . ' ' . $student->fullname,
                 ),
             ),
         );
+        cache()->put($uniqueKey, true, now()->addMinute());
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         $transaction = new Transaction;
         $transaction->student_id = $student->id;
         $transaction->transaction_type_id = $transactionType->id;
-        $transaction->is_success = false;
+        $transaction->is_success = false; // Set status sukses transaksi ke false sebelum proses transaksi dilakukan
         $transaction->snap_token = $snapToken;
+        $transaction->price = $transactionType->price;
         $transaction->save();
 
-        return view('PPDB.transfer', compact('snapToken', 'student'));
+        return view('PPDB.transfer', compact('snapToken', 'student', 'transaction'));
     }
 
     public function callback(Request $request)
@@ -69,7 +73,7 @@ class TransactionController extends Controller
         $transaction = Transaction::where('order_id', $request->order_id)->firstOrFail();
 
         // Ambil data notifikasi
-        $notification = new \Midtrans\Notification();
+        $notification = new Notification();
 
         // Cek status notifikasi
         if ($notification->status_code == '200') {
@@ -104,43 +108,3 @@ class TransactionController extends Controller
         return redirect()->route('error');
     }
 }
-
-
-
-    // public function index()
-    // {
-    //     //
-    // }
-
-
-    // public function create()
-    // {
-    //     //
-    // }
-
-
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
-
-
-    // public function show(Transaction $transaction)
-    // {
-    //     //
-    // }
-
-    // public function edit(Transaction $transaction)
-    // {
-    //     //
-    // }
-
-    // public function update(Request $request, Transaction $transaction)
-    // {
-    //     //
-    // }
-
-    // public function destroy(Transaction $transaction)
-    // {
-    //     //
-    // }

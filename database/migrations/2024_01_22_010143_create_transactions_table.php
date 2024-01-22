@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('transaction_type_id')->constrained('transaction_types');
             $table->string('snap_token')->nullable();
             $table->boolean('is_success')->default(false);
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
     }

@@ -95,9 +95,10 @@
 
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column justify-content-between align-items-start">
-                            <h5 class="content-desc">Projects</h5>
+                            <h5 class="content-desc">Total Pendapatan PPDB</h5>
 
-                            <h3 class="statistics-value">150,000,000</h3>
+                            <h3 class="statistics-value">Rp {{ number_format($totalPrice, 2, ',', '.') }}</h3>
+                            </h3>
                         </div>
 
                         <button class="btn-statistics">

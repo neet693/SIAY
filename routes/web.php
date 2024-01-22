@@ -23,5 +23,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::resource('students', StudentController::class);
 Route::resource('ppdb', PPDBController::class);
-Route::get('/ppdb/process/{student_id}', [TransactionController::class, 'process'])->name('transaction.process');
+Route::get('/transaction/process/{student_id}/{transaction_type_id}', [TransactionController::class, 'process'])->name('transaction.process');
 Route::post('/midtrans-callback', [TransactionController::class, 'callback']);
