@@ -159,14 +159,14 @@
                 <div class="statistics-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column justify-content-between align-items-start">
-                            <h3 class="statistics-value">Daftar Keluarga</h3>
+                            <h3 class="statistics-value">Daftar Pembayaran</h3>
                         </div>
 
                         <button class="btn-statistics">
                             <img src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
                         </button>
                     </div>
-                    Box Untuk Yang lain
+                    <span class="document-desc">{{ optional($paidTransaction->first())->transactionType->name }}</span>
 
                     <div class="statistics-list">
                         <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-4.png') }}"

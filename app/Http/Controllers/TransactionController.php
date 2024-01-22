@@ -23,6 +23,16 @@ class TransactionController extends Controller
         // Ambil data student berdasarkan student_id
         $student = Student::findOrFail($student_id);
 
+        $previousTransactions = $student->transactions()->where('transaction_type_id', $transaction_type_id)->get();
+
+        $hasPreviousSuccessfulTransaction = $previousTransactions->where('is_success', true)->isNotEmpty();
+
+        if ($hasPreviousSuccessfulTransaction) {
+            // Redirect user to a success page or show a success message
+            return redirect()->route('dashboard.index')->with('success', 'Pembayaran berhasil.');
+        }
+
+
         // Ambil data transaction type berdasarkan transaction_type_id
         $transactionType = TransactionType::findOrFail($transaction_type_id);
 

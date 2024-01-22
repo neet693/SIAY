@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\StudentParent;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -47,8 +48,10 @@ class StudentController extends Controller
     {
         // Mendapatkan data student parent beserta alamatnya
         $studentParent = $student->studentParent()->with('studentParentAddress')->first();
-
-        return view('Student.student_show', compact('student', 'studentParent'));
+        $paidTransaction = Transaction::where('student_id', $student->id)
+            ->where('is_success', true)
+            ->get();
+        return view('Student.student_show', compact('student', 'studentParent', 'paidTransaction'));
     }
 
 

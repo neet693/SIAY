@@ -76,4 +76,14 @@ class Student extends Model
                 return 'Transfer';
         }
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function transactionType()
+    {
+        return $this->belongsTo(transactionType::class);
+    }
 }
