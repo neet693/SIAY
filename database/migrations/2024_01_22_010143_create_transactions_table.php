@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('snap_token')->nullable();
             $table->boolean('is_success')->default(false);
             $table->decimal('price', 10, 2);
+            $table->unique(['student_id', 'transaction_type_id']); //menambahkan tabel unique agar tidak terjadi double transaksi
             $table->timestamps();
         });
     }

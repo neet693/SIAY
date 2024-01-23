@@ -7,43 +7,37 @@ use App\Models\Transaction;
 use App\Models\TransactionType;
 use Illuminate\Http\Request;
 use Midtrans\Notification;
+use Midtrans\Config;
 
 class TransactionController extends Controller
 {
     public function process(Request $request, $student_id, $transaction_type_id)
     {
+        // Set your Merchant Server Key
+        Config::$serverKey = config('midtrans.serverKey');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        Config::$isProduction = false;
+        // Set sanitization on (default)
+        Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        Config::$is3ds = true;
 
-        $uniqueKey = 'payment_process_' . $student_id . '_' . $transaction_type_id;
-
-        // Check if the unique key exists in the cache
-        if (cache()->has($uniqueKey)) {
-            // Redirect to an error page
-            return redirect()->route('students.index');
-        }
         // Ambil data student berdasarkan student_id
         $student = Student::findOrFail($student_id);
 
-        $previousTransactions = $student->transactions()->where('transaction_type_id', $transaction_type_id)->get();
+        // Check if there is already an unsuccessful transaction with the same student_id and transaction_type_id
+        $existingTransaction = Transaction::where('student_id', $student_id)
+            ->where('transaction_type_id', $transaction_type_id)
+            ->where('is_success', false)
+            ->first();
 
-        $hasPreviousSuccessfulTransaction = $previousTransactions->where('is_success', true)->isNotEmpty();
-
-        if ($hasPreviousSuccessfulTransaction) {
+        if ($existingTransaction) {
             // Redirect user to a success page or show a success message
-            return redirect()->route('dashboard.index')->with('success', 'Pembayaran berhasil.');
+            return redirect()->back()->with('success', 'Pembayaran berhasil.');
         }
-
 
         // Ambil data transaction type berdasarkan transaction_type_id
         $transactionType = TransactionType::findOrFail($transaction_type_id);
-
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config('midtrans.serverKey');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
 
         $params = array(
             'transaction_details' => array(
@@ -63,7 +57,6 @@ class TransactionController extends Controller
                 ),
             ),
         );
-        cache()->put($uniqueKey, true, now()->addMinute());
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
         $transaction = new Transaction;
@@ -116,5 +109,12 @@ class TransactionController extends Controller
 
         // Jika gagal, redirect ke halaman error
         return redirect()->route('error');
+    }
+
+
+    public function detail(Transaction $transaction)
+    {
+        $student = $transaction->student();
+        return view('Transaction.detail', compact('transaction', 'student'));
     }
 }

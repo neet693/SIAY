@@ -17,10 +17,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/checkout', function () {
+    return view('checkout');
+})->name('checkout');
+
+Route::get('/ppdb-success', function () {
+    return view('success-ppdb');
+})->name('ppdb-success');
+
+Route::get('/detail/{transaction}', [TransactionController::class, 'detail'])->name('detail');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::resource('students', StudentController::class);
 Route::resource('ppdb', PPDBController::class);
 Route::get('/transaction/process/{student_id}/{transaction_type_id}', [TransactionController::class, 'process'])->name('transaction.process');
