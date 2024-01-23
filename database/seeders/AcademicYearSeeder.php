@@ -16,5 +16,6 @@ class AcademicYearSeeder extends Seeder
         AcademicYear::create(['name' => '2024/2025']);
         AcademicYear::create(['name' => '2025/2026']);
         AcademicYear::create(['name' => '2026/2027']);
+        AcademicYear::create(['name' => '2027/2028']);
     }
 }
