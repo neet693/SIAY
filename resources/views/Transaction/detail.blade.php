@@ -32,7 +32,7 @@
                                 <strong>Rp {{ number_format($transaction->price, 2, ',', '.') }}</strong>
                             </td>
                             <td>
-                                @if ($transaction->is_success == true)
+                                @if ($transaction->payment_status == 'success')
                                     <span class="badge bg-success rounded-pill">Success</span>
                                     {{-- <strong>Waiting for Payment</strong> --}}
                                 @endif

@@ -39,4 +39,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::resource('students', StudentController::class);
 Route::resource('ppdb', PPDBController::class);
 Route::get('/transaction/process/{student_id}/{transaction_type_id}', [TransactionController::class, 'process'])->name('transaction.process');
-Route::post('/midtrans-callback', [TransactionController::class, 'callback']);
+
+//midtrans routes
+Route::get('payment/success', [TransactionController::class, 'callback']);
+Route::post('payment/success', [TransactionController::class, 'callback']);
