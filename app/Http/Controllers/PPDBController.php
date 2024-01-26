@@ -14,6 +14,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Midtrans\Config;
 use Str;
 
 class PPDBController extends Controller
@@ -22,13 +23,13 @@ class PPDBController extends Controller
     public function __construct()
     {
         // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config('midtrans.serverKey');
+        Config::$serverKey = config('midtrans.serverKey');
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = config('midtrans.isProduction');
+        Config::$isProduction = config('midtrans.isProduction');
         // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = config('midtrans.isSanitized');
+        Config::$isSanitized = config('midtrans.isSanitized');
         // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = config('midtrans.is3ds');
+        Config::$is3ds = config('midtrans.is3ds');
     }
 
     public function index()
