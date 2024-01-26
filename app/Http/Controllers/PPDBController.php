@@ -8,18 +8,33 @@ use App\Models\Student;
 use App\Models\StudentAddress;
 use App\Models\StudentParent;
 use App\Models\StudentParentAddress;
+use App\Models\Transaction;
+use App\Models\TransactionType;
+use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Midtrans\Config;
+use Str;
 
 class PPDBController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct()
+    {
+        // Set your Merchant Server Key
+        Config::$serverKey = config('midtrans.serverKey');
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        Config::$isProduction = config('midtrans.isProduction');
+        // Set sanitization on (default)
+        Config::$isSanitized = config('midtrans.isSanitized');
+        // Set 3DS transaction for credit card to true
+        Config::$is3ds = config('midtrans.is3ds');
+    }
+
     public function index()
     {
-        return view('PPDB.index');
+        //
     }
 
     /**
@@ -68,7 +83,8 @@ class PPDBController extends Controller
             'parent_district' => 'required',
             'parent_village' => 'required',
             'address' => 'required',
-            'payment_method' => 'required'
+            'payment_method' => 'required',
+            'transaction_type_id' => 'required',
         ]);
 
         $schoolInformation = SchoolInformation::create([
@@ -126,91 +142,134 @@ class PPDBController extends Controller
             'address' => $request->input('address'),
         ]);
 
+        $transaction = Transaction::create([
+            'student_id' => $student->id,
+            'transaction_type_id' => $request->input('transaction_type_id'),
+            'paymet_status' => 'waiting',
+        ]);
+
         $student->school_information_id = $schoolInformation->id;
         $student->save();
 
         if ($student->payment_method === 'Tunai') {
             return view('PPDB.tunai', compact('student'));
         } elseif ($student->payment_method === 'Transfer') {
-            return redirect()->route('ppdb.process', ['student_id' => $student->id]);
+            $this->process($transaction);
+            return view('success-ppdb', compact('transaction'));
         }
     }
 
-    public function process(Request $request, $student_id)
+    public function process(Transaction $transaction)
     {
-        // Ambil data student berdasarkan student_id
-        $student = Student::findOrFail($student_id);
+        $orderId = $transaction->id . '-' . Str::random(5);
+        $transaction->midtrans_booking_code = $orderId;
+        $price = $transaction->transactionType->price;
 
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = config('midtrans.serverKey');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+        $transaction_details = [
+            'order_id' => $orderId,
+            'gross_amount' => $price,
+        ];
 
-        $params = array(
-            'transaction_details' => array(
-                'order_id' => $student->id, // 
-                'gross_amount' => 150000,
-            ),
-            'customer_details' => array(
-                'name' => $student->fullname,
-                'email' => $student->email,
-            ),
-            'item_details' => array(
-                array(
-                    'id' => 'PPDB- ' . $student->id,
-                    'price' => 150000,
-                    'quantity' => 1,
-                    'name' => 'Pembayaran PPDB' . $student->fullname,
-                ),
-            ),
-        );
+        $item_details[] = [
+            'id' => $orderId,
+            'price' => $price,
+            'quantity' => 1,
+            'name' => "Pembayaran PPDB {$transaction->student->fullname}"
+        ];
 
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $userData = [
+            'first_name' => $transaction->student->fullname,
+            'last_name' => "",
+            'postal_code' => "",
+            'address' => $transaction->student->studentAddress->address,
+            'email' => $transaction->student->email,
+            'country_code' => "IDN"
+        ];
 
-        $student->snap_token = $snapToken;
-        $student->save();
+        $customer_details = [
+            'first_name' => $transaction->student->fullname,
+            'last_name' => "",
+            'email' => $transaction->student->email,
+            'billing_address' => $userData,
+            'shipping_address' => $userData,
+        ];
 
-        return view('PPDB.transfer', compact('snapToken', 'student'));
+        $midtrans_params = [
+            'transaction_details' => $transaction_details,
+            'customer_details' => $customer_details,
+            'item_details' => $item_details,
+
+        ];
+
+        try {
+            $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
+            $transaction->midtrans_url = $paymentUrl;
+            $transaction->save();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+        return view('invoice', compact('transaction'));
+    }
+
+    public function callback(Request $request)
+    {
+        $notif = $request->method() == 'POST' ? new \Midtrans\Notification() : \Midtrans\Transaction::status($request->order_id);
+
+        $transaction_id = explode('-', $notif->order_id);
+
+        $transaction = Transaction::find($transaction_id[0]);
+        $transaction_status = $notif->transaction_status;
+        $fraud = $notif->fraud_status;
+
+        if ($transaction_status == 'capture') {
+            if ($fraud == 'challenge') {
+                $transaction->payment_status = 'pending';
+                // TODO Set payment status in merchant's database to 'challenge'
+            } else if ($fraud == 'accept') {
+                $transaction->payment_status = 'paid';
+                // TODO Set payment status in merchant's database to 'success'
+            }
+        } else if ($transaction_status == 'cancel') {
+            if ($fraud == 'challenge') {
+                $transaction->payment_status = 'failed';
+                // TODO Set payment status in merchant's database to 'failure'
+            } else if ($fraud == 'accept') {
+                $transaction->payment_status = 'failed';
+                // TODO Set payment status in merchant's database to 'failure'
+            }
+        } else if ($transaction_status == 'deny') {
+            $transaction->payment_status = 'failed';
+            // TODO Set payment status in merchant's database to 'failure'
+        } else if ($transaction_status == 'settlement') {
+            $transaction->payment_status = 'paid';
+            // TODO set payment status in merchant's database to 'Settlement'
+        } else if ($transaction_status == 'pending') {
+            $transaction->payment_status = 'pending';
+            // TODO set payment status in merchant's database to 'Pending'
+        } else if ($transaction_status == 'expire') {
+            $transaction->payment_status = 'failed';
+            // TODO set payment status in merchant's database to 'expire'
+        }
+
+        $transaction->save();
     }
 
 
-
-
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Request $request, $step)
     {
-        // $step = $request->input('step', 1);
-
-        // // Tampilkan view sesuai dengan langkah
-        // return view('PPDB.step1', compact('step'));
+        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

@@ -22,9 +22,9 @@
         </div>
     </div>
 
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY ') }}">
+    {{-- <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY ') }}">
     </script>
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         document.getElementById('pay-button').onclick = function() {
             // SnapToken acquired from previous step
             snap.pay('{{ $snapToken }}', {
@@ -45,5 +45,5 @@
                 }
             });
         };
-    </script>
+    </script> --}}
 @endsection

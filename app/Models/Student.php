@@ -26,8 +26,8 @@ class Student extends Model
         'dad_tel',
         'mom_tel',
         'payment_method',
-        'snap_token',
-        'payment_status',
+        // 'snap_token',
+        // 'payment_status',
     ];
 
     public function religion()
@@ -75,5 +75,15 @@ class Student extends Model
             case 2:
                 return 'Transfer';
         }
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function transactionType()
+    {
+        return $this->belongsTo(transactionType::class);
     }
 }
