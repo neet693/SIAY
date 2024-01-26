@@ -37,9 +37,12 @@ Route::get('/detail/{transaction}', [TransactionController::class, 'detail'])->n
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::resource('students', StudentController::class);
+//Route::get('/transaction/process/{student_id}/{transaction_type_id}', [TransactionController::class, 'process'])->name('transaction.process');
+
+//Route PPDB dan Sukses
 Route::resource('ppdb', PPDBController::class);
-Route::get('/transaction/process/{student_id}/{transaction_type_id}', [TransactionController::class, 'process'])->name('transaction.process');
+// Route::get('success-ppdb/{transaction}', [PPDBController::class, 'successPPDB'])->name('success-ppdb');
 
 //midtrans routes
-Route::get('payment/success', [TransactionController::class, 'callback']);
-Route::post('payment/success', [TransactionController::class, 'callback']);
+Route::get('/callback', [PPDBController::class, 'callback']);
+Route::post('/callback', [PPDBController::class, 'callback']);
