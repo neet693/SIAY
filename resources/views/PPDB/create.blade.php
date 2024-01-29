@@ -38,6 +38,9 @@
                     <div class="form-group">
                         <label for="yahyaNews">Mengetahui Sekolah Kristen Yahya dari:</label>
                         <input type="text" class="form-control" id="yahyaNews" name="news_from" required />
+                        @if ($errors->has('news_from'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -45,6 +48,9 @@
                     <div class="form-group">
                         <label for="lastSchool">Asal Sekolah:</label>
                         <input type="text" class="form-control" id="lastSchool" name="last_school" required />
+                        @if ($errors->has('last_school'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -63,6 +69,9 @@
                     <div class="form-group">
                         <label for="fullName">Fullname:</label>
                         <input type="text" class="form-control" id="fullName" name="fullname" required />
+                        @if ($errors->has('fullname'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -70,6 +79,9 @@
                     <div class="form-group">
                         <label for="nickName">Nickname:</label>
                         <input type="text" class="form-control" id="nickName" name="nickname" required />
+                        @if ($errors->has('nickname'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -77,6 +89,9 @@
                     <div class="form-group">
                         <label for="citizenship">Citizenship:</label>
                         <input type="text" class="form-control" id="citizenship" name="citizenship" required />
+                        @if ($errors->has('citizenship'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -95,6 +110,9 @@
                     <div class="form-group">
                         <label for="birthPlace">Place of Birth:</label>
                         <input type="text" class="form-control" id="birthPlace" name="birth_place" required />
+                        @if ($errors->has('birth_place'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -102,6 +120,9 @@
                     <div class="form-group">
                         <label for="birthDate">Date of Birth:</label>
                         <input type="date" class="form-control" id="birthDate" name="birth_date" required />
+                        @if ($errors->has('birth_date'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
                 <!-- Akhir Bagian Siswa -->
@@ -128,6 +149,9 @@
                         <label for="chruchDomicile">Chruch Domicile:</label>
                         <input type="text" class="form-control" id="chruchDomicile" name="church_domicile"
                             required />
+                        @if ($errors->has('church_domicile'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
                 <!-- Akhir Bagian Agama dan Gereja -->
@@ -183,6 +207,9 @@
                     <div class="form-group">
                         <label for="address">Address:</label>
                         <input type="textarea" class="form-control" id="address" name="address" required />
+                        @if ($errors->has('address'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
                 <!-- Akhir Bagian Address -->
@@ -193,6 +220,9 @@
                         <label for="childPosition">Anak Ke:</label>
                         <input type="number" class="form-control" min="1" max="20" id="childPosition"
                             name="child_position" required />
+                        @if ($errors->has('child_position'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -201,6 +231,9 @@
                         <label for="childNumber">Dari Berapa Saudara:</label>
                         <input type="number" class="form-control" min="1" max="20" id="childNumber"
                             name="child_number" required />
+                        @if ($errors->has('child_number'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -223,6 +256,9 @@
                         <label for="userEmail" class="form-label">Email address:</label>
                         <input type="email" class="form-control" id="userEmail" name="email"
                             placeholder="name@example.com" />
+                        @if ($errors->has('email'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -250,6 +286,9 @@
                             </div>
                             <input type="tel" class="form-control" id="dadphoneNumber" name="dad_tel"
                                 placeholder="Enter phone number" required />
+                            @if ($errors->has('dad_tel'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -264,6 +303,9 @@
                             </div>
                             <input type="tel" class="form-control" id="momphoneNumber" name="mom_tel"
                                 placeholder="Enter phone number" required />
+                            @if ($errors->has('mom_tel'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -286,6 +328,9 @@
                     <div class="form-group">
                         <label for="dadName">Nama Ayah:</label>
                         <input type="text" class="form-control" id="dadName" name="dad_name" required />
+                        @if ($errors->has('dad_name'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -293,6 +338,9 @@
                     <div class="form-group">
                         <label for="momName">Nama Ibu:</label>
                         <input type="text" class="form-control" id="momName" name="mom_name" required />
+                        @if ($errors->has('mom_name'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -341,6 +389,9 @@
                     <div class="form-group">
                         <label for="dadJob">Pekerjaan Ayah:</label>
                         <input type="text" class="form-control" id="dadJob" name="dad_job" required />
+                        @if ($errors->has('dad_job'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
 
@@ -348,6 +399,9 @@
                     <div class="form-group">
                         <label for="momJob">Pekerjaan Ibu:</label>
                         <input type="text" class="form-control" id="momJob" name="mom_job" required />
+                        @if ($errors->has('mom_job'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
                 <!-- Akhir Pekerjaan Orangtua -->
@@ -407,6 +461,9 @@
                     <div class="form-group">
                         <label for="addressParent">Address:</label>
                         <input type="textarea" class="form-control" id="addressParent" name="address" required />
+                        @if ($errors->has('address'))
+                            <p class="text-danger">{{ $errors }}</p>
+                        @endif
                     </div>
                 </div>
                 <!-- Akhir Bagian Address -->
