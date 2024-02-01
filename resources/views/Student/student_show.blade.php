@@ -159,29 +159,14 @@
                 <div class="statistics-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column justify-content-between align-items-start">
-                            <h3 class="statistics-value">Daftar Pembayaran</h3>
+                            <h3 class="statistics-value">Transaksi terbayarkan</h3>
                         </div>
-
-                        <button class="btn-statistics">
-                            <img src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
-                        </button>
                     </div>
-                    <span class="document-desc">{{ optional($paidTransaction->first())->transactionType->name }}</span>
-
-                    <div class="statistics-list">
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-4.png') }}"
-                            alt="">
-
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-3.png') }}"
-                            alt="">
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo.png') }}"
-                            alt="">
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-1.png') }}"
-                            alt="">
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-2.png') }}"
-                            alt="">
-                    </div>
-
+                    @if (!empty($paidTransactionNames))
+                        <p>{{ $paidTransactionNames }}</p>
+                    @else
+                        <p>Belum ada transaksi yang sudah dibayar.</p>
+                    @endif
                 </div>
             </div>
         </div>

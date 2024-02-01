@@ -219,12 +219,13 @@
             {{-- History Card --}}
             <div class="col-12 col-lg-6">
                 <h2 class="content-title">Student</h2>
-                <h5 class="content-desc mb-4">Track the student</h5>
+                <h5 class="content-desc mb-4">PPDB Student Tracker</h5>
 
                 <div class="document-card">
                     @foreach ($students as $item)
                         <div class="document-item">
-                            <a href="{{ route('students.show', ['student' => $item->id]) }}">
+                            <a href="{{ route('students.show', ['student' => $item->id]) }}"
+                                style="text-decoration: none; color: black;">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <img class="document-icon"
                                         src="{{ asset('template/assets/img/home/history/photo.png') }}" alt="">

@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
+        $students = Student::all()->take(5);
         $parents = StudentParent::all();
         return view('Student.student_index', compact('students', 'parents'));
     }
@@ -48,10 +48,17 @@ class StudentController extends Controller
     {
         // Mendapatkan data student parent beserta alamatnya
         $studentParent = $student->studentParent()->with('studentParentAddress')->first();
-        $paidTransaction = Transaction::where('student_id', $student->id)
-            ->where('is_success', true)
+
+        $paidTransactions = $student->transactions()
+            ->where('payment_status', 'paid')
             ->get();
-        return view('Student.student_show', compact('student', 'studentParent', 'paidTransaction'));
+
+        // Mendapatkan nama-nama transaksi yang sudah dibayar oleh student
+        $paidTransactionNames = $paidTransactions->pluck('transactionType.name')
+            ->implode(', ');
+
+
+        return view('Student.student_show', compact('student', 'studentParent', 'paidTransactionNames'));
     }
 
 
