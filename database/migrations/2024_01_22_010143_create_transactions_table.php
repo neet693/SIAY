@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('payment_status', 100)->default('waiting');
             $table->string('midtrans_url')->nullable();
             $table->string('midtrans_booking_code')->nullable();
-            // $table->decimal('price', 10, 2);
+            $table->decimal('price', 10, 2);
             $table->unique(['student_id', 'transaction_type_id']); //menambahkan tabel unique agar tidak terjadi double transaksi
             $table->timestamps();
         });

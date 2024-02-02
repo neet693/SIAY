@@ -142,12 +142,15 @@ class PPDBController extends Controller
             'address' => $request->input('address'),
         ]);
 
+        $transactionType = TransactionType::find($request->input('transaction_type_id'));
+        $price = $transactionType->price;
+
         $transaction = Transaction::create([
             'student_id' => $student->id,
             'transaction_type_id' => $request->input('transaction_type_id'),
             'paymet_status' => 'waiting',
+            'price' => $price,
         ]);
-
         $student->school_information_id = $schoolInformation->id;
         $student->save();
 
@@ -156,7 +159,7 @@ class PPDBController extends Controller
             return view('PPDB.tunai', compact('student'));
         } elseif ($student->payment_method === 'Transfer') {
             $this->process($transaction);
-            return view('success-ppdb', compact('transaction'));
+            return redirect()->away($transaction->midtrans_url);
         }
     }
 
@@ -206,10 +209,11 @@ class PPDBController extends Controller
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
             $transaction->midtrans_url = $paymentUrl;
             $transaction->save();
+            $redirectUrl = "https://217e-182-253-123-112.ngrok-free.app?order_id={$orderId}&status_code=200&transaction_status=settlement";
+            return redirect($redirectUrl);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-        return view('invoice', compact('transaction'));
     }
 
     public function callback(Request $request)
@@ -225,34 +229,30 @@ class PPDBController extends Controller
         if ($transaction_status == 'capture') {
             if ($fraud == 'challenge') {
                 $transaction->payment_status = 'pending';
-                // TODO Set payment status in merchant's database to 'challenge'
             } else if ($fraud == 'accept') {
                 $transaction->payment_status = 'paid';
-                // TODO Set payment status in merchant's database to 'success'
             }
         } else if ($transaction_status == 'cancel') {
             if ($fraud == 'challenge') {
-                $transaction->payment_status = 'failed';
-                // TODO Set payment status in merchant's database to 'failure'
+                $transaction->payment_status = 'pending';
             } else if ($fraud == 'accept') {
                 $transaction->payment_status = 'failed';
-                // TODO Set payment status in merchant's database to 'failure'
             }
         } else if ($transaction_status == 'deny') {
             $transaction->payment_status = 'failed';
-            // TODO Set payment status in merchant's database to 'failure'
         } else if ($transaction_status == 'settlement') {
             $transaction->payment_status = 'paid';
-            // TODO set payment status in merchant's database to 'Settlement'
         } else if ($transaction_status == 'pending') {
             $transaction->payment_status = 'pending';
-            // TODO set payment status in merchant's database to 'Pending'
         } else if ($transaction_status == 'expire') {
             $transaction->payment_status = 'failed';
-            // TODO set payment status in merchant's database to 'expire'
         }
 
         $transaction->save();
+
+        if ($transaction->payment_status == 'paid') {
+            return redirect()->route('invoice');
+        }
     }
 
     public function offlinePayment(Transaction $transaction)
@@ -264,23 +264,8 @@ class PPDBController extends Controller
     }
 
 
-    public function show(Request $request, $step)
+    public function invoice()
     {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
+        return view('Invoice');
     }
 }

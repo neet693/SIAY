@@ -12,12 +12,12 @@ class Transaction extends Model
     protected $fillable = [
         'student_id',
         'transaction_type_id',
-        //'snap_token', 
+        //'snap_token',
         //'is_success',
         'payment_status',
         'midtrans_url',
         'midtrans_booking_code',
-        // 'price'
+        'price'
     ];
 
     public function student()

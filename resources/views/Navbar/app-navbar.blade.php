@@ -25,7 +25,7 @@
                 </ul>
                 <div class="d-flex user-logged">
                     <a href="#">
-                        Halo, Beatrice!
+                        Halo, {{ Auth::user()->name }}!
                         <img src="{{ asset('app/assets/images/user_photo.png') }}" class="user-photo" alt="">
                     </a>
                 </div>

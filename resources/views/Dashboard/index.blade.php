@@ -97,7 +97,7 @@
                         <div class="d-flex flex-column justify-content-between align-items-start">
                             <h5 class="content-desc">Total Pendapatan PPDB</h5>
 
-                            <h3 class="statistics-value">Rp {{ number_format($totalPrice, 2, ',', '.') }}</h3>
+                            <h3 class="statistics-value">Rp {{ number_format($totalPPDBPayment, 2, ',', '.') }}</h3>
                             </h3>
                         </div>
 

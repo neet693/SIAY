@@ -8,11 +8,13 @@
                 </div>
                 <div class=" col-lg-12 col-12 header-wrap mt-4">
                     <p class="story">
-                        Selamat! {{ $transaction->student->fullname }}
+                        {{-- Selamat! {{ $transaction->student->fullname }} --}}
+                        Selamat!
                     </p>
                     <h2 class="primary-header ">
                         {{-- Berhasil Checkout --}}
-                        Status Payment anda adalah {{ $transaction->payment_status }}
+                        {{-- Status Payment anda adalah {{ $transaction->payment_status }} --}}
+                        Berhasil
                     </h2>
                     {{-- <a href="#" class="btn btn-primary mt-3">
                         My Dashboard

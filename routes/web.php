@@ -21,7 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('invoice', [PPDBController::class, 'invoice'])->name('invoice');
 Route::resource('ppdb', PPDBController::class);
+
+//midtrans routes
+Route::get('/callback', [PPDBController::class, 'callback']);
+Route::post('/callback', [PPDBController::class, 'callback']);
 
 // Route::get('/dashboard', function () {
 //     return view('Dashboard.index');
