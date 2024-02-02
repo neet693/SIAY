@@ -152,6 +152,7 @@ class PPDBController extends Controller
         $student->save();
 
         if ($student->payment_method === 'Tunai') {
+            $this->offlinePayment($transaction);
             return view('PPDB.tunai', compact('student'));
         } elseif ($student->payment_method === 'Transfer') {
             $this->process($transaction);
@@ -251,6 +252,14 @@ class PPDBController extends Controller
             // TODO set payment status in merchant's database to 'expire'
         }
 
+        $transaction->save();
+    }
+
+    public function offlinePayment(Transaction $transaction)
+    {
+        $orderId = $transaction->id . '-' . Str::random(5);
+        $transaction->midtrans_booking_code = $orderId;
+        $transaction->payment_status = 'paid';
         $transaction->save();
     }
 

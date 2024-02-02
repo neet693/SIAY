@@ -1,4 +1,4 @@
-@extends('Layout.app')
+@extends('Layout.admin-template')
 @section('content')
     <section class="dashboard my-5">
         <div class="container">

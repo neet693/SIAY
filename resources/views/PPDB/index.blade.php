@@ -1,4 +1,4 @@
-@extends('Layout.app')
+@extends('Layout.app2')
 
 @section('content')
     <h1>Formulir Pendaftaran</h1>
