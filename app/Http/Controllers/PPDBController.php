@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PPDBRegistrationSuccess;
 use App\Models\PPDB;
 use App\Models\SchoolInformation;
 use App\Models\Student;
@@ -10,10 +11,12 @@ use App\Models\StudentParent;
 use App\Models\StudentParentAddress;
 use App\Models\Transaction;
 use App\Models\TransactionType;
+use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Midtrans\Config;
 use Str;
 
@@ -95,9 +98,18 @@ class PPDBController extends Controller
         ]);
         $schoolInformation->save();
 
+        //Create Student
+        $user = User::create([
+            'name' => $request->input('fullname'),
+            'email' => $request->input('email'),
+            'password' => 'sekolahyahya*',
+        ]);
+        $user->save();
+
         // Step 2: Save Student Information
         $student = Student::create([
-            // 'school_information_id' => $schoolInformation->id,
+            'user_id' => $user->id,
+            'school_information_id' => $schoolInformation->id,
             'fullname' => $request->input('fullname'),
             'nickname' => $request->input('nickname'),
             'citizenship' => $request->input('citizenship'),
@@ -141,7 +153,6 @@ class PPDBController extends Controller
             'parent_village' => $request->input('parent_village_name'),
             'address' => $request->input('address'),
         ]);
-
         $transactionType = TransactionType::find($request->input('transaction_type_id'));
         $price = $transactionType->price;
 
@@ -156,9 +167,11 @@ class PPDBController extends Controller
 
         if ($student->payment_method === 'Tunai') {
             $this->offlinePayment($transaction);
+            $this->sendStudentCredential($student->id, $user->password);
             return view('PPDB.tunai', compact('student'));
         } elseif ($student->payment_method === 'Transfer') {
             $this->process($transaction);
+            $this->sendStudentCredential($student->id, $user->password);
             return redirect()->away($transaction->midtrans_url);
         }
     }
@@ -267,5 +280,15 @@ class PPDBController extends Controller
     public function invoice()
     {
         return view('Invoice');
+    }
+
+    public function sendStudentCredential($student_id, $password)
+    {
+        $student = Student::findOrFail($student_id);
+        // Send email to student
+        // Mail::to($student->email)->send(new PPDBRegistrationSuccess($student, $password));
+        Mail::to($student->email)->send(new PPDBRegistrationSuccess($student, $password));
+
+        return redirect()->back()->with('success', 'Email kredensial telah dikirim ke student.');
     }
 }

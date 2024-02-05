@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ secure_asset('app/css/main.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('app/css/main.css') }}" type="text/css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +33,7 @@
     </script>
 
     <script src="{{ secure_asset('template/assets/script.js') }}"></script>
+    <script src="{{ asset('template/assets/script.js') }}"></script>
 
 </body>
 

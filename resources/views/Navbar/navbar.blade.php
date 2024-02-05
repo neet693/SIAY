@@ -4,7 +4,7 @@
             <button id="toggle-navbar" onclick="toggleNavbar()">
                 <img src="{{ asset('template/assets/img/global/burger.svg') }}" class="mb-2" alt="">
             </button>
-            <h2 class="nav-title">Overview</h2>
+            <h2 class="nav-title">Halo,{{ Auth()->user()->name }}</h2>
         </div>
         <button class="btn-notif d-block d-md-none"><img src="{{ asset('template/assets/img/global/bell.svg') }}"
                 alt=""></button>
