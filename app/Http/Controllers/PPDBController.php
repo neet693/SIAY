@@ -102,6 +102,7 @@ class PPDBController extends Controller
         $user = User::create([
             'name' => $request->input('fullname'),
             'email' => $request->input('email'),
+            'role_id' => 2,
             'password' => 'sekolahyahya*',
         ]);
         $user->save();

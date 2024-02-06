@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\StudentParent;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -40,8 +41,8 @@ class StudentController extends Controller
      */
     // public function show(Student $student)
     // {
-    //     $studentParent = $student->studentParent->where('student_id', $student->id);
-    //     return view('Student.student_show', compact('student', 'studentParent'));
+    //     $student = Auth::user()->student;
+    //     return view('Student.student_show', compact('student'));
     // }
 
     public function show(Student $student)
@@ -56,7 +57,6 @@ class StudentController extends Controller
         // Mendapatkan nama-nama transaksi yang sudah dibayar oleh student
         $paidTransactionNames = $paidTransactions->pluck('transactionType.name')
             ->implode(', ');
-
 
         return view('Student.student_show', compact('student', 'studentParent', 'paidTransactionNames'));
     }
