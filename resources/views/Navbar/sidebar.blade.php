@@ -80,7 +80,8 @@
               <span>Payroll</span>
           </a>
 
-          <h5 class="sidebar-title">Others</h5>
+          {{-- Student Navbar --}}
+          <h5 class="sidebar-title">My Profile</h5>
 
           <a href="#" class="sidebar-item" onclick="toggleActive(this)">
               <!-- <img src="./assets/img/global/box.svg" alt=""> -->
@@ -110,26 +111,22 @@
               <span>Company</span>
           </a>
 
-          <a href="#" class="sidebar-item" onclick="toggleActive(this)">
+          <a href="{{ route('students.show', ['student' => Auth::id()]) }}"
+              class="sidebar-item {{ request()->is('student*') ? 'active' : '' }}" onclick="toggleActive(this)">
               <!-- <img src="./assets/img/global/gift.svg" alt=""> -->
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 12V22H4V12" stroke="#ABB3C4" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  <path d="M22 7H2V12H22V7Z" stroke="#ABB3C4" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  <path d="M12 22V7" stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-person-vcard" viewBox="0 0 16 16">
                   <path
-                      d="M12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z"
-                      stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5" />
                   <path
-                      d="M12 7H7.5C6.83696 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.83696 2 7.5 2C11 2 12 7 12 7Z"
-                      stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z" />
               </svg>
 
-              <span>Rewards</span>
+              <span>Student Detail</span>
           </a>
 
-          <a href="#" class="sidebar-item" onclick="toggleActive(this)">
+          <a href="{{ route('profile.edit') }}" class="sidebar-item {{ request()->is('profile*') ? 'active' : '' }}"
+              onclick="toggleActive(this)">
               <!-- <img src="./assets/img/global/settings.svg" alt=""> -->
 
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -141,7 +138,7 @@
                       stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
 
-              <span>Settings</span>
+              <span>Account Setting</span>
           </a>
 
           <form method="POST" action="{{ route('logout') }}">

@@ -1,10 +1,10 @@
-@extends('Layout.app')
+@extends('Layout.admin-template')
 @section('content')
     <div class="content">
         <div class="row">
             <div class="col-12">
                 <h2 class="content-title">Statistics</h2>
-                <h5 class="content-desc mb-4">Your business growth</h5>
+                <h5 class="content-desc mb-4">Your learning growth</h5>
             </div>
 
 

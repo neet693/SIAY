@@ -1,4 +1,4 @@
-@extends('Layout.app')
+@extends('Layout.admin-template')
 @section('content')
     <div class="content">
         <div class="row">
