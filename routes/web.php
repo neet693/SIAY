@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\PPDBController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
@@ -33,6 +34,8 @@ Route::post('/callback', [PPDBController::class, 'callback']);
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('dashboard', DashboardController::class)->middleware(['auth', 'verified']);
+
+Route::resource('interviews', InterviewController::class);
 
 Route::middleware('auth')->group(function () {
     Route::resource('students', StudentController::class);

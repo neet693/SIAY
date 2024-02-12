@@ -1,5 +1,5 @@
   <aside class="sidebar">
-      <a href="#" class="sidebar-logo">
+      <a href="{{ route('dashboard.index') }}" class="sidebar-logo">
           <div class="d-flex justify-content-start align-items-center">
               <img src="{{ asset('template/assets/img/global/logo.svg') }}" alt="">
               <span>PowerHuman</span>
@@ -12,8 +12,8 @@
       <h5 class="sidebar-title">Daily Use</h5>
       @auth
           @if (Auth::check() && Auth::user()->role_id === 1)
-              <a href="{{ route('dashboard.index') }}" class="sidebar-item {{ request()->is('/') ? 'active' : '' }}"
-                  onclick="toggleActive(this)">
+              <a href="{{ route('dashboard.index') }}"
+                  class="sidebar-item {{ request()->is('dashboard*') ? 'active' : '' }}" onclick="toggleActive(this)">
                   <!-- <img src="./assets/img/global/grid.svg" alt=""> -->
 
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,9 +30,6 @@
                   <span>Dashboard</span>
               </a>
 
-              <!-- <a href="./employees.html" class="sidebar-item"> -->
-              <!-- <img src="./assets/img/global/users.svg" alt=""> -->
-              {{-- <a href="{{ route('students.index') }}" class="sidebar-item" onclick="toggleActive(this)"> --}}
               <a href="{{ route('students.index') }}" class="sidebar-item {{ request()->is('students*') ? 'active' : '' }}"
                   onclick="toggleActive(this)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +50,8 @@
                   <span>Students</span>
               </a>
 
-              <a href="#" class="sidebar-item" onclick="toggleActive(this)">
+              <a href="{{ route('interviews.index') }}"
+                  class="sidebar-item {{ request()->is('interviews*') ? 'active' : '' }}" onclick="toggleActive(this)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                           d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z"
@@ -63,19 +61,7 @@
                           stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
 
-                  <span>My Team</span>
-              </a>
-
-              <a href="#" class="sidebar-item" onclick="toggleActive(this)">
-                  <!-- <img src="./assets/img/global/dollar-sign.svg" alt=""> -->
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 1V23" stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      <path
-                          d="M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6"
-                          stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-
-                  <span>Payroll</span>
+                  <span>Interview</span>
               </a>
           @endif
       @endauth
