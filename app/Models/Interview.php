@@ -19,4 +19,9 @@ class Interview extends Model
         'user_id',
         'reason'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

@@ -42,7 +42,8 @@
                             @if (Auth::user()->role_id === 1)
                                 <div class="form-group">
                                     <label for="user_id">User</label>
-                                    <select name="user_id" id="user_id" class="form-control" required>
+                                    <select name="user_id" id="user_id" class="form-control"
+                                        onchange="updateTitle(this.value)" required>
                                         <option value="">-- Pilih User --</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>

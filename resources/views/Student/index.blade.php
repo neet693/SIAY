@@ -7,7 +7,6 @@
                 <h5 class="content-desc mb-4">Your learning growth</h5>
             </div>
 
-
             {{-- Student Statistics --}}
             <div class="col-12 col-md-6 col-lg-4">
 
@@ -19,9 +18,9 @@
                             <h3 class="statistics-value">{{ $students->count() }}</h3>
                         </div>
 
-                        <button class="btn-statistics">
-                            <img src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
-                        </button>
+                        <a class="btn-statistics" href="{{ route('ppdb.create') }}"><img
+                                src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
+                        </a>
                     </div>
 
                     <div class="statistics-list">
@@ -224,7 +223,8 @@
                 <div class="document-card">
                     @foreach ($students as $item)
                         <div class="document-item">
-                            <a href="{{ route('students.show', ['student' => $item->id]) }}"
+                            {{-- <a href="{{ route('admin.students.show', ['student' => $item->id]) }}" --}}
+                            <a href="{{ route('student.student.show', ['student' => $item->id]) }}"
                                 style="text-decoration: none; color: black;">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <img class="document-icon"

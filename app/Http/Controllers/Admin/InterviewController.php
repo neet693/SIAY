@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Interview;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class InterviewController extends Controller
 {
     public function index()
     {
         $interviews = Interview::with('user')->get();
-        return view('Interviews.index', compact('interviews'));
+        $acceptedInterview = Interview::where('status', 'Accepted')->count();
+        return view('Interviews.index', compact('interviews', 'acceptedInterview'));
     }
 
     public function create()
@@ -36,16 +36,8 @@ class InterviewController extends Controller
         $validatedData['user_id'] = auth()->user()->id;
 
         Interview::create($validatedData);
-        if (Auth::user()->role_id = Role::IS_STUDENT) {
-            // Redirect to the student dashboard instead of interviews.index
-            return redirect()->route('student.dashboard')->with('success', 'Interview created successfully.');
-        } else {
-            // If the user is not a student, redirect to interviews.index as before
-            return redirect()->route('interviews.index')->with('success', 'Interview created successfully.');
-        }
-        // return redirect()->route('interviews.index')->with('success', 'Interview created successfully.');
+        return redirect()->route('interviews.index')->with('success', 'Interview created successfully.');
     }
-
 
     public function show(Interview $interview)
     {

@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
-use App\Models\StudentParent;
-use App\Models\Transaction;
-use Illuminate\Http\Request;
+use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function dashboard()
     {
-        $students = Student::all();
-        $parents = StudentParent::all();
-        $totalPPDBPayment = Transaction::where('transaction_type_id', 1)
-            ->where('payment_status', 'paid')
-            ->sum('price');
-
-        return view('Dashboard.index', compact('students', 'parents', 'totalPPDBPayment'));
+        switch (Auth::user()->role_id == 1) {
+            case true:
+                return redirect((route('admin.dashboard')));
+                break;
+            default:
+                return redirect(route('student.dashboard'));
+                break;
+        }
     }
 }

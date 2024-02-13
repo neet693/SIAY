@@ -12,6 +12,12 @@
     {{-- Bootstrap Icons CDN --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('template/css/index.css') }}">
+
+    {{-- Datatable --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
 </head>
 
 <body>
@@ -56,7 +62,6 @@
 
         }
     </script> --}}
-
     <script src="{{ asset('template/assets/script.js') }}"></script>
 
     <script>
@@ -80,6 +85,21 @@
             // Menambahkan kelas 'active' pada elemen yang sesuai dengan route saat ini
             if (window.location.pathname === route) {
                 element.classList.add('active');
+            }
+        }
+    </script>
+
+    <script>
+        function updateTitle(userId) {
+            if (userId) {
+                // Mengambil nama user berdasarkan id user yang dipilih
+                const userName = document.querySelector(`option[value='${userId}']`).text;
+
+                // Mengupdate nilai atribut value dari elemen input dengan id 'title'
+                document.querySelector('#title').value = `Interview PPDB - ${userName}`;
+            } else {
+                // Jika user belum dipilih, maka judul akan dikembalikan ke kondisi awal
+                document.querySelector('#title').value = '';
             }
         }
     </script>

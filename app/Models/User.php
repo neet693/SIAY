@@ -44,6 +44,15 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function getRedirectRoute()
+    {
+        return match ((int)$this->role_id) {
+            1 => 'admin/dashboard',
+            2 => 'student/dashboard',
+            // ...
+        };
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

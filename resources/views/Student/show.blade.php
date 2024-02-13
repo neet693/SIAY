@@ -48,7 +48,8 @@
                                         <h5 class="content-desc mb-4">Tempat, Tanggal Lahir:
                                             {{ $student->birth_place }},
                                             {{ $student->birth_date }}</h5>
-                                        <h5 class="content-desc mb-4"> Agama: {{ $student->religion->religion_name }}
+                                        <h5 class="content-desc mb-4"> Agama:
+                                            {{ $student->religion->religion_name }}
                                             |
                                             Bergereja di
                                             {{ $student->church_domicile }}</h5>
