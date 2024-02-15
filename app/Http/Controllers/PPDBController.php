@@ -273,7 +273,7 @@ class PPDBController extends Controller
     {
         $orderId = $transaction->id . '-' . Str::random(5);
         $transaction->midtrans_booking_code = $orderId;
-        $transaction->payment_status = 'paid';
+        $transaction->payment_status = 'pending';
         $transaction->save();
     }
 
@@ -283,13 +283,19 @@ class PPDBController extends Controller
         return view('Invoice');
     }
 
+    public function adminSetPaid(Transaction $transaction, $midtransBookingCode)
+    {
+        $transaction = Transaction::where('midtrans_booking_code', $midtransBookingCode)->firstOrFail();
+        $transaction->payment_status = 'paid';
+        $transaction->save();
+
+        return redirect()->back();
+    }
+
     public function sendStudentCredential($student_id, $password)
     {
         $student = Student::findOrFail($student_id);
-        // Send email to student
-        // Mail::to($student->email)->send(new PPDBRegistrationSuccess($student, $password));
         Mail::to($student->email)->send(new PPDBRegistrationSuccess($student, $password));
-
         return redirect()->back()->with('success', 'Email kredensial telah dikirim ke student.');
     }
 }

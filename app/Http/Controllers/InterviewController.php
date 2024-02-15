@@ -31,9 +31,11 @@ class InterviewController extends Controller
             'end_time' => 'required',
             'method' => 'required',
             'status' => 'required',
+            'reason' => 'required',
             'user_id' => 'required',
         ]);
         $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['status'] = 'Dijadwalkan';
 
         Interview::create($validatedData);
         if (Auth::user()->role_id = Role::IS_STUDENT) {

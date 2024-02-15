@@ -1,4 +1,5 @@
 @extends('Layout.admin-template')
+@section('title', 'Student Dashboard')
 @section('content')
     <div class="content">
         <div class="row">
@@ -24,17 +25,10 @@
                     </div>
 
                     <div class="statistics-list">
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-4.png') }}"
-                            alt="">
-
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-3.png') }}"
-                            alt="">
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo.png') }}"
-                            alt="">
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-1.png') }}"
-                            alt="">
-                        <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-2.png') }}"
-                            alt="">
+                        @foreach ($students->sortByDesc('created_at')->take(10) as $student)
+                            <img class="statistics-image" src="https://ui-avatars.com/api/?name={{ $student->fullname }}"
+                                alt="studentImage{{ $student->fullname }}" title="{{ $student->fullname }}">
+                        @endforeach
                     </div>
 
                 </div>
@@ -56,21 +50,6 @@
                             <img src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
                         </button>
                     </div>
-
-                    {{-- <div class="statistics-list">
-                        <div class="statistics-icon award">
-                            <img src="{{ asset('template/assets/img/home/team/award.svg') }}" alt="">
-                        </div>
-                        <div class="statistics-icon globe">
-                            <img src="{{ asset('template/assets/img/home/team/globe.svg') }}" alt="">
-                        </div>
-                        <div class="statistics-icon target">
-                            <img src="{{ asset('template/assets/img/home/team/target.svg') }}" alt="">
-                        </div>
-                        <div class="statistics-icon box">
-                            <img src="{{ asset('template/assets/img/home/team/box.svg') }}" alt="">
-                        </div>
-                    </div> --}}
                     <div class="statistics-list">
                         <img class="statistics-image" src="{{ asset('template/assets/img/home/history/photo-4.png') }}"
                             alt="">
@@ -126,6 +105,49 @@
             </div>
 
 
+        </div>
+
+        <div class="row mt-5">
+            <div class="container">
+                <table id="transactionTable" class="table table-striped" style="width:100%; justify-content: center">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama</th>
+                            <th>Payment Method</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($transactions as $transaction)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $transaction->student->fullname }}</td>
+                                <td>{{ $transaction->student->payment_method }}</td>
+                                <td>{{ $transaction->payment_status }}</td>
+                                <td>
+                                    <form method="POST"
+                                        action="{{ route('admin.set.paid', ['booking_code' => $transaction->midtrans_booking_code]) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success">Set to Paid</button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama</th>
+                            <th>Payment Method</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
 
         <div class="row mt-5">
@@ -245,4 +267,9 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#transactionTable').DataTable(); // #example adalah ID tabel yang ingin Anda terapkan DataTables
+        });
+    </script>
 @endsection

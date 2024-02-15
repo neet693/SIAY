@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\StudentParent;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -14,9 +15,10 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $transactions =  Transaction::all();
         $students = Student::all()->take(5);
         $parents = StudentParent::all();
-        return view('Admin.Student.index', compact('students', 'parents'));
+        return view('Admin.Student.index', compact('students', 'parents', 'transactions'));
     }
 
     /**

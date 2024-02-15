@@ -17,11 +17,23 @@ class DashboardController extends Controller
     {
         $students = Student::all();
         $parents = StudentParent::all();
-        $totalPPDBPayment = Transaction::where('transaction_type_id', 1)
+        $transactions = Transaction::all();
+        $PPDBPaid = Transaction::where('transaction_type_id', 1)
             ->where('payment_status', 'paid')
             ->sum('price');
 
-        return view('Admin.Dashboard.index', compact('students', 'parents', 'totalPPDBPayment'));
+        $PPDBUnpaid = Transaction::where('transaction_type_id', 1)
+            ->where('payment_status', 'pending')
+            ->sum('price');
+
+        return view('Admin.Dashboard.index', compact(
+            'students',
+            'parents',
+            'PPDBPaid',
+            'PPDBUnpaid',
+            'transactions'
+
+        ));
     }
 
     /**

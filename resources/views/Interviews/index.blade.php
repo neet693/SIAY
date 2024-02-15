@@ -51,6 +51,7 @@
                 <table id="example" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
+                            <th>No.</th>
                             <th>Nama</th>
                             <th>Status</th>
                             <th>Aksi</th>
@@ -83,6 +84,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>No.</th>
                             <th>Nama</th>
                             <th>Status</th>
                             <th>Aksi</th>

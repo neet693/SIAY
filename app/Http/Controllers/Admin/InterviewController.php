@@ -31,12 +31,14 @@ class InterviewController extends Controller
             'end_time' => 'required',
             'method' => 'required',
             'status' => 'required',
+            'reason' => 'required',
             'user_id' => 'required',
         ]);
         $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['status'] = 'Dijadwalkan';
 
         Interview::create($validatedData);
-        return redirect()->route('interviews.index')->with('success', 'Interview created successfully.');
+        return redirect()->route('interviews.index')->with('success', 'Interview created successfully');
     }
 
     public function show(Interview $interview)
