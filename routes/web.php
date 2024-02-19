@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\InterviewController as AdminInterviewController;
-use App\Http\Controllers\Student\InterviewController as StudentInterviewController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 use App\Http\Controllers\DashboardController;
@@ -39,23 +37,21 @@ Route::resource('transaction', TransactionController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::resource('interview', InterviewController::class);
     //Route Admin
     Route::prefix('admin/')->namespace('Admin')->name('admin.')->middleware('ensureStudentRole')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('/students', [AdminStudentController::class, 'index'])->name('student');
         Route::get('/students/{student}', [AdminStudentController::class, 'show'])->name('student.show');
-        Route::resource('interviews', InterviewController::class); // Ubah 'AdminInterviewController' menjadi 'InterviewController'
         Route::post('set-paid/{booking_code}', [PPDBController::class, 'adminSetPaid'])->name('set.paid');
     });
 
 
     //Route Student
     Route::prefix('student/')->namespace('Student')->name('student.')->middleware('ensureStudentRole')->group(function () {
-        // Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
         Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
         Route::get('/students/{student}', [StudentDashboardController::class, 'show'])->name('student.show');
         Route::resource('interviews', InterviewController::class);
-        // Route::get('interviews/create', [InterviewController::class, 'create'])->name('interviews.create');
     });
 
 

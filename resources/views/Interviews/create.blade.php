@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Tambah Interview</div>
                     <div class="card-body">
-                        <form action="{{ route('admin.interviews.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('interview.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @if (Auth::user()->role_id == 2)
                                 <div class="form-group">

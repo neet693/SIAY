@@ -14,7 +14,7 @@
                         </div>
 
                         {{-- <a href="{{ route('admin.interviews.create') }}" class="btn-statistics"> --}}
-                        <a href="{{ route('interviews.create') }}" class="btn-statistics">
+                        <a href="{{ route('interview.create') }}" class="btn-statistics">
                             <img src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
                         </a>
                     </div>

@@ -13,7 +13,8 @@ class InterviewController extends Controller
     public function index()
     {
         $interviews = Interview::with('user')->get();
-        return view('Interviews.index', compact('interviews'));
+        $acceptedInterview = Interview::where('status', 'Selesai')->count();
+        return view('Interviews.index', compact('interviews', 'acceptedInterview'));
     }
 
     public function create()
