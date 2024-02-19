@@ -9,7 +9,7 @@
 
             <div class="col-12 col-md-6 col-lg-12">
                 <div class="statistics-card">
-                    <a href="{{ route('student.interviews.create') }}">Buat Interview</a>
+                    <a href="{{ route('interview.create') }}">Buat Interview</a>
                 </div>
             </div>
 

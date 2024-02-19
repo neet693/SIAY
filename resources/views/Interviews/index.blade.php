@@ -53,6 +53,7 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama</th>
+                            <th>Method</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -62,15 +63,16 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $interview->user->name }}</td>
+                                <td>{{ $interview->method }}</td>
                                 <td>{{ $interview->status }}</td>
                                 <td>
-                                    <a href="{{ route('interviews.show', $interview->id) }}" class="btn-action">
+                                    <a href="{{ route('interview.show', $interview->id) }}" class="btn-action">
                                         <img src="{{ asset('template/assets/img/global/eye.svg') }}" alt="">
                                     </a>
-                                    <a href="{{ route('interviews.edit', $interview->id) }}" class="btn-action">
+                                    <a href="{{ route('interview.edit', $interview->id) }}" class="btn-action">
                                         <img src="{{ asset('template/assets/img/global/edit.svg') }}" alt="">
                                     </a>
-                                    <form action="{{ route('interviews.destroy', $interview->id) }}" method="POST"
+                                    <form action="{{ route('interview.destroy', $interview->id) }}" method="POST"
                                         class="d-inline">
                                         @csrf
                                         @method('DELETE')
@@ -86,6 +88,7 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama</th>
+                            <th>Method</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>

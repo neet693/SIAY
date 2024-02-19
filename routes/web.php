@@ -51,7 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('student/')->namespace('Student')->name('student.')->middleware('ensureStudentRole')->group(function () {
         Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
         Route::get('/students/{student}', [StudentDashboardController::class, 'show'])->name('student.show');
-        Route::resource('interviews', InterviewController::class);
     });
 
 

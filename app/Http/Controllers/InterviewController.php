@@ -31,22 +31,24 @@ class InterviewController extends Controller
             'start_time' => 'required',
             'end_time' => 'required',
             'method' => 'required',
-            'status' => 'required',
-            'reason' => 'required',
+            // 'status' => 'required',
+            'reason' => 'required_if:method, online',
             'user_id' => 'required',
         ]);
-        $validatedData['user_id'] = auth()->user()->id;
+        if (Auth::user()->role_id == 2) {
+            $validatedData['user_id'] = auth()->user()->id;
+        }
         $validatedData['status'] = 'Dijadwalkan';
 
         Interview::create($validatedData);
-        if (Auth::user()->role_id = Role::IS_STUDENT) {
+
+        if (Auth::user()->role_id == Role::IS_STUDENT) {
             // Redirect to the student dashboard instead of interviews.index
             return redirect()->route('student.dashboard')->with('success', 'Interview created successfully.');
         } else {
             // If the user is not a student, redirect to interviews.index as before
             return redirect()->route('interviews.index')->with('success', 'Interview created successfully.');
         }
-        // return redirect()->route('interviews.index')->with('success', 'Interview created successfully.');
     }
 
 
