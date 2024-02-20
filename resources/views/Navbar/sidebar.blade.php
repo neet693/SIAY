@@ -90,7 +90,7 @@
           </a>
 
           {{-- <a href="{{ route('student.students.show', ['student' => Auth::user()->student->id]) }}" class="sidebar-item {{ request()->is('student.students*') ? 'active' : '' }}" --}}
-          <a href="{{ route('student.student.show', ['student' => Auth::user()->student->id]) }}"
+          <a href="{{ route('student.student.show', ['unique_code' => Auth::user()->student->unique_code]) }}"
               class="sidebar-item {{ request()->is('students*') ? 'active' : '' }}" onclick="toggleActive(this)">
               <!-- <img src="./assets/img/global/gift.svg" alt=""> -->
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

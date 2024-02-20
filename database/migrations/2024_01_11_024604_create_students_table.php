@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('school_information_id')->nullable()->constrained('school_information');
+            $table->string('unique_code')->unique();
             $table->string('fullname');
             $table->string('nickname');
             $table->string('citizenship');
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->foreignId('residence_status_id')->constrained('residence_statuses');
             $table->string('payment_method');
+            $table->enum('status_penerimaan', ['Diterima', 'Ditolak', 'Menunggu Persetujuan'])->default('Menunggu Persetujuan');
             // $table->string('snap_token')->nullable();
             // $table->enum('payment_status', ['pending', 'success', 'failed'])->default('pending');
             $table->timestamps();

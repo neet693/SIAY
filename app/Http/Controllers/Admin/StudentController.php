@@ -16,7 +16,7 @@ class StudentController extends Controller
     public function index()
     {
         $transactions =  Transaction::all();
-        $students = Student::all()->take(5);
+        $students = Student::all();
         $parents = StudentParent::all();
         return view('Admin.Student.index', compact('students', 'parents', 'transactions'));
     }
@@ -40,8 +40,9 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show($unique_code)
     {
+        $student = Student::where('unique_code', $unique_code)->firstOrFail();
         // Mendapatkan data student parent beserta alamatnya
         $studentParent = $student->studentParent()->with('studentParentAddress')->first();
 

@@ -11,6 +11,7 @@ class Student extends Model
 
     protected $fillable = [
         'school_information_id',
+        'unique_code',
         'user_id',
         'fullname',
         'nickname',
@@ -28,6 +29,7 @@ class Student extends Model
         'dad_tel',
         'mom_tel',
         'payment_method',
+        'status_penerimaan',
         // 'snap_token',
         // 'payment_status',
     ];

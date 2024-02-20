@@ -25,6 +25,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/', [PPDBController::class, 'index'])->name('welcome');
+
 Route::get('invoice', [PPDBController::class, 'invoice'])->name('invoice');
 Route::resource('ppdb', PPDBController::class);
 
@@ -42,15 +44,17 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin/')->namespace('Admin')->name('admin.')->middleware('ensureStudentRole')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('/students', [AdminStudentController::class, 'index'])->name('student');
-        Route::get('/students/{student}', [AdminStudentController::class, 'show'])->name('student.show');
+        Route::get('/students/{unique_code}', [AdminStudentController::class, 'show'])->name('student.show');
         Route::post('set-paid/{booking_code}', [PPDBController::class, 'adminSetPaid'])->name('set.paid');
+        Route::post('ppdb/{unique_code}/accept', [PPDBController::class, 'acceptPPDB'])->name('set.accept');
+        Route::post('ppdb/{unique_code}/reject', [PPDBController::class, 'rejectPPDB'])->name('set.reject');
     });
 
 
     //Route Student
     Route::prefix('student/')->namespace('Student')->name('student.')->middleware('ensureStudentRole')->group(function () {
         Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/students/{student}', [StudentDashboardController::class, 'show'])->name('student.show');
+        Route::get('/students/{unique_code}', [StudentDashboardController::class, 'show'])->name('student.show');
     });
 
 

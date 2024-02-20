@@ -1,4 +1,5 @@
 @extends('Layout.admin-template')
+@section('title', 'Student Detail')
 @section('content')
     <div class="content">
         <div class="row">

@@ -38,8 +38,9 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show($unique_code)
     {
+        $student = Student::where('unique_code', $unique_code)->firstOrFail();
         // Mendapatkan data student parent beserta alamatnya
         $studentParent = $student->studentParent()->with('studentParentAddress')->first();
 

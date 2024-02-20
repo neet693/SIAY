@@ -37,7 +37,8 @@ class PPDBController extends Controller
 
     public function index()
     {
-        //
+        $students = Student::where('status_penerimaan', 'Diterima')->get();
+        return view('welcome', compact('students'));
     }
 
     /**
@@ -107,10 +108,15 @@ class PPDBController extends Controller
         ]);
         $user->save();
 
+        //Generate Unique Code
+        $academicYear = substr($schoolInformation->academicYear->name, 2, 2) . substr($schoolInformation->academicYear->name, -2, 2);
+        $uniqueCode = $schoolInformation->educationLevel->level_name . '-' . $academicYear . '-' .  sprintf("%04d", $schoolInformation->id);
+
         // Step 2: Save Student Information
         $student = Student::create([
             'user_id' => $user->id,
             'school_information_id' => $schoolInformation->id,
+            'unique_code' => $uniqueCode,
             'fullname' => $request->input('fullname'),
             'nickname' => $request->input('nickname'),
             'citizenship' => $request->input('citizenship'),
@@ -125,6 +131,7 @@ class PPDBController extends Controller
             'email' => $request->input('email'),
             'residence_status_id' => $request->input('residence_status_id'),
             'payment_method' => $request->input('payment_method'),
+            'status_penerimaan' => 'Menunggu Persetujuan',
         ]);
 
         $student->studentAddress()->create([
@@ -290,6 +297,24 @@ class PPDBController extends Controller
         $transaction->save();
 
         return redirect()->back();
+    }
+
+    public function acceptPPDB(Request $request, $uniqueCode)
+    {
+        $student = Student::where('unique_code', $uniqueCode)->firstOrFail();
+        $student->status_penerimaan = 'Diterima';
+        $student->save();
+
+        return redirect()->back()->with('success', 'PPDB diterima');
+    }
+
+    public function rejectPPDB(Request $request, $uniqueCode)
+    {
+        $student = Student::where('unique_code', $uniqueCode)->firstOrFail();
+        $student->status_penerimaan = 'Ditolak';
+        $student->save();
+
+        return redirect()->back()->with('success', 'PPDB ditolak');
     }
 
     public function sendStudentCredential($student_id, $password)

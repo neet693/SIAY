@@ -114,24 +114,43 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama</th>
-                            <th>Payment Method</th>
+                            <th>Jenjang</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($transactions as $transaction)
+                        @foreach ($students as $student)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $transaction->student->fullname }}</td>
-                                <td>{{ $transaction->student->payment_method }}</td>
-                                <td>{{ $transaction->payment_status }}</td>
+                                <td>{{ $student->fullname }}</td>
+                                <td>{{ $student->schoolInformation->educationLevel->level_name }}</td>
+                                <td>{{ $student->status_penerimaan }}</td>
                                 <td>
-                                    <form method="POST"
-                                        action="{{ route('admin.set.paid', ['booking_code' => $transaction->midtrans_booking_code]) }}">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success">Set to Paid</button>
-                                    </form>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Dropdown button
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <form method="POST"
+                                                    action="{{ route('admin.set.accept', ['unique_code' => $student->unique_code]) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-success">Diterima</button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <form method="POST"
+                                                    action="{{ route('admin.set.reject', ['unique_code' => $student->unique_code]) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger">Ditolak</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+
 
                                 </td>
                             </tr>
@@ -141,7 +160,7 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama</th>
-                            <th>Payment Method</th>
+                            <th>Jenjang</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -246,7 +265,7 @@
                     @foreach ($students as $item)
                         <div class="document-item">
                             {{-- <a href="{{ route('admin.students.show', ['student' => $item->id]) }}" --}}
-                            <a href="{{ route('admin.student.show', ['student' => $item->id]) }}"
+                            <a href="{{ route('admin.student.show', ['unique_code' => $item->unique_code]) }}"
                                 style="text-decoration: none; color: black;">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <img class="document-icon"

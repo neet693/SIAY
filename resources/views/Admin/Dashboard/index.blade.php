@@ -185,7 +185,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <a href="{{ route('admin.student.show', ['student' => $transaction->id]) }}"
+                                    <a href="{{ route('admin.student.show', ['unique_code' => $transaction->student->unique_code]) }}"
                                         style="text-decoration: none;">
                                         {{ $transaction->student->fullname }}
                                     </a>
@@ -311,7 +311,7 @@
                     @foreach ($students as $item)
                         <div class="document-item">
                             {{-- <a href="{{ route('admin.students.show', ['student' => $item->id]) }}" --}}
-                            <a href="{{ route('admin.student.show', ['student' => $item->id]) }}"
+                            <a href="{{ route('admin.student.show', ['unique_code' => $item->unique_code]) }}"
                                 style="text-decoration: none; color: black;">
                                 <div class="d-flex justify-content-start align-items-center">
                                     <img class="document-icon"
