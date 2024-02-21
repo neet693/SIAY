@@ -141,7 +141,7 @@
                     </p>
                     <p class="mt-5">
                         <a href="#" class="btn btn-master btn-secondary me-3">
-                            Learn More
+                            Explore Program
                         </a>
                     </p>
                 </div>
@@ -158,8 +158,8 @@
                         Just fillout the School Information, Student Information, and Parent Information.
                     </p>
                     <p class="mt-5">
-                        <a href="#" class="btn btn-master btn-secondary me-3">
-                            View Demo
+                        <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-secondary me-3">
+                            Daftar PPDB
                         </a>
                     </p>
                 </div>
@@ -184,8 +184,8 @@
                         Sit back, relax, and await confirmation through the PPDB application or website
                     </p>
                     <p class="mt-5">
-                        <a href="#" class="btn btn-master btn-secondary me-3">
-                            Showcase
+                        <a href="{{ route('login') }}" class="btn btn-master btn-secondary me-3">
+                            Login Akun Perdik
                         </a>
                     </p>
                 </div>
