@@ -14,10 +14,10 @@
                         <a class="nav-link active" aria-current="page" href="#">Program</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mentor</a>
+                        <a class="nav-link" href="#">sadasd</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="#AcceptedStudent">Tabel Penerimaan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Business</a>
@@ -50,10 +50,10 @@
                         <a class="nav-link active" aria-current="page" href="#">Program</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mentor</a>
+                        <a class="nav-link" href="#Keunggulan">Keunggulan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="#AcceptedStudent">Tabel Penerimaan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Business</a>

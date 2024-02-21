@@ -7,18 +7,18 @@
                     <div class="row">
                         <div class="col-lg-6 col-12 copywriting">
                             <p class="story">
-                                LEARN FROM EXPERT
+                                Sekolah Kristen Yahya
                             </p>
                             <h1 class="header">
-                                Start Your <span class="text-purple">Developer <br> Journey</span> Today
+                                Discover <span class="text-purple">SMART <br> Learning</span> With Us!
                             </h1>
                             <p class="support">
-                                Our bootcamp is helping junior developers who <br> are really passionate in the
-                                programming.
+                                Empowering Students to Thrive in a Balanced, Progressive, Scripture-based, Friendly, and
+                                Disciplined Environment
                             </p>
                             <p class="cta">
-                                <a href="#" class="btn btn-master btn-primary">
-                                    Get Started
+                                <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-primary">
+                                    Enroll Now
                                 </a>
                             </p>
                         </div>
@@ -38,27 +38,28 @@
         </div>
     </section>
 
-    <section class="benefits">
+    <section class="benefits" id="Keunggulan">
         <div class="container">
             <div class="row text-center pb-70">
                 <div class="col-lg-12 col-12 header-wrap">
                     <p class="story">
-                        OUR SUPER BENEFITS
+                        Why Choose Sekolah Kristen Yahya?
                     </p>
                     <h2 class="primary-header">
-                        Learn Faster & Better
+                        Experience SMART Excellence With Us!
                     </h2>
                 </div>
             </div>
-            <div class="row">
+            <div class="row justify-items-center justify-content-center">
                 <div class="col-lg-3 col-12">
                     <div class="item-benefit">
                         <img src="{{ asset('app/assets/images/ic_globe.png') }}" class="icon" alt="">
                         <h3 class="title">
-                            Diversity
+                            Seimbang (Balanced)
                         </h3>
                         <p class="support">
-                            Learn from anyone around the <br> world and get a new skills
+                            Pendekatan pembelajaran yang menekankan keseimbangan kecerdasan intelektual, emosional, dan
+                            spiritual.
                         </p>
                     </div>
                 </div>
@@ -66,10 +67,10 @@
                     <div class="item-benefit">
                         <img src="{{ asset('app/assets/images/ic_globe-1.png') }}" class="icon" alt="">
                         <h3 class="title">
-                            A.I Guideline
+                            Maju (Progressive)
                         </h3>
                         <p class="support">
-                            Lara will help you to choose <br> which path that suitable for you
+                            Pengajaran terkini yang mengikuti perkembangan teknologi dan metode pembelajaran terbaru.
                         </p>
                     </div>
                 </div>
@@ -77,10 +78,23 @@
                     <div class="item-benefit">
                         <img src="{{ asset('app/assets/images/ic_globe-2.png') }}" class="icon" alt="">
                         <h3 class="title">
-                            1-1 Mentoring
+                            Alkitabiah (Scripture-based)
                         </h3>
                         <p class="support">
-                            We will ensure that you will get <br> what you really do need
+                            Integrasi nilai-nilai Kristen dan ajaran Alkitab dalam seluruh aspek pembelajaran.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-items-center justify-content-center">
+                <div class="col-lg-3 col-12">
+                    <div class="item-benefit">
+                        <img src="{{ asset('app/assets/images/ic_globe-3.png') }}" class="icon" alt="">
+                        <h3 class="title">
+                            Ramah (Friendly)
+                        </h3>
+                        <p class="support">
+                            Kolaborasi antara siswa, guru, dan orang tua untuk menciptakan atmosfer positif.
                         </p>
                     </div>
                 </div>
@@ -88,10 +102,10 @@
                     <div class="item-benefit">
                         <img src="{{ asset('app/assets/images/ic_globe-3.png') }}" class="icon" alt="">
                         <h3 class="title">
-                            Future Job
+                            Tertib (Disciplined)
                         </h3>
                         <p class="support">
-                            Get your dream job in your dream <br> company together with us
+                            Disiplin yang diajarkan dengan pendekatan pedagogis yang mendukung perkembangan pribadi.
                         </p>
                     </div>
                 </div>
@@ -101,19 +115,29 @@
 
     <section class="steps">
         <div class="container">
+            <div class="row text-center pb-70">
+                <div class="col-lg-12 col-12 header-wrap">
+                    <p class="story">
+                        Effortless PPDB Enrollment in 3 Simple Steps
+                    </p>
+                    <h2 class="primary-header">
+                        Join Our SMART Learning Community with Ease
+                    </h2>
+                </div>
+            </div>
             <div class="row item-step pb-70">
                 <div class="col-lg-6 col-12 text-center">
                     <img src="{{ asset('app/assets/images/step1.png') }}" class="cover" alt="">
                 </div>
                 <div class="col-lg-6 col-12 text-left copywriting">
                     <p class="story">
-                        BETTER CAREER
+                        Explore
                     </p>
                     <h2 class="primary-header">
-                        Prepare The Journey
+                        Explore Our Program
                     </h2>
                     <p class="support">
-                        Learn from anyone around the <br> world and get a new skills
+                        Find the perfect fit <br> for your interests and goals.
                     </p>
                     <p class="mt-5">
                         <a href="#" class="btn btn-master btn-secondary me-3">
@@ -125,14 +149,13 @@
             <div class="row item-step pb-70">
                 <div class="col-lg-6 col-12 text-left copywriting pl-150">
                     <p class="story">
-                        STUDY HARDER
+                        Apply
                     </p>
                     <h2 class="primary-header">
-                        Finish The Project
+                        Apply with ease
                     </h2>
                     <p class="support">
-                        Each of you will be joining the private group and also <br> working together with team members
-                        on project
+                        Just fillout the School Information, Student Information, and Parent Information.
                     </p>
                     <p class="mt-5">
                         <a href="#" class="btn btn-master btn-secondary me-3">
@@ -151,14 +174,14 @@
                 </div>
                 <div class="col-lg-6 col-12 text-left copywriting">
                     <p class="story">
-                        END GAME
+                        Confirm
                     </p>
                     <h2 class="primary-header">
-                        Big Demo Day
+                        Pay and Await Confirmation
                     </h2>
                     <p class="support">
-                        Learn how to speaking in public to demonstrate your <br> final project and receive the important
-                        feedbacks
+                        You can pay it via Online or Offiline. Afterwards <br>
+                        Sit back, relax, and await confirmation through the PPDB application or website
                     </p>
                     <p class="mt-5">
                         <a href="#" class="btn btn-master btn-secondary me-3">
@@ -170,7 +193,7 @@
         </div>
     </section>
 
-    <section class="pricing">
+    <section id="AcceptedStudent" class="pricing">
         <div class="container">
             <div class="row text-center pb-70">
                 <div class="col-lg-12 col-12 header-wrap">
