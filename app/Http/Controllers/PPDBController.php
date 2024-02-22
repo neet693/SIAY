@@ -230,11 +230,10 @@ class PPDBController extends Controller
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
             $transaction->midtrans_url = $paymentUrl;
             $transaction->save();
-            $redirectUrl = "https://912f-118-99-72-191.ngrok-free.app?order_id={$orderId}&status_code=200&transaction_status=settlement";
-            return redirect($redirectUrl);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+        return redirect(route('welcome'));
     }
 
     public function callback(Request $request)
@@ -252,6 +251,7 @@ class PPDBController extends Controller
                 $transaction->payment_status = 'pending';
             } else if ($fraud == 'accept') {
                 $transaction->payment_status = 'paid';
+                return redirect(route('welcome'));
             }
         } else if ($transaction_status == 'cancel') {
             if ($fraud == 'challenge') {
@@ -270,10 +270,11 @@ class PPDBController extends Controller
         }
 
         $transaction->save();
+        return redirect(route('welcome'));
 
-        if ($transaction->payment_status == 'paid') {
-            return redirect()->route('invoice');
-        }
+        // if ($transaction->payment_status == 'paid') {
+        //     return redirect()->route('invoice');
+        // }
     }
 
     public function offlinePayment(Transaction $transaction)
