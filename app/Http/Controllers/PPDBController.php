@@ -228,8 +228,10 @@ class PPDBController extends Controller
 
         try {
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
-            $transaction->midtrans_url = $paymentUrl;
+            // $transaction->midtrans_url = $paymentUrl;
+            $transaction->midtrans_url = str_replace('http://siay.test', 'https://912f-118-99-72-191.ngrok-free.app', $paymentUrl);
             $transaction->save();
+            return redirect(route('welcome'));
         } catch (Exception $e) {
             echo $e->getMessage();
         }
