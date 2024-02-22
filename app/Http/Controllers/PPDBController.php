@@ -230,7 +230,7 @@ class PPDBController extends Controller
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
             $transaction->midtrans_url = $paymentUrl;
             $transaction->save();
-            $redirectUrl = "https://217e-182-253-123-112.ngrok-free.app?order_id={$orderId}&status_code=200&transaction_status=settlement";
+            $redirectUrl = "https://912f-118-99-72-191.ngrok-free.app?order_id={$orderId}&status_code=200&transaction_status=settlement";
             return redirect($redirectUrl);
         } catch (Exception $e) {
             echo $e->getMessage();
