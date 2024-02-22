@@ -241,6 +241,7 @@ class PPDBController extends Controller
 
     public function callback(Request $request)
     {
+        \Midtrans\Config::$serverKey = config('midtrans.serverKey'); // Clear Midtrans SDK cache
         $notif = $request->method() == 'POST' ? new \Midtrans\Notification() : \Midtrans\Transaction::status($request->order_id);
 
         $transaction_id = explode('-', $notif->order_id);
