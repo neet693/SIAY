@@ -186,6 +186,7 @@ class PPDBController extends Controller
 
     public function process(Transaction $transaction)
     {
+        \Midtrans\Config::$serverKey = config('midtrans.serverKey'); // Clear Midtrans SDK cache
         $orderId = $transaction->id . '-' . Str::random(5);
         $transaction->midtrans_booking_code = $orderId;
         $price = $transaction->transactionType->price;
@@ -228,8 +229,8 @@ class PPDBController extends Controller
 
         try {
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
-            // $transaction->midtrans_url = $paymentUrl;
-            $transaction->midtrans_url = str_replace('http://siay.test', 'https://912f-118-99-72-191.ngrok-free.app', $paymentUrl);
+            $transaction->midtrans_url = $paymentUrl;
+            // $transaction->midtrans_url = str_replace('http://siay.test', 'https://912f-118-99-72-191.ngrok-free.app', $paymentUrl);
             $transaction->save();
             return redirect(route('welcome'));
         } catch (Exception $e) {
