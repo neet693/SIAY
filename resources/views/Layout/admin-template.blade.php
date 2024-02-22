@@ -12,6 +12,7 @@
     {{-- Bootstrap Icons CDN --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('template/css/index.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('template/css/index.css') }}">
 
     {{-- Datatable --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
