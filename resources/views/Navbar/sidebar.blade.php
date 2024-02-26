@@ -4,7 +4,7 @@
               {{-- <img src="{{ asset('template/assets/img/global/logo.svg') }}" alt="">
                --}}
               {{-- <span>PowerHuman</span> --}}
-              <img src="{{ asset('app/assets/images/logo.png') }}" alt="" width="150px">
+              <img src="{{ asset('app/assets/images/logo-sky.png') }}" alt="" width="150px">
           </div>
 
           <button id="toggle-navbar" onclick="toggleNavbar()">
@@ -138,7 +138,7 @@
                       stroke="#ABB3C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
 
-              {{ __('Log Out') }}</a>
+              <span>Logout</span></a>
       </form>
 
   </aside>

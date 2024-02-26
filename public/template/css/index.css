@@ -43,7 +43,8 @@ body {
 }
 
 aside {
-    background-color: #fff;
+    /* background-color: #fff; */
+    background-color: #2b6eff;
     padding: 50px 24px;
     padding-bottom: 250px;
     height: 100vh;
@@ -80,7 +81,8 @@ aside #toggle-navbar {
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
-    color: #abb3c4;
+    /* color: #abb3c4; */
+    color: #fff;
     margin-top: 40px;
     margin-bottom: 12px;
 }
@@ -97,6 +99,7 @@ aside #toggle-navbar {
     align-items: center;
 }
 .sidebar-item.active {
+    /* background: #4640de; */
     background: #4640de;
 }
 .sidebar-item.active span {
@@ -118,7 +121,8 @@ aside #toggle-navbar {
     font-size: 16px;
     line-height: 24px;
     /* identical to box height */
-    color: #121f3e;
+    color: #fff;
+    /* color: #121f3e; */
 }
 
 .col-navbar {
@@ -667,6 +671,7 @@ aside #toggle-navbar {
 .btn-master,
 .btn-thirdty,
 .btn-primary,
+.btn-login,
 .btn-secondary {
     padding: 11px 36px 11px 36px;
     border-radius: 100px;
@@ -680,7 +685,8 @@ aside #toggle-navbar {
 }
 
 .btn-primary {
-    background: #7839f3;
+    /* background: #7839f3; */
+    background: #2b6eff;
     color: #fff;
 }
 
@@ -736,7 +742,7 @@ aside #toggle-navbar {
 }
 
 .text-purple {
-    color: #7839f3;
+    color: #2b6eff;
 }
 
 .text-white {
@@ -745,7 +751,7 @@ aside #toggle-navbar {
 
 .btn-secondary {
     background: #f5efff;
-    color: #7839f3;
+    color: #2b6eff;
 }
 
 .banner {
@@ -842,13 +848,13 @@ aside #toggle-navbar {
 }
 
 .navbar .navbar-nav .nav-link {
-    color: #211b3d;
+    color: white;
     font-weight: 400;
     padding-left: 30px;
 }
 
 .navbar .navbar-nav .active {
-    color: #7839f3 !important;
+    color: #2b6eff !important;
     font-weight: 500;
 }
 

@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="{{ route('welcome') }}">
-                <img src="{{ asset('app/assets/images/logo.png') }}" alt="">
+                <img src="{{ asset('app/assets/images/logo-sky.png') }}" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Program</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">sadasd</a>
+                        <a class="nav-link" href="#">Mentor</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#AcceptedStudent">Tabel Penerimaan</a>
@@ -38,7 +38,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="{{ route('welcome') }}">
-                <img src="{{ asset('app/assets/images/logo.png') }}" alt="">
+                <img src="{{ asset('app/assets/images/logo-sky.png') }}" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,10 +60,10 @@
                     </li>
                 </ul>
                 <div class="d-flex">
-                    <a href="{{ route('login') }}" class="btn btn-master btn-secondary me-3">
+                    <a href="{{ route('login') }}" class="btn btn-master btn-success me-3">
                         Masuk
                     </a>
-                    <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-primary">
+                    <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-login">
                         Daftar PPDB
                     </a>
                 </div>

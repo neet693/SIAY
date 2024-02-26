@@ -123,7 +123,8 @@ body {
 
 .pricing {
     margin-top: 100px;
-    background: #4d1dab;
+    /* background: #4d1dab; */
+    background: #2b6eff;
     padding-top: 70px;
     max-height: 620px;
 }
@@ -201,6 +202,7 @@ body {
 }
 
 .btn-master,
+.btn-login,
 .btn-thirdty,
 .btn-primary,
 .btn-secondary {
@@ -215,13 +217,24 @@ body {
     color: #fff;
 }
 
+.btn-login {
+    background: #fba804;
+    color: #fff;
+}
+
+.btn-login:hover {
+    background: #fff;
+    color: #fba804;
+}
+
 .btn-primary {
-    background: #7839f3;
+    background: #2b6eff;
     color: #fff;
 }
 
 .btn-primary:hover {
-    background: #31b380;
+    /* background: #31b380; */
+    background: #fba804;
 }
 
 .story {
@@ -272,7 +285,7 @@ body {
 }
 
 .text-purple {
-    color: #7839f3;
+    color: #2b6eff;
 }
 
 .text-white {
@@ -281,7 +294,7 @@ body {
 
 .btn-secondary {
     background: #f5efff;
-    color: #7839f3;
+    color: #2b6eff;
 }
 
 .banner {
@@ -364,6 +377,7 @@ body {
     -webkit-box-shadow: 1px 8px 61px 0px rgba(22, 28, 51, 0.08);
     -moz-box-shadow: 1px 8px 61px 0px rgba(22, 28, 51, 0.08);
     padding: 24px 0 24px 0;
+    background-color: #2b6eff;
 }
 
 .navbar .user-logged a {
@@ -378,13 +392,14 @@ body {
 }
 
 .navbar .navbar-nav .nav-link {
-    color: #211b3d;
+    /* color: #211b3d; */
+    color: white;
     font-weight: 400;
     padding-left: 30px;
 }
 
 .navbar .navbar-nav .active {
-    color: #7839f3 !important;
+    color: #fba804 !important;
     font-weight: 500;
 }
 
