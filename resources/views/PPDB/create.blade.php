@@ -1,6 +1,15 @@
 @extends('Layout.app2')
 @section('content')
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ route('ppdb.store') }}" id="enrollmentForm" method="post">
             @csrf
             <input type="hidden" name="transaction_type_id" value="1">
@@ -11,13 +20,16 @@
                         <div class="form-group">
                             <label for="grade">Jenjang:</label>
                             <select class="form-control" id="grade" name="education_level_id" required>
-                                <option selected>Pilih Jenjang</option>
+                                <option selected disabled>Pilih Jenjang</option>
                                 <option value="1">TK</option>
                                 <option value="2">SD</option>
                                 <option value="3">SMP</option>
                                 <option value="4">SMA</option>
                                 <!-- Add more options as needed -->
                             </select>
+                            @if ($errors->has('education_level_id'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                         </div>
                     </div>
 
@@ -25,13 +37,16 @@
                         <div class="form-group">
                             <label for="academicYear">Academic Year:</label>
                             <select class="form-control" id="academicYear" name="academic_year_id" required>
-                                <option selected>Academic Year</option>
+                                <option selected disabled>Academic Year</option>
                                 <option value="1">2024 - 2025</option>
                                 <option value="2">2025 - 2026</option>
                                 <option value="3">2026 - 2027</option>
                                 <option value="4">2027 - 2028</option>
                                 <!-- Add more options as needed -->
                             </select>
+                            @if ($errors->has('academic_year_id'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                         </div>
                     </div>
 
@@ -64,6 +79,13 @@
             <!-- Step 2 : Student Information -->
             <div class="step" id="step2">
                 <h2>Step 2: Student Information</h2>
+                <div class="row mb-3">
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <strong>Pengumuman!</strong>Jika Kabupaten, Kota, Desa tidak muncul pilihannya. Pilih Provinsi lain
+                        untuk mentrigger.
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <!-- Bagian Siswa -->
                     <div class="col-md-4">
@@ -138,7 +160,7 @@
                         <div class="form-group">
                             <label for="userReligion">Religion:</label>
                             <select class="form-control" id="userReligion" name="religion_id" required>
-                                <option selected>Religion</option>
+                                <option selected disabled>Religion</option>
                                 <option value="1">Kristen</option>
                                 <option value="2">Katholik</option>
                                 <option value="3">Islam</option>
@@ -147,6 +169,9 @@
                                 <option value="6">Konghucu</option>
                                 <!-- Add more options as needed -->
                             </select>
+                            @if ($errors->has('religion_id'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                         </div>
                     </div>
 
@@ -167,9 +192,12 @@
                         <div class="form-group">
                             <label for="province">Province:</label>
                             <select class="form-control" id="province" name="student_province" required>
-                                <option selected>Select Province</option>
+                                <option selected disabled>Select Province</option>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
+                            @if ($errors->has('student_province'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                             <input type="hidden" id="student_province" name="province" />
                             <input type="hidden" id="student_province_name" name="student_province_name" readonly />
                         </div>
@@ -247,13 +275,16 @@
                         <div class="form-group">
                             <label for="userBloodType">Blood Type:</label>
                             <select class="form-control" id="userBloodType" name="blood_type_id" required>
-                                <option selected>Blood Type</option>
+                                <option selected disabled>Blood Type</option>
                                 <option value="1">A</option>
                                 <option value="2">B</option>
                                 <option value="3">AB</option>
                                 <option value="4">O</option>
                                 <!-- Add more options as needed -->
                             </select>
+                            @if ($errors->has('blood_type_id'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                         </div>
                     </div>
 
@@ -272,13 +303,16 @@
                         <div class="form-group">
                             <label for="userStay">Status Tinggal:</label>
                             <select class="form-control" id="userStay" name="residence_status_id" required>
-                                <option selected>Status Tinggal</option>
+                                <option selected disabled>Status Tinggal</option>
                                 <option value="1">Bersama Orang Tua</option>
                                 <option value="2">Bersama Saudara</option>
                                 <option value="3">Asrama</option>
                                 <option value="4">Kost</option>
                                 <!-- Add more options as needed -->
                             </select>
+                            @if ($errors->has('residence_status_id'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                         </div>
                     </div>
 
@@ -330,6 +364,12 @@
             <div class="step" id="step3">
                 <h2>Step 3: Parents Information</h2>
                 <div class="row mb-3">
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <strong>Pengumuman!</strong>Jika Kabupaten, Kota, Desa tidak muncul pilihannya. Pilih Provinsi lain
+                        untuk mentrigger.
+                    </div>
+                </div>
+                <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="dadName">Nama Ayah:</label>
@@ -355,7 +395,7 @@
                         <div class="form-group">
                             <label for="dadDegree">Pendidikan Terakhir Ayah:</label>
                             <select class="form-control" id="dadDegree" name="dad_degree" required>
-                                <option selected>Gelar</option>
+                                <option selected disabled>Gelar</option>
                                 <option value="1">SD</option>
                                 <option value="2">SMP</option>
                                 <option value="3">SMA</option>
@@ -367,6 +407,10 @@
                                 <option value="9">S3</option>
                                 <!-- Add more options as needed -->
                             </select>
+                            @if ($errors->has('dad_degree'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
+
                         </div>
                     </div>
 
@@ -374,7 +418,7 @@
                         <div class="form-group">
                             <label for="momDegree">Pendidikan Terakhir Ibu:</label>
                             <select class="form-control" id="momDegree" name="mom_degree" required>
-                                <option selected>Gelar</option>
+                                <option selected disabled>Gelar</option>
                                 <option value="1">SD</option>
                                 <option value="2">SMP</option>
                                 <option value="3">SMA</option>
@@ -386,6 +430,9 @@
                                 <option value="9">S3</option>
                                 <!-- Add more options as needed -->
                             </select>
+                            @if ($errors->has('mom_degree'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                         </div>
                     </div>
                     <!-- Pendidikan Orangtua -->
@@ -418,9 +465,12 @@
                         <div class="form-group">
                             <label for="provinceParent">Province:</label>
                             <select class="form-control" id="provinceParent" name="parent_province" required>
-                                <option selected>Select Province</option>
+                                <option selected disabled>Select Province</option>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
+                            @if ($errors->has('parent_province'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
 
                             <input type="hidden" id="provinceParent" name="provinceParent" />
                             <input type="hidden" id="parent_province_name" name="parent_province_name" readonly />
@@ -479,10 +529,13 @@
                         <div class="form-group">
                             <label for="paymentMethod">Metode Pembayaran:</label>
                             <select class="form-control" id="paymentMethod" name="payment_method" required>
-                                <option selected>Pilih Metode</option>
+                                <option selected disabled>Pilih Metode</option>
                                 <option value="1">Tunai</option>
                                 <option value="2">Transfer</option>
                             </select>
+                            @if ($errors->has('payment_method'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
