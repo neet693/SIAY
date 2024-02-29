@@ -522,6 +522,22 @@
                             @endif
                         </div>
                     </div>
+
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="parentStay">Status Tinggal:</label>
+                            <select class="form-control" name="parentStay" required>
+                                <option selected disabled>Pilih Status Tinggal</option>
+                                <option value="1">Rumah Pribadi</option>
+                                <option value="2">Apartemen</option>
+                                <option value="3">Kontrak</option>
+                                <option value="4">Kost</option>
+                            </select>
+                            @if ($errors->has('payment_method'))
+                                <p class="text-danger">{{ $errors }}</p>
+                            @endif
+                        </div>
+                    </div>
                     <!-- Akhir Bagian Address -->
 
                     <!-- Payment Method -->

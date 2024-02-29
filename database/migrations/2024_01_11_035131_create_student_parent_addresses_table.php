@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('parent_regency')->nullable();
             $table->string('parent_district')->nullable();
             $table->string('parent_village')->nullable();
-            $table->text('address');
+            $table->text('address')->nullable();
+            $table->text('parentStay')->nullable();
             $table->timestamps();
         });
     }

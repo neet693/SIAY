@@ -87,6 +87,7 @@ class PPDBController extends Controller
             'parent_district' => 'required',
             'parent_village' => 'required',
             'address' => 'required',
+            'parentStay' => 'required',
             'payment_method' => 'required',
             'transaction_type_id' => 'required',
         ]);
@@ -160,6 +161,7 @@ class PPDBController extends Controller
             'parent_district' => $request->input('parent_district_name'),
             'parent_village' => $request->input('parent_village_name'),
             'address' => $request->input('address'),
+            'parentStay' => $request->input('parentStay'),
         ]);
         $transactionType = TransactionType::find($request->input('transaction_type_id'));
         $price = $transactionType->price;
