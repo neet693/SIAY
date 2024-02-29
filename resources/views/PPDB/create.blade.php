@@ -14,7 +14,7 @@
             @csrf
             <input type="hidden" name="transaction_type_id" value="1">
             <div class="step" id="step1">
-                <h2>Step 1: School Information</h2>
+                <h2>Step 1: Informasi Sekolah</h2>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -35,9 +35,9 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="academicYear">Academic Year:</label>
+                            <label for="academicYear">Tahun Ajaran:</label>
                             <select class="form-control" id="academicYear" name="academic_year_id" required>
-                                <option selected disabled>Academic Year</option>
+                                <option selected disabled>Tahun Ajaran</option>
                                 <option value="1">2024 - 2025</option>
                                 <option value="2">2025 - 2026</option>
                                 <option value="3">2026 - 2027</option>
@@ -72,13 +72,13 @@
                 </div>
 
                 <button type="button" class="btn btn-primary" onclick="nextStep(2)">
-                    Next
+                    Selanjutnya
                 </button>
             </div>
 
             <!-- Step 2 : Student Information -->
             <div class="step" id="step2">
-                <h2>Step 2: Student Information</h2>
+                <h2>Step 2: Informasi Siswa</h2>
                 <div class="row mb-3">
                     <div class="alert alert-info alert-dismissible fade show" role="alert">
                         <strong>Pengumuman!</strong>Jika Kabupaten, Kota, Desa tidak muncul pilihannya. Pilih Provinsi lain
@@ -90,7 +90,7 @@
                     <!-- Bagian Siswa -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="fullName">Fullname:</label>
+                            <label for="fullName">Nama Lengkap:</label>
                             <input type="text" class="form-control" id="fullName" name="fullname" required />
                             @if ($errors->has('fullname'))
                                 <p class="text-danger">{{ $errors }}</p>
@@ -100,7 +100,7 @@
 
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="nickName">Nickname:</label>
+                            <label for="nickName">Nama Panggilan:</label>
                             <input type="text" class="form-control" id="nickName" name="nickname" required />
                             @if ($errors->has('nickname'))
                                 <p class="text-danger">{{ $errors }}</p>
@@ -110,7 +110,7 @@
 
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="citizenship">Citizenship:</label>
+                            <label for="citizenship">Kewarganegaraan:</label>
                             <input type="text" class="form-control" id="citizenship" name="citizenship" required />
                             @if ($errors->has('citizenship'))
                                 <p class="text-danger">{{ $errors }}</p>
@@ -124,19 +124,19 @@
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="male"
                                     value="male" />
-                                <label class="form-check-label" for="male"> Male </label>
+                                <label class="form-check-label" for="male"> Laki - Laki </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="gender" id="female"
                                     value="female" />
-                                <label class="form-check-label" for="female"> Female </label>
+                                <label class="form-check-label" for="female"> Perempuan </label>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="birthPlace">Place of Birth:</label>
+                            <label for="birthPlace">Tempat Lahir:</label>
                             <input type="text" class="form-control" id="birthPlace" name="birth_place" required />
                             @if ($errors->has('birth_place'))
                                 <p class="text-danger">{{ $errors }}</p>
@@ -146,7 +146,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="birthDate">Date of Birth:</label>
+                            <label for="birthDate">Tanggal Lahir:</label>
                             <input type="date" class="form-control" id="birthDate" name="birth_date" required />
                             @if ($errors->has('birth_date'))
                                 <p class="text-danger">{{ $errors }}</p>
@@ -158,9 +158,9 @@
                     <!-- Bagian Agama dan Gereja -->
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="userReligion">Religion:</label>
+                            <label for="userReligion">Agama:</label>
                             <select class="form-control" id="userReligion" name="religion_id" required>
-                                <option selected disabled>Religion</option>
+                                <option selected disabled>Agama</option>
                                 <option value="1">Kristen</option>
                                 <option value="2">Katholik</option>
                                 <option value="3">Islam</option>
@@ -177,7 +177,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="chruchDomicile">Chruch Domicile:</label>
+                            <label for="chruchDomicile">Berjemaat di:</label>
                             <input type="text" class="form-control" id="chruchDomicile" name="church_domicile"
                                 required />
                             @if ($errors->has('church_domicile'))
@@ -190,9 +190,9 @@
                     <!-- Bagian Address -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="province">Province:</label>
+                            <label for="province">Provinsi:</label>
                             <select class="form-control" id="province" name="student_province" required>
-                                <option selected disabled>Select Province</option>
+                                <option selected disabled>Pilih Provinsi</option>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
                             @if ($errors->has('student_province'))
@@ -205,7 +205,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="regency">Regency:</label>
+                            <label for="regency">Kabupaten / Kota:</label>
                             <select class="form-control" id="regency" name="student_regency" required>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
@@ -216,7 +216,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="district">District:</label>
+                            <label for="district">Kecamatan:</label>
                             <select class="form-control" id="district" name="student_district" required>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
@@ -227,7 +227,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="village">Village:</label>
+                            <label for="village">Desa / Kelurahan:</label>
                             <select class="form-control" id="village" name="student_village" required>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
@@ -239,7 +239,7 @@
 
                     <div class="col-lg">
                         <div class="form-group">
-                            <label for="address">Address:</label>
+                            <label for="address">Alamat:</label>
                             <input type="textarea" class="form-control" id="address" name="address" required />
                             @if ($errors->has('address'))
                                 <p class="text-danger">{{ $errors }}</p>
@@ -273,7 +273,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="userBloodType">Blood Type:</label>
+                            <label for="userBloodType">Golongan Darah:</label>
                             <select class="form-control" id="userBloodType" name="blood_type_id" required>
                                 <option selected disabled>Blood Type</option>
                                 <option value="1">A</option>
@@ -290,7 +290,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="userEmail" class="form-label">Email address:</label>
+                            <label for="userEmail" class="form-label">Alamat Email:</label>
                             <input type="email" class="form-control" id="userEmail" name="email"
                                 placeholder="name@example.com" />
                             @if ($errors->has('email'))
@@ -318,7 +318,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="dadphoneNumber">Dad Phone Number:</label>
+                            <label for="dadphoneNumber">No. Telp Ayah:</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">+62</span>
@@ -335,7 +335,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="momphoneNumber">Mom Phone Number:</label>
+                            <label for="momphoneNumber">No. Telp Ibu:</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">+62</span>
@@ -353,16 +353,16 @@
                 </div>
 
                 <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
-                    Previous
+                    Sebelumnya
                 </button>
                 <button type="button" class="btn btn-primary" onclick="nextStep(3)">
-                    Next
+                    Selanjutnya
                 </button>
             </div>
 
             <!-- Step 3: Parents Information -->
             <div class="step" id="step3">
-                <h2>Step 3: Parents Information</h2>
+                <h2>Step 3: Informasi Orangtua</h2>
                 <div class="row mb-3">
                     <div class="alert alert-info alert-dismissible fade show" role="alert">
                         <strong>Pengumuman!</strong>Jika Kabupaten, Kota, Desa tidak muncul pilihannya. Pilih Provinsi lain
@@ -463,9 +463,9 @@
                     <!-- provinceParent -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="provinceParent">Province:</label>
+                            <label for="provinceParent">Provinsi:</label>
                             <select class="form-control" id="provinceParent" name="parent_province" required>
-                                <option selected disabled>Select Province</option>
+                                <option selected disabled>Pilih Provinsi</option>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
                             @if ($errors->has('parent_province'))
@@ -480,7 +480,7 @@
                     <!-- regencyParent -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="regencyParent">Regency:</label>
+                            <label for="regencyParent">Kabupaten / Kota:</label>
                             <select class="form-control" id="regencyParent" name="parent_regency" required>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
@@ -492,7 +492,7 @@
                     <!-- districtParent -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="districtParent">District:</label>
+                            <label for="districtParent">Kecamatan:</label>
                             <select class="form-control" id="districtParent" name="parent_district" required>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
@@ -503,7 +503,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="villageParent">Village:</label>
+                            <label for="villageParent">Desa / Kelurahan:</label>
                             <select class="form-control" id="villageParent" name="parent_village" required>
                                 <!-- Options will be added dynamically by JavaScript -->
                             </select>
@@ -515,7 +515,7 @@
                     <!-- addressParent -->
                     <div class="col-lg">
                         <div class="form-group">
-                            <label for="addressParent">Address:</label>
+                            <label for="addressParent">Alamat:</label>
                             <input type="textarea" class="form-control" id="addressParent" name="address" required />
                             @if ($errors->has('address'))
                                 <p class="text-danger">{{ $errors }}</p>
@@ -541,7 +541,7 @@
                 </div>
 
                 <button type="button" class="btn btn-secondary" onclick="prevStep(2)">
-                    Previous
+                    Sebelumnya
                 </button>
                 <button type="submit" class="btn btn-master btn-thirdty me-3">Submit</button>
             </div>
