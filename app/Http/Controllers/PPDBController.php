@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PPDBRegistrationSuccess;
+use App\Models\Interview;
 use App\Models\PPDB;
 use App\Models\SchoolInformation;
 use App\Models\Student;
@@ -64,11 +65,11 @@ class PPDBController extends Controller
             'birth_date' => 'required',
             'religion_id' => 'required',
             'church_domicile' => 'required',
-            'student_province' => 'required',
-            'student_regency' => 'required',
-            'student_district' => 'required',
-            'student_village' => 'required',
-            'address' => 'required',
+            // 'student_province' => 'required',
+            // 'student_regency' => 'required',
+            // 'student_district' => 'required',
+            // 'student_village' => 'required',
+            // 'address' => 'required',
             'child_position' => 'required',
             'child_number' => 'required',
             'blood_type_id' => 'required',
@@ -90,6 +91,13 @@ class PPDBController extends Controller
             'parentStay' => 'required',
             'payment_method' => 'required',
             'transaction_type_id' => 'required',
+            'title' => 'required',
+            'interview_date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'method' => 'required',
+            // 'reason' => 'required',
+            // 'user_id' => 'required',
         ]);
 
         $schoolInformation = SchoolInformation::create([
@@ -135,13 +143,13 @@ class PPDBController extends Controller
             'status_penerimaan' => 'Menunggu Persetujuan',
         ]);
 
-        $student->studentAddress()->create([
-            'student_province' => $request->input('student_province_name'),
-            'student_regency' => $request->input('student_regency_name'),
-            'student_district' => $request->input('student_district_name'),
-            'student_village' => $request->input('student_village_name'),
-            'address' => $request->input('address'),
-        ]);
+        // $student->studentAddress()->create([
+        //     'student_province' => $request->input('student_province_name'),
+        //     'student_regency' => $request->input('student_regency_name'),
+        //     'student_district' => $request->input('student_district_name'),
+        //     'student_village' => $request->input('student_village_name'),
+        //     'address' => $request->input('address'),
+        // ]);
 
         // Step 3: Save Student Parent Information
         $studentParent = StudentParent::create([
@@ -163,6 +171,41 @@ class PPDBController extends Controller
             'address' => $request->input('address'),
             'parentStay' => $request->input('parentStay'),
         ]);
+
+        if ($request->input('residence_status_id') == 1 || $request->input('residence_status_id') == 2) {
+            $studentParentAddress = $studentParent->studentParentAddress->first();
+            $student->studentAddress()->create([
+                'student_province' => $studentParentAddress->parent_province,
+                'student_regency' => $studentParentAddress->parent_regency,
+                'student_district' => $studentParentAddress->parent_district,
+                'student_village' => $studentParentAddress->parent_village,
+                'address' => $studentParentAddress->address,
+            ]);
+        } else {
+            $student->studentAddress()->create([
+                'student_province' => $request->input('student_province_name'),
+                'student_regency' => $request->input('student_regency_name'),
+                'student_district' => $request->input('student_district_name'),
+                'student_village' => $request->input('student_village_name'),
+                'address' => $request->input('address'),
+            ]);
+        }
+
+        // Step 3: Save Interview Information
+        $interview = Interview::create([
+            'title' => $request->input('title'),
+            'interview_date' => $request->input('interview_date'),
+            'start_time' => $request->input('start_time'),
+            'end_time' => $request->input('end_time'),
+            'method' => $request->input('method'),
+            'reason' => $request->input('reason'),
+            'user_id' => $user->id,
+        ]);
+
+        $student->school_information_id = $schoolInformation->id;
+        $student->save();
+        $interview->save();
+
         $transactionType = TransactionType::find($request->input('transaction_type_id'));
         $price = $transactionType->price;
 
@@ -172,8 +215,6 @@ class PPDBController extends Controller
             'paymet_status' => 'waiting',
             'price' => $price,
         ]);
-        $student->school_information_id = $schoolInformation->id;
-        $student->save();
 
         if ($student->payment_method === 'Tunai') {
             $this->offlinePayment($transaction);
@@ -284,7 +325,6 @@ class PPDBController extends Controller
         $transaction->payment_status = 'pending';
         $transaction->save();
     }
-
 
     public function invoice()
     {
