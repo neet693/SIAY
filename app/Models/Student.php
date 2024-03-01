@@ -62,6 +62,11 @@ class Student extends Model
         return $this->hasMany(StudentParent::class);
     }
 
+    public function wali()
+    {
+        return $this->hasOne(Wali::class);
+    }
+
     public function setPaymentMethodAttribute($value)
     {
         $convertedValue = $this->convertPayment($value);

@@ -13,6 +13,7 @@ use App\Models\StudentParentAddress;
 use App\Models\Transaction;
 use App\Models\TransactionType;
 use App\Models\User;
+use App\Models\Wali;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -172,7 +173,7 @@ class PPDBController extends Controller
             'parentStay' => $request->input('parentStay'),
         ]);
 
-        if ($request->input('residence_status_id') == 1 || $request->input('residence_status_id') == 2) {
+        if ($request->input('residence_status_id') == 1) {
             $studentParentAddress = $studentParent->studentParentAddress->first();
             $student->studentAddress()->create([
                 'student_province' => $studentParentAddress->parent_province,
@@ -180,6 +181,16 @@ class PPDBController extends Controller
                 'student_district' => $studentParentAddress->parent_district,
                 'student_village' => $studentParentAddress->parent_village,
                 'address' => $studentParentAddress->address,
+                'parentStay' => $request->input('parentStay'),
+            ]);
+        } elseif ($student->residence_status_id == 2) {
+            $wali = Wali::create([
+                'student_id' => $student->id,
+                'wali_name' => $request->input('wali_name'),
+                'wali_degree' => $request->input('wali_degree'),
+                'wali_job' => $request->input('wali_job'),
+                'wali_address' => $request->input('wali_address'),
+                'wali_tel' => $request->input('wali_tel'),
             ]);
         } else {
             $student->studentAddress()->create([

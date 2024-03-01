@@ -259,71 +259,79 @@
                                             </div>
                                         </div>
 
-                                        <div class="row" id="studentAddressRow">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="province">Provinsi:</label>
-                                                    <select class="form-control" id="province" name="student_province">
-                                                        <option selected disabled>Pilih Provinsi</option>
-                                                        <!-- Options will be added dynamically by JavaScript -->
-                                                    </select>
-                                                    @if ($errors->has('student_province'))
-                                                        <p class="text-danger">{{ $errors }}</p>
-                                                    @endif
-                                                    <input type="hidden" id="student_province" name="province" />
-                                                    <input type="hidden" id="student_province_name"
-                                                        name="student_province_name" readonly />
+                                        <div id="studentAddressRow" style="display: none;">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="province">Provinsi:</label>
+                                                        <select class="form-control" id="province"
+                                                            name="student_province">
+                                                            <option selected disabled>Pilih Provinsi</option>
+                                                            <!-- Options will be added dynamically by JavaScript -->
+                                                        </select>
+                                                        @if ($errors->has('student_province'))
+                                                            <p class="text-danger">{{ $errors }}</p>
+                                                        @endif
+                                                        <input type="hidden" id="student_province" name="province" />
+                                                        <input type="hidden" id="student_province_name"
+                                                            name="student_province_name" readonly />
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="regency">Kabupaten / Kota:</label>
-                                                    <select class="form-control" id="regency" name="student_regency">
-                                                        <!-- Options will be added dynamically by JavaScript -->
-                                                    </select>
-                                                    <input type="hidden" id="student_regency" name="regency" />
-                                                    <input type="hidden" id="student_regency_name"
-                                                        name="student_regency_name" readonly />
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="regency">Kabupaten / Kota:</label>
+                                                        <select class="form-control" id="regency"
+                                                            name="student_regency">
+                                                            <!-- Options will be added dynamically by JavaScript -->
+                                                        </select>
+                                                        <input type="hidden" id="student_regency" name="regency" />
+                                                        <input type="hidden" id="student_regency_name"
+                                                            name="student_regency_name" readonly />
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="district">Kecamatan:</label>
-                                                    <select class="form-control" id="district" name="student_district">
-                                                        <!-- Options will be added dynamically by JavaScript -->
-                                                    </select>
-                                                    <input type="hidden" id="student_district" name="district" />
-                                                    <input type="hidden" id="student_district_name"
-                                                        name="student_district_name" readonly />
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="district">Kecamatan:</label>
+                                                        <select class="form-control" id="district"
+                                                            name="student_district">
+                                                            <!-- Options will be added dynamically by JavaScript -->
+                                                        </select>
+                                                        <input type="hidden" id="student_district" name="district" />
+                                                        <input type="hidden" id="student_district_name"
+                                                            name="student_district_name" readonly />
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="village">Desa / Kelurahan:</label>
-                                                    <select class="form-control" id="village" name="student_village">
-                                                        <!-- Options will be added dynamically by JavaScript -->
-                                                    </select>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="village">Desa / Kelurahan:</label>
+                                                        <select class="form-control" id="village"
+                                                            name="student_village">
+                                                            <!-- Options will be added dynamically by JavaScript -->
+                                                        </select>
 
-                                                    <input type="hidden" id="student_village" name="village" />
-                                                    <input type="hidden" id="student_village_name"
-                                                        name="student_village_name" readonly />
+                                                        <input type="hidden" id="student_village" name="village" />
+                                                        <input type="hidden" id="student_village_name"
+                                                            name="student_village_name" readonly />
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="address">Alamat:</label>
-                                                    <input type="textarea" class="form-control" id="address"
-                                                        name="address" />
-                                                    @if ($errors->has('address'))
-                                                        <p class="text-danger">{{ $errors }}</p>
-                                                    @endif
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="address">Alamat:</label>
+                                                        <input type="textarea" class="form-control" id="address"
+                                                            name="address" />
+                                                        @if ($errors->has('address'))
+                                                            <p class="text-danger">{{ $errors }}</p>
+                                                        @endif
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
+
                                         <div class="col mt-3">
                                             <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
                                                 Sebelumnya
@@ -554,7 +562,7 @@
                                                 <option value="3">Kontrak</option>
                                                 <option value="4">Kost</option>
                                             </select>
-                                            @if ($errors->has('payment_method'))
+                                            @if ($errors->has('parentStay'))
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
                                         </div>
@@ -574,6 +582,69 @@
                                             @if ($errors->has('payment_method'))
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="WaliRow" style="display: none;">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="waliName">Nama Wali:</label>
+                                                <input type="text" class="form-control" id="waliName"
+                                                    name="wali_name" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="waliDegree">Pendidikan Terakhir Wali:</label>
+                                                <select class="form-control" id="waliDegree" name="wali_degree">
+                                                    <option selected disabled>Gelar</option>
+                                                    <option value="1">SD</option>
+                                                    <option value="2">SMP</option>
+                                                    <option value="3">SMA</option>
+                                                    <option value="4">D1</option>
+                                                    <option value="5">D2</option>
+                                                    <option value="6">D3</option>
+                                                    <option value="7">S1</option>
+                                                    <option value="8">S2</option>
+                                                    <option value="9">S3</option>
+                                                    <!-- Add more options as needed -->
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="waliJob">Pekerjaan Wali:</label>
+                                                <input type="text" class="form-control" id="waliJob"
+                                                    name="wali_job" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="waliPhoneNumber">No. Telp Wali:</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">+62</span>
+                                                        <!-- Country code or any other prefix -->
+                                                    </div>
+                                                    <input type="tel" class="form-control" id="waliTelNumber"
+                                                        name="wali_tel" placeholder="Enter phone number" required />
+                                                    @if ($errors->has('wali_tel'))
+                                                        <p class="text-danger">{{ $errors }}</p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="waliAddress">Alamat Wali:</label>
+                                                <input type="textarea" class="form-control" id="waliAddress"
+                                                    name="wali_address" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -614,7 +685,7 @@
                                         <div class="form-group">
                                             <label for="method">Metode</label>
                                             <select name="method" id="method" class="form-control" required>
-                                                <option value="">-- Pilih Metode --</option>
+                                                <option selected disabled>Pilih Metode </option>
                                                 <option value="online">Online</option>
                                                 <option value="offline">Offline</option>
                                             </select>
@@ -636,6 +707,7 @@
             </div>
         </div>
     </div>
+    {{-- Script Interview Reason --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const methodSelect = document.querySelector('#method');
@@ -657,6 +729,7 @@
             }
         });
     </script>
+    {{-- Script Alamat --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get the Residence Status select element
@@ -667,7 +740,7 @@
 
             // Function to show or hide the Student Address row based on the Residence Status
             function updateStudentAddressVisibility() {
-                if (studentResidenceStatus.value === '1' || studentResidenceStatus.value === '2') {
+                if (studentResidenceStatus.value === '1') {
                     studentAddressRow.style.display = 'none';
                 } else {
                     studentAddressRow.style.display = 'block';
@@ -679,6 +752,25 @@
 
             // Call the function when the Residence Status select element changes
             studentResidenceStatus.addEventListener('change', updateStudentAddressVisibility);
+        });
+    </script>
+    {{-- Script Wali --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the Residence Status select element
+            var studentResidenceStatus = document.querySelector('select[name="residence_status_id"]');
+
+            // Get the WaliRow div section
+            var waliRow = document.getElementById("WaliRow");
+
+            // Show WaliRow when the student selects 'Bersama Wali' option
+            studentResidenceStatus.addEventListener("change", function() {
+                if (this.value === "2") {
+                    waliRow.style.display = "block";
+                } else {
+                    waliRow.style.display = "none";
+                }
+            });
         });
     </script>
 @endsection
