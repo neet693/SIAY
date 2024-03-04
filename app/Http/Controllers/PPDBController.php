@@ -181,7 +181,6 @@ class PPDBController extends Controller
                 'student_district' => $studentParentAddress->parent_district,
                 'student_village' => $studentParentAddress->parent_village,
                 'address' => $studentParentAddress->address,
-                'parentStay' => $request->input('parentStay'),
             ]);
         } elseif ($student->residence_status_id == 2) {
             $wali = Wali::create([
