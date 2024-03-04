@@ -23,15 +23,16 @@ class StudentParentAddress extends Model
         return $this->belongsTo(StudentParent::class);
     }
 
-    public function getparentStayAttribute()
+    public function setParentStayAttribute($value)
     {
-        return $this->convertDegree($this->attributes['parentStay']);
+        $convertedValue = $this->convertParentStay($value);
+        $this->attributes['parentStay'] = $convertedValue;
     }
 
-    protected function convertParentStay($parentStay)
+    protected function convertParentStay($method)
     {
         // Konversi nilai degree ke gelar sesuai kebutuhan
-        switch ($parentStay) {
+        switch ($method) {
             case 1:
                 return 'Rumah Pribadi';
             case 2:
