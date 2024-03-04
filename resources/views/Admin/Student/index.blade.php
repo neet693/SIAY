@@ -149,9 +149,6 @@
                                             </li>
                                         </ul>
                                     </div>
-
-
-
                                 </td>
                             </tr>
                         @endforeach

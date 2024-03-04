@@ -10,7 +10,7 @@ class TransactionTypeController extends Controller
     public function index()
     {
         $transactionType = TransactionType::all();
-        return view('pages.admin.transaction-type.index', compact('transactionType'));
+        return view('TransactionType.index', compact('transactionType'));
     }
 
     /**
@@ -18,7 +18,7 @@ class TransactionTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('TransactionType.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class TransactionTypeController extends Controller
             'name' => $request->name,
             'price' => $request->price,
         ]);
-        return redirect()->route('transaction-types.index')->with('success', 'Transaction type created successfully.');
+        return redirect()->route('transactiontype.index')->with('success', 'Transaction type created successfully.');
     }
 
     public function show(TransactionType $transactionType)
@@ -43,27 +43,31 @@ class TransactionTypeController extends Controller
         //
     }
 
-    public function edit(TransactionType $transactionType)
+    public function edit(TransactionType $transactionType, $id)
     {
-        //
+        $transactionType = TransactionType::findOrFail($id);
+        return view('TransactionType.edit', compact('transactionType'));
     }
 
-    public function update(Request $request, TransactionType $transactionType)
+    public function update(Request $request, TransactionType $transactionType, $id)
     {
         $request->validate([
             'name' => 'sometimes|required|string|max:255',
             'price' => 'sometimes|required|numeric',
         ]);
 
+        $transactionType = TransactionType::findOrFail($id);
+
         $transactionType->name = $request->name ?? $transactionType->name;
         $transactionType->price = $request->price ?? $transactionType->price;
         $transactionType->save();
-        return redirect()->route('transaction-types.index')->with('success', 'Transaction type updated successfully.');
+        return redirect()->route('transactiontype.index')->with('success', 'Transaction type updated successfully.');
     }
 
-    public function destroy(TransactionType $transactionType)
+    public function destroy(TransactionType $transactionType, $id)
     {
+        $transactionType = TransactionType::findOrFail($id);
         $transactionType->delete();
-        return redirect()->route('transaction-types.index')->with('success', 'Transaction type deleted successfully.');
+        return redirect()->route('transactiontype.index')->with('success', 'Transaction type deleted successfully.');
     }
 }

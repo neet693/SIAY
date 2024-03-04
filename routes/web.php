@@ -8,6 +8,7 @@ use App\Http\Controllers\PPDBController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,7 @@ Route::resource('transaction', TransactionController::class);
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::resource('interview', InterviewController::class);
+    Route::resource('transactiontype', TransactionTypeController::class);
     //Route Admin
     Route::prefix('admin/')->namespace('Admin')->name('admin.')->middleware('ensureStudentRole')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
