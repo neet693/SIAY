@@ -632,7 +632,7 @@
                                                         <!-- Country code or any other prefix -->
                                                     </div>
                                                     <input type="tel" class="form-control" id="waliTelNumber"
-                                                        name="wali_tel" placeholder="Enter phone number" required />
+                                                        name="wali_tel" placeholder="Enter phone number" />
                                                     @if ($errors->has('wali_tel'))
                                                         <p class="text-danger">{{ $errors }}</p>
                                                     @endif
