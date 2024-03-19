@@ -56,7 +56,7 @@
                         <a class="nav-link" href="#AcceptedStudent">Tabel Penerimaan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Business</a>
+                        <a class="nav-link" href="#">Panduan</a>
                     </li>
                 </ul>
                 <div class="d-flex">

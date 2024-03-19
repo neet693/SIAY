@@ -1,4 +1,4 @@
-  <aside class="sidebar">
+  <aside class="sidebar overflow-hidden">
       <a href="{{ url('/') }}" class="sidebar-logo">
           <div class="d-flex justify-content-start align-items-center">
               {{-- <img src="{{ asset('template/assets/img/global/logo.svg') }}" alt="">

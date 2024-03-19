@@ -198,10 +198,10 @@
             <div class="row text-center pb-70">
                 <div class="col-lg-12 col-12 header-wrap">
                     <p class="story">
-                        OUR SUPER BENEFITS
+                        Lihat siapa saja yang sudah diterima
                     </p>
                     <h2 class="primary-header text-white">
-                        Learn Faster & Better
+                        Tabel Penerimaan
                     </h2>
                 </div>
                 <div class="row">
@@ -325,7 +325,7 @@
                     <div class="row copyright">
                         <div class="col-lg-12 col-12">
                             <p>
-                                All Rights Reserved. Copyright Laracamp BWA Indonesia.
+                                All Rights Reserved. Made With ❤️ By Yahya IT Dept
                             </p>
                         </div>
                     </div>
