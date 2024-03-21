@@ -327,8 +327,9 @@ body {
     margin-top: 60px;
 }
 
+/* Height awal banner brands 30px */
 .banner .brands img {
-    height: 30px;
+    height: 200px;
 }
 
 .dashboard .table tr {
