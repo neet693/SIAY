@@ -664,8 +664,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="title">Judul</label>
-                                            <input type="text" name="title" id="title" class="form-control"
-                                                required>
+                                            <input type="text" name="title" id="title"
+                                                class="form-control form-control-disabled" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="interview_date">Tanggal</label>
@@ -770,6 +770,29 @@
                 } else {
                     waliRow.style.display = "none";
                 }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the title input element
+            const titleInput = document.querySelector('#title');
+
+            // Add an event listener for input event
+            titleInput.addEventListener('input', function() {
+                // Set the value of the title input to the desired format
+                this.value = `Penjadwalan Interview PPDB - ${document.querySelector('#fullName').value}`;
+            });
+
+            // Trigger the input event initially to set the value on page load
+            titleInput.dispatchEvent(new Event('input'));
+
+            // Add a class to disable editing the input field
+            titleInput.classList.add('form-control-disabled');
+
+            // Prevent default behavior when clicking on the input field
+            titleInput.addEventListener('click', function(event) {
+                event.preventDefault();
             });
         });
     </script>

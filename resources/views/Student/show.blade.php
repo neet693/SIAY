@@ -154,7 +154,7 @@
                                     </div>
                                     @if (!empty($student))
                                         <div class="modal-body">
-                                            <h5 class="content-desc mb-4">{{ $student->wali->wali_name }}</h5>
+                                            <h5 class="content-desc mb-4">{{ $student->wali->wali_name ?? 'N/A' }}</h5>
                                             <h5 class="content-desc mb-4">{{ $student->wali->wali_degree ?? 'N/A' }}
                                             </h5>
 
