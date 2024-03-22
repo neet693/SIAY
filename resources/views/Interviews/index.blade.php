@@ -62,22 +62,25 @@
                         @foreach ($interviews as $interview)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $interview->user->name }}</td>
+                                <td>
+                                    <a href="{{ route('interview.show', $interview->id) }}"
+                                        class="text-decoration-none text-dark">
+                                        {{ $interview->user->name }}
+                                    </a>
+                                </td>
                                 <td>{{ $interview->method }}</td>
                                 <td>{{ $interview->status }}</td>
                                 <td>
-                                    <a href="{{ route('interview.show', $interview->id) }}" class="btn-action">
-                                        <img src="{{ asset('template/assets/img/global/eye.svg') }}" alt="">
-                                    </a>
-                                    <a href="{{ route('interview.edit', $interview->id) }}" class="btn-action">
-                                        <img src="{{ asset('template/assets/img/global/edit.svg') }}" alt="">
+                                    <a href="{{ route('interview.edit', $interview->id) }}"
+                                        class="text-decoration-none link-warning">
+                                        <i class="bi bi-pencil-square"></i>
                                     </a>
                                     <form action="{{ route('interview.destroy', $interview->id) }}" method="POST"
                                         class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn-action">
-                                            <img src="{{ asset('template/assets/img/global/trash.svg') }}" alt="">
+                                        <button type="submit" class="link-danger text-decoration-none btn">
+                                            <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </form>
                                 </td>

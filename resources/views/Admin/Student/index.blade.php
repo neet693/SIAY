@@ -127,28 +127,17 @@
                                 <td>{{ $student->schoolInformation->educationLevel->level_name }}</td>
                                 <td>{{ $student->status_penerimaan }}</td>
                                 <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            Dropdown button
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <form method="POST"
-                                                    action="{{ route('admin.set.accept', ['unique_code' => $student->unique_code]) }}">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-success">Diterima</button>
-                                                </form>
-                                            </li>
-                                            <li>
-                                                <form method="POST"
-                                                    action="{{ route('admin.set.reject', ['unique_code' => $student->unique_code]) }}">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger">Ditolak</button>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <form method="POST"
+                                        action="{{ route('admin.set.accept', ['unique_code' => $student->unique_code]) }}">
+                                        @csrf
+                                        <button type="submit"
+                                            class="link-success text-decoration-none btn">Diterima</button>
+                                    </form>
+                                    <form method="POST" class="d-inline"
+                                        action="{{ route('admin.set.reject', ['unique_code' => $student->unique_code]) }}">
+                                        @csrf
+                                        <button type="submit" class="link-danger text-decoration-none btn">Ditolak</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
