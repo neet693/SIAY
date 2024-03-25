@@ -281,6 +281,31 @@
 
                 </div>
             </div>
+            <div class="col-12 col-lg-6">
+                <h2 class="content-title">History Yang Belum Terbayarkan</h2>
+                <h5 class="content-desc mb-4">Assigned Transaction</h5>
+                @if (count($student->transactions) > 0)
+                    <div class="document-card">
+                        @foreach ($student->transactions as $transaction)
+                            <div class="document-item">
+                                <div class="d-flex justify-content-start align-items-center">
+                                    {{-- <img class="document-icon"
+                                        src="{{ asset('template/assets/img/home/history/photo.png') }}" alt=""> --}}
+
+                                    <div class="d-flex flex-column justify-content-between align-items-start">
+                                        <h2 class="document-title">{{ $transaction->transactionType->name }} </h2>
+
+                                        <span class="document-desc">Rp
+                                            {{ number_format($transaction->transactionType->price, 2, ',', '.') }}</span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
 @endsection

@@ -48,11 +48,13 @@ class DashboardController extends Controller
             ->where('payment_status', 'paid')
             ->get();
 
+        $transactions = $student->transactions();
+
         // Mendapatkan nama-nama transaksi yang sudah dibayar oleh student
         $paidTransactionNames = $paidTransactions->pluck('transactionType.name')
             ->implode(', ');
 
-        return view('Student.show', compact('student', 'studentParent', 'paidTransactionNames'));
+        return view('Student.show', compact('student', 'studentParent', 'paidTransactionNames', 'transactions'));
     }
 
     /**

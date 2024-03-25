@@ -20,10 +20,10 @@ class PPDBRegistrationSuccess extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(Student $student, $password)
+    public function __construct(Student $student)
     {
         $this->student = $student;
-        $this->password = $password;
+        $this->password = 'sekolahyahya*';
     }
 
     /**

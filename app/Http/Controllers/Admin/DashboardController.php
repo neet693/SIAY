@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Models\StudentParent;
 use App\Models\Transaction;
+use App\Models\TransactionType;
 use Illuminate\Http\Request;
+use Str;
 
 class DashboardController extends Controller
 {
@@ -82,5 +84,52 @@ class DashboardController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function paymentAssign()
+    {
+        $transactionTypes = TransactionType::all();
+
+        return view('Admin.Dashboard.payment-assign', compact('transactionTypes'));
+    }
+
+    public function assignPaymentChecklist()
+    {
+        $transactions = Transaction::all();
+        $students = Student::all();
+        $transactionTypes = TransactionType::all();
+        $assignedPayments = Transaction::whereNotNull('student_id')->with('student', 'transactionType')->get();
+
+        return view('Admin.Dashboard.payment-assign', compact(
+            'transactions',
+            'transactionTypes',
+            'students',
+            'assignedPayments'
+        ));
+    }
+
+    public function assignPayment(Request $request)
+    {
+
+        // Get the transaction type
+        $transactionTypeId = $request->input('transaction_type_id');
+        $student_id = $request->input('student_id');
+
+        if (!$transactionTypeId) {
+            return redirect()->back()->with('error', 'Maaf, transaksi belum dipilih.');
+        }
+
+        // Create a new transaction
+        $transaction = new Transaction();
+        $transaction->transaction_type_id = $transactionTypeId;
+        $transaction->student_id = $student_id;
+        $transaction->price = TransactionType::where('id', $transactionTypeId)->value('price');
+        $orderId = $transactionTypeId . '-' . Str::random(5);
+        $transaction->midtrans_booking_code = $orderId;
+        $transaction->payment_status = 'unpaid';
+
+        $transaction->save();
+
+        return redirect()->back();
     }
 }
