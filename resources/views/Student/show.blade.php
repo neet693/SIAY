@@ -318,28 +318,24 @@
                                                     {{ number_format($transaction->transactionType->price, 2, ',', '.') }}
                                                 </h3>
                                             </div>
-                                            @if ($transaction->payment_status == 'pending' || 'unpaid')
-                                                <div class="modal-footer">
-                                                    <form action="{{ route('pay-now') }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" id="transaction_id" name="transaction_id"
-                                                            value="{{ $transaction->id }}">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Tutup</button>
-                                                        @if (empty($transaction->midtrans_url))
-                                                            <button type="submit" class="btn btn-primary">Generate
-                                                                Link</button>
-                                                        @else
-                                                            <a href="{{ $transaction->midtrans_url }}"
-                                                                class="btn btn-primary">Pay Now</a>
-                                                        @endif
-                                                    </form>
-                                                </div>
-                                            @else
-                                                <button class="btn btn-primary" disabled>Transaksi Sudah
-                                                    dibayarkan</button>
-                                            @endif
-
+                                            <div class="modal-footer">
+                                                <form action="{{ route('pay-now') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" id="transaction_id" name="transaction_id"
+                                                        value="{{ $transaction->id }}">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Tutup</button>
+                                                    @if (empty($transaction->midtrans_url))
+                                                        <button type="submit" class="btn btn-primary">Generate
+                                                            Link</button>
+                                                    @elseif (!empty($transaction->midtrans_url))
+                                                        <a href="{{ $transaction->midtrans_url }}"
+                                                            class="btn btn-primary">Pay Now</a>
+                                                    @else
+                                                        Sudah Di Bayar
+                                                    @endif
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
