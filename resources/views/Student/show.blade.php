@@ -236,10 +236,6 @@
                                 <span class="document-desc">Promoted to Sr. Website Designer</span>
                             </div>
                         </div>
-
-                        <button class="btn-statistics">
-                            <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
-                        </button>
                     </div>
 
                     <div class="document-item">
@@ -253,10 +249,6 @@
                                 <span class="document-desc">Promoted to Front-End Developer</span>
                             </div>
                         </div>
-
-                        <button class="btn-statistics">
-                            <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
-                        </button>
                     </div>
 
                     <div class="document-item">
@@ -270,10 +262,6 @@
                                 <span class="document-desc">Promoted to Accounting Executive</span>
                             </div>
                         </div>
-
-                        <button class="btn-statistics">
-                            <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
-                        </button>
                     </div>
 
                     <div class="document-item">
@@ -286,10 +274,6 @@
 
                                 <span class="document-desc">Promoted to Quality Manager</span>
                             </div>
-
-                            <button class="btn-statistics">
-                                <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
-                            </button>
                         </div>
                     </div>
 
