@@ -328,11 +328,9 @@
                                                     @if (empty($transaction->midtrans_url))
                                                         <button type="submit" class="btn btn-primary">Generate
                                                             Link</button>
-                                                    @elseif (!empty($transaction->midtrans_url))
+                                                    @else
                                                         <a href="{{ $transaction->midtrans_url }}"
                                                             class="btn btn-primary">Pay Now</a>
-                                                    @else
-                                                        Sudah Di Bayar
                                                     @endif
                                                 </form>
                                             </div>
