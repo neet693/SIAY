@@ -325,12 +325,14 @@
                                                         value="{{ $transaction->id }}">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Tutup</button>
-                                                    @if (empty($transaction->midtrans_url))
-                                                        <button type="submit" class="btn btn-primary">Generate
-                                                            Link</button>
-                                                    @else
-                                                        <a href="{{ $transaction->midtrans_url }}"
-                                                            class="btn btn-primary">Pay Now</a>
+                                                    @if ($transaction->payment_status === 'unpaid' || 'pending')
+                                                        @if (empty($transaction->midtrans_url))
+                                                            <button type="submit" class="btn btn-primary">Generate
+                                                                Link</button>
+                                                        @else
+                                                            <a href="{{ $transaction->midtrans_url }}"
+                                                                class="btn btn-primary">Pay Now</a>
+                                                        @endif
                                                     @endif
                                                 </form>
                                             </div>
