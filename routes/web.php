@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InterviewController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PPDBController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
@@ -29,19 +30,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PPDBController::class, 'index'])->name('welcome');
 
 Route::get('invoice', [PPDBController::class, 'invoice'])->name('invoice');
-Route::resource('ppdb', PPDBController::class);
 
 //midtrans routes
+Route::resource('ppdb', PPDBController::class);
 Route::get('/callback', [PPDBController::class, 'callback']);
 Route::post('/callback', [PPDBController::class, 'callback']);
 
 
 Route::resource('transaction', TransactionController::class);
 
+// Route::resource('pay-now', PaymentController::class);
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::resource('interview', InterviewController::class);
     Route::resource('transactiontype', TransactionTypeController::class);
+
+    Route::post('/pay-now', [PaymentController::class, 'payNow'])->name('pay-now');
+    Route::post('/process-payment', [PaymentController::class, 'process'])->name('process-payment');
+    Route::get('/callback', [PaymentController::class, 'callback']);
+    Route::post('/callback', [PaymentController::class, 'callback']);
     //Route Admin
     Route::prefix('admin/')->namespace('Admin')->name('admin.')->middleware('ensureStudentRole')->group(function () {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');

@@ -237,7 +237,9 @@
                             </div>
                         </div>
 
-
+                        <button class="btn-statistics">
+                            <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
+                        </button>
                     </div>
 
                     <div class="document-item">
@@ -251,6 +253,10 @@
                                 <span class="document-desc">Promoted to Front-End Developer</span>
                             </div>
                         </div>
+
+                        <button class="btn-statistics">
+                            <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
+                        </button>
                     </div>
 
                     <div class="document-item">
@@ -264,6 +270,10 @@
                                 <span class="document-desc">Promoted to Accounting Executive</span>
                             </div>
                         </div>
+
+                        <button class="btn-statistics">
+                            <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
+                        </button>
                     </div>
 
                     <div class="document-item">
@@ -276,6 +286,10 @@
 
                                 <span class="document-desc">Promoted to Quality Manager</span>
                             </div>
+
+                            <button class="btn-statistics">
+                                <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
+                            </button>
                         </div>
                     </div>
 
@@ -289,18 +303,56 @@
                         @foreach ($student->transactions as $transaction)
                             <div class="document-item">
                                 <div class="d-flex justify-content-start align-items-center">
-                                    {{-- <img class="document-icon"
-                                        src="{{ asset('template/assets/img/home/history/photo.png') }}" alt=""> --}}
-
                                     <div class="d-flex flex-column justify-content-between align-items-start">
-                                        <h2 class="document-title">{{ $transaction->transactionType->name }} </h2>
+                                        <h2 class="document-title">{{ $transaction->transactionType->name }}</h2>
 
-                                        <span class="document-desc">Rp
+                                        <span class="document-desc">
                                             {{ number_format($transaction->transactionType->price, 2, ',', '.') }}</span>
                                     </div>
                                 </div>
 
+                                <button type="button" class="btn btn-statistics" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop{{ $transaction->id }}">
+                                    <i class="bi bi-card-checklist"></i>
+                                </button>
 
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop{{ $transaction->id }}"
+                                    data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                    aria-labelledby="staticBackdropLabel{{ $transaction->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Pembayaran
+                                                    {{ $transaction->transactionType->name }}</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h3>Rp
+                                                    {{ number_format($transaction->transactionType->price, 2, ',', '.') }}
+                                                </h3>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="{{ route('pay-now') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" id="transaction_id" name="transaction_id"
+                                                        value="{{ $transaction->id }}">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Tutup</button>
+                                                    @if (empty($transaction->midtrans_url))
+                                                        <button type="submit" class="btn btn-primary">Generate
+                                                            Link</button>
+                                                    @else
+                                                        <a href="{{ $transaction->midtrans_url }}"
+                                                            class="btn btn-primary">Pay Now</a>
+                                                    @endif
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         @endforeach
                     </div>

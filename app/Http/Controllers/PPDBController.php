@@ -216,24 +216,24 @@ class PPDBController extends Controller
         $student->save();
         $interview->save();
 
-        $transactionType = TransactionType::find($request->input('transaction_type_id'));
-        $price = $transactionType->price;
+        // $transactionType = TransactionType::find($request->input('transaction_type_id'));
+        // $price = $transactionType->price;
 
-        $transaction = Transaction::create([
-            'student_id' => $student->id,
-            'transaction_type_id' => $request->input('transaction_type_id'),
-            'paymet_status' => 'waiting',
-            'price' => $price,
-        ]);
+        // $transaction = Transaction::create([
+        //     'student_id' => $student->id,
+        //     'transaction_type_id' => $request->input('transaction_type_id'),
+        //     'paymet_status' => 'waiting',
+        //     'price' => $price,
+        // ]);
 
         if ($student->payment_method === 'Tunai') {
-            $this->offlinePayment($transaction);
+            // $this->offlinePayment($transaction);
             $this->sendStudentCredential($student->id, $user->password);
             return view('PPDB.tunai', compact('student'));
         } elseif ($student->payment_method === 'Transfer') {
-            $this->process($transaction);
+            // $this->process($transaction);
             $this->sendStudentCredential($student->id, $user->password);
-            return redirect()->away($transaction->midtrans_url);
+            // return redirect()->away($transaction->midtrans_url);
         }
     }
 
