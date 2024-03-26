@@ -227,12 +227,12 @@ class PPDBController extends Controller
         // ]);
 
         if ($student->payment_method === 'Tunai') {
-            // $this->offlinePayment($transaction);
             $this->sendStudentCredential($student->id, $user->password);
+            // $this->offlinePayment($transaction);
             return view('PPDB.tunai', compact('student'));
         } elseif ($student->payment_method === 'Transfer') {
-            // $this->process($transaction);
             $this->sendStudentCredential($student->id, $user->password);
+            // $this->process($transaction);
             // return redirect()->away($transaction->midtrans_url);
         }
     }

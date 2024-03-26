@@ -280,8 +280,7 @@
                 </div>
             </div>
             <div class="col-12 col-lg-6">
-                <h2 class="content-title">History Yang Belum Terbayarkan</h2>
-                <h5 class="content-desc mb-4">Assigned Transaction</h5>
+                <h2 class="content-title">Riwayat Transaksi</h2>
                 @if (count($student->transactions) > 0)
                     <div class="document-card">
                         @foreach ($student->transactions as $transaction)
@@ -329,8 +328,10 @@
                                                         <button type="submit" class="btn btn-primary">Generate
                                                             Link</button>
                                                     @else
+                                                        {{-- <a href="{{ $transaction->midtrans_url }}"
+                                                            class="btn btn-primary">Pay Now</a> --}}
                                                         <a href="{{ $transaction->midtrans_url }}"
-                                                            class="btn btn-primary">Pay Now</a>
+                                                            class="btn btn-primary {{ $transaction->payment_status === 'paid' ? 'disabled' : '' }} ">{{ $transaction->payment_status === 'paid' ? 'Transaksi Sudah dibayarkan' : 'Pay Now' }}</a>
                                                     @endif
                                                 </form>
                                             </div>
