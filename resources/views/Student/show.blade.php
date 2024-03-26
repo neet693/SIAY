@@ -325,7 +325,10 @@
                                                         value="{{ $transaction->id }}">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Tutup</button>
-                                                    @if ($transaction->payment_status === 'unpaid' || 'pending')
+                                                    @if ($transaction->payment_status === 'paid')
+                                                        <button class="btn btn-primary disabled">Transaksi Sudah di
+                                                            Bayar</button>
+                                                    @else
                                                         @if (empty($transaction->midtrans_url))
                                                             <button type="submit" class="btn btn-primary">Generate
                                                                 Link</button>
