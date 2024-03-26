@@ -325,17 +325,15 @@
                                                         value="{{ $transaction->id }}">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Tutup</button>
-                                                    @if ($transaction->payment_status === 'paid')
-                                                        <button class="btn btn-primary disabled">Transaksi Sudah di
-                                                            Bayar</button>
+                                                    @if (empty($transaction->midtrans_url))
+                                                        <button type="submit" class="btn btn-primary">Generate
+                                                            Link</button>
+                                                    @elseif (!empyt($transaction->midtrans_url))
+                                                        <a href="{{ $transaction->midtrans_url }}"
+                                                            class="btn btn-primary">Pay Now</a>
                                                     @else
-                                                        @if (empty($transaction->midtrans_url))
-                                                            <button type="submit" class="btn btn-primary">Generate
-                                                                Link</button>
-                                                        @else
-                                                            <a href="{{ $transaction->midtrans_url }}"
-                                                                class="btn btn-primary">Pay Now</a>
-                                                        @endif
+                                                        <button class="btn btn-info" disabled>Transaksi Sudah di
+                                                            Bayarkan</button>
                                                     @endif
                                                 </form>
                                             </div>
