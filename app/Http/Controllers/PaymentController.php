@@ -92,11 +92,6 @@ class PaymentController extends Controller
     {
         $transaction_id = $request->input('transaction_id');
         $transaction = Transaction::findOrFail($transaction_id);
-        return $this->process($transaction);
-    }
-
-    public function process(Transaction $transaction)
-    {
 
         $orderId = $transaction->id . '-' . Str::random(5);
         $transaction->midtrans_booking_code = $orderId;
@@ -141,9 +136,8 @@ class PaymentController extends Controller
         try {
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
             $transaction->midtrans_url = $paymentUrl;
-            // $transaction->save();
             $transaction->payment_status = 'paid';
-            $transaction->save();
+            $transaction->save(); // uncommented this line
 
             return redirect()->back();
         } catch (Exception $e) {

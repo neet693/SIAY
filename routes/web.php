@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('transactiontype', TransactionTypeController::class);
 
     Route::post('/pay-now', [PaymentController::class, 'payNow'])->name('pay-now');
-    Route::post('/process-payment', [PaymentController::class, 'process'])->name('process-payment');
+    // Route::post('/process-payment', [PaymentController::class, 'process'])->name('process-payment');
     Route::get('/callback', [PaymentController::class, 'callback']);
     Route::post('/callback', [PaymentController::class, 'callback']);
     //Route Admin
