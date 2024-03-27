@@ -12,20 +12,6 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('welcome');
 
 Route::get('/', [PPDBController::class, 'index'])->name('welcome');
 
@@ -39,14 +25,13 @@ Route::post('/callback', [PPDBController::class, 'callback']);
 
 Route::resource('transaction', TransactionController::class);
 
-// Route::resource('pay-now', PaymentController::class);
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::resource('interview', InterviewController::class);
     Route::resource('transactiontype', TransactionTypeController::class);
 
     Route::post('/pay-now', [PaymentController::class, 'payNow'])->name('pay-now');
-    Route::post('/process-payment', [PaymentController::class, 'process'])->name('process-payment');
     Route::get('/callback', [PaymentController::class, 'callback']);
     Route::post('/callback', [PaymentController::class, 'callback']);
     //Route Admin
