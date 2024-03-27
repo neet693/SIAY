@@ -7,24 +7,11 @@ use App\Models\Student;
 use App\Models\StudentParent;
 use App\Models\Transaction;
 use App\Models\TransactionType;
-use Exception;
 use Illuminate\Http\Request;
 use Str;
-use Midtrans\Config;
 
 class DashboardController extends Controller
 {
-    public function __construct()
-    {
-        // Set your Merchant Server Key
-        Config::$serverKey = config('midtrans.serverKey');
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        Config::$isProduction = config('midtrans.isProduction');
-        // Set sanitization on (default)
-        Config::$isSanitized = config('midtrans.isSanitized');
-        // Set 3DS transaction for credit card to true
-        Config::$is3ds = config('midtrans.is3ds');
-    }
     /**
      * Display a listing of the resource.
      */
@@ -123,61 +110,26 @@ class DashboardController extends Controller
 
     public function assignPayment(Request $request)
     {
-        $transaction_type_id = $request->input('transaction_type_id');
+
+        // Get the transaction type
+        $transactionTypeId = $request->input('transaction_type_id');
         $student_id = $request->input('student_id');
 
-        $transaction_type = TransactionType::findOrFail($transaction_type_id);
-        $student = Student::findOrFail($student_id);
-
-        $transaction = new Transaction();
-        $transaction->transaction_type_id = $transaction_type_id;
-        $transaction->student_id = $student_id;
-        $transaction->price = $transaction_type->price;
-        $transaction->midtrans_booking_code = $transaction_type_id . '-' . Str::random(5);
-
-        $transaction_details = [
-            'order_id' => $transaction->midtrans_booking_code,
-            'gross_amount' => $transaction->price,
-        ];
-
-        $item_details[] = [
-            'id' => $transaction->midtrans_booking_code,
-            'price' => $transaction->price,
-            'quantity' => 1,
-            'name' => "Pembayaran {$transaction->transactionType->name}"
-        ];
-
-        $userData = [
-            'first_name' => $transaction->student->fullname,
-            'last_name' => "",
-            'postal_code' => "",
-            'address' => $transaction->student->studentAddress->address,
-            'email' => $transaction->student->email,
-            'country_code' => "IDN"
-        ];
-
-        $customer_details = [
-            'first_name' => $transaction->student->fullname,
-            'last_name' => "",
-            'email' => $transaction->student->email,
-            'billing_address' => $userData,
-            'shipping_address' => $userData,
-        ];
-
-        $midtrans_params = [
-            'transaction_details' => $transaction_details,
-            'customer_details' => $customer_details,
-            'item_details' => $item_details,
-
-        ];
-
-        try {
-            $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
-            $transaction->midtrans_url = $paymentUrl;
-            $transaction->save();
-            return redirect()->back();
-        } catch (Exception $e) {
-            echo $e->getMessage();
+        if (!$transactionTypeId) {
+            return redirect()->back()->with('error', 'Maaf, transaksi belum dipilih.');
         }
+
+        // Create a new transaction
+        $transaction = new Transaction();
+        $transaction->transaction_type_id = $transactionTypeId;
+        $transaction->student_id = $student_id;
+        $transaction->price = TransactionType::where('id', $transactionTypeId)->value('price');
+        $orderId = $transactionTypeId . '-' . Str::random(5);
+        $transaction->midtrans_booking_code = $orderId;
+        $transaction->payment_status = 'pending';
+
+        $transaction->save();
+
+        return redirect()->back();
     }
 }
