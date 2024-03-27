@@ -172,6 +172,6 @@ class PaymentController extends Controller
         }
 
         $transaction->save();
-        return redirect(route('student.student.show'));
+        return redirect(route('welcome'));
     }
 }
