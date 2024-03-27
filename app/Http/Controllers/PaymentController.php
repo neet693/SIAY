@@ -88,14 +88,18 @@ class PaymentController extends Controller
         //
     }
 
-    public function processPayment($transaction_id)
+    public function payNow(Request $request)
     {
-        $transaction = Transaction::find($transaction_id);
+        $transaction_id = $request->input('transaction_id');
+        $transaction = Transaction::findOrFail($transaction_id);
+        return $this->process($transaction);
+    }
+
+    public function process(Transaction $transaction)
+    {
 
         $orderId = $transaction->id . '-' . Str::random(5);
         $transaction->midtrans_booking_code = $orderId;
-        $transaction->save();
-
         $price = $transaction->transactionType->price;
 
         $transaction_details = [
@@ -131,33 +135,54 @@ class PaymentController extends Controller
             'transaction_details' => $transaction_details,
             'customer_details' => $customer_details,
             'item_details' => $item_details,
+
         ];
 
         try {
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
-
-            // Redirect ke halaman pembayaran
-            return redirect()->away($paymentUrl);
+            $transaction->midtrans_url = $paymentUrl;
+            $transaction->save();
+            return redirect()->back();
         } catch (Exception $e) {
-            // Handle error
+            echo $e->getMessage();
         }
-
         return redirect()->back();
     }
 
-    public function transactionSuccess(Request $request)
+    public function callback(Request $request)
     {
-        $transaction_id = $request->input('order_id');
+        $notif = $request->method() == 'POST' ? new \Midtrans\Notification() : \Midtrans\Transaction::status($request->order_id);
 
-        $transaction = Transaction::find($transaction_id);
+        $transaction_id = explode('-', $notif->order_id);
 
-        // Perbarui status pembayaran
-        $transaction->payment_status = 'paid';
+        $transaction = Transaction::find($transaction_id[0]);
+        $transaction_status = $notif->transaction_status;
+        $fraud = $notif->fraud_status;
 
-        // Simpan perubahan status
+        if ($transaction_status == 'capture') {
+            if ($fraud == 'challenge') {
+                $transaction->payment_status = 'pending';
+            } else if ($fraud == 'accept') {
+                $transaction->payment_status = 'paid';
+                return redirect(route('welcome'));
+            }
+        } else if ($transaction_status == 'cancel') {
+            if ($fraud == 'challenge') {
+                $transaction->payment_status = 'pending';
+            } else if ($fraud == 'accept') {
+                $transaction->payment_status = 'failed';
+            }
+        } else if ($transaction_status == 'deny') {
+            $transaction->payment_status = 'failed';
+        } else if ($transaction_status == 'settlement') {
+            $transaction->payment_status = 'paid';
+        } else if ($transaction_status == 'pending') {
+            $transaction->payment_status = 'pending';
+        } else if ($transaction_status == 'expire') {
+            $transaction->payment_status = 'failed';
+        }
+
         $transaction->save();
-
-        return redirect()->route('student.dashboard')
-            ->with('success', 'Pembayaran berhasil!');
+        return redirect(route('welcome'));
     }
 }

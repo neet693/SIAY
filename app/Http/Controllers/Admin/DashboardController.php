@@ -106,21 +106,6 @@ class DashboardController extends Controller
         return view('Admin.Dashboard.payment-assign', compact('transactionTypes'));
     }
 
-    public function assignPaymentChecklist()
-    {
-        $transactions = Transaction::all();
-        $students = Student::all();
-        $transactionTypes = TransactionType::all();
-        $assignedPayments = Transaction::whereNotNull('student_id')->with('student', 'transactionType')->get();
-
-        return view('Admin.Dashboard.payment-assign', compact(
-            'transactions',
-            'transactionTypes',
-            'students',
-            'assignedPayments'
-        ));
-    }
-
     public function assignPayment(Request $request)
     {
         $transaction_type_id = $request->input('transaction_type_id');
@@ -144,22 +129,22 @@ class DashboardController extends Controller
             'id' => $transaction->midtrans_booking_code,
             'price' => $transaction->price,
             'quantity' => 1,
-            'name' => "Pembayaran {$transaction->transactionType->name}"
+            'name' => "Pembayaran {$transaction_type->name}"
         ];
 
         $userData = [
-            'first_name' => $transaction->student->fullname,
+            'first_name' => $student->fullname,
             'last_name' => "",
             'postal_code' => "",
-            'address' => $transaction->student->studentAddress->address,
-            'email' => $transaction->student->email,
+            'address' => $student->studentAddress->address,
+            'email' => $student->email,
             'country_code' => "IDN"
         ];
 
         $customer_details = [
-            'first_name' => $transaction->student->fullname,
+            'first_name' => $student->fullname,
             'last_name' => "",
-            'email' => $transaction->student->email,
+            'email' => $student->email,
             'billing_address' => $userData,
             'shipping_address' => $userData,
         ];
@@ -168,15 +153,17 @@ class DashboardController extends Controller
             'transaction_details' => $transaction_details,
             'customer_details' => $customer_details,
             'item_details' => $item_details,
-
         ];
 
         try {
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
             $transaction->midtrans_url = $paymentUrl;
             $transaction->save();
-            return redirect()->back();
+
+            // Redirect to the payment page or display a message to the user
+            return redirect($transaction->midtrans_url);
         } catch (Exception $e) {
+            // Handle the exception and display an error message to the user
             echo $e->getMessage();
         }
     }
