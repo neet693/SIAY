@@ -135,7 +135,6 @@ class PaymentController extends Controller
 
         try {
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
-            // $transaction->midtrans_url = $paymentUrl;
 
             // Redirect ke halaman pembayaran
             return redirect()->away($paymentUrl);
@@ -146,40 +145,19 @@ class PaymentController extends Controller
         return redirect()->back();
     }
 
-    public function callback(Request $request)
+    public function transactionSuccess(Request $request)
     {
-        $notif = $request->method() == 'POST' ? new \Midtrans\Notification() : \Midtrans\Transaction::status($request->order_id);
+        $transaction_id = $request->input('order_id');
 
-        $transaction_id = explode('-', $notif->order_id);
+        $transaction = Transaction::find($transaction_id);
 
-        $transaction = Transaction::find($transaction_id[0]);
-        $transaction_status = $notif->transaction_status;
-        $fraud = $notif->fraud_status;
+        // Perbarui status pembayaran
+        $transaction->payment_status = 'paid';
 
-        if ($transaction_status == 'capture') {
-            if ($fraud == 'challenge') {
-                $transaction->payment_status = 'pending';
-            } else if ($fraud == 'accept') {
-                $transaction->payment_status = 'paid';
-                return redirect(route('welcome'));
-            }
-        } else if ($transaction_status == 'cancel') {
-            if ($fraud == 'challenge') {
-                $transaction->payment_status = 'pending';
-            } else if ($fraud == 'accept') {
-                $transaction->payment_status = 'failed';
-            }
-        } else if ($transaction_status == 'deny') {
-            $transaction->payment_status = 'failed';
-        } else if ($transaction_status == 'settlement') {
-            $transaction->payment_status = 'paid';
-        } else if ($transaction_status == 'pending') {
-            $transaction->payment_status = 'pending';
-        } else if ($transaction_status == 'expire') {
-            $transaction->payment_status = 'failed';
-        }
-
+        // Simpan perubahan status
         $transaction->save();
-        return redirect(route('welcome'));
+
+        return redirect()->route('student.dashboard')
+            ->with('success', 'Pembayaran berhasil!');
     }
 }
