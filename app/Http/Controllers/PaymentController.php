@@ -43,17 +43,7 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $transactionType = TransactionType::find($request->input('transaction_type_id'));
-        $price = $transactionType->price;
-
-        $transaction = Transaction::create([
-            'student_id' => Auth()->id,
-            'transaction_type_id' => $request->input('transaction_type_id'),
-            'paymet_status' => 'waiting',
-            'price' => $price,
-        ]);
-        $this->process($transaction);
-        return redirect()->away($transaction->midtrans_url);
+        //
     }
 
     /**

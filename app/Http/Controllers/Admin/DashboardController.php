@@ -126,7 +126,7 @@ class DashboardController extends Controller
         $transaction->price = TransactionType::where('id', $transactionTypeId)->value('price');
         $orderId = $transactionTypeId . '-' . Str::random(5);
         $transaction->midtrans_booking_code = $orderId;
-        $transaction->payment_status = 'pending';
+        // $transaction->payment_status = 'pending';
 
         $transaction->save();
 
