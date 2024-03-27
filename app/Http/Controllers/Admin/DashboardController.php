@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\StudentParent;
 use App\Models\Transaction;
 use App\Models\TransactionType;
+use Exception;
 use Illuminate\Http\Request;
 use Str;
 
@@ -110,26 +111,68 @@ class DashboardController extends Controller
 
     public function assignPayment(Request $request)
     {
-
-        // Get the transaction type
-        $transactionTypeId = $request->input('transaction_type_id');
+        $transaction_type_id = $request->input('transaction_type_id');
         $student_id = $request->input('student_id');
 
-        if (!$transactionTypeId) {
-            return redirect()->back()->with('error', 'Maaf, transaksi belum dipilih.');
+        // Fetch the transaction type and student data first
+        $transaction_type = TransactionType::findOrFail($transaction_type_id);
+        $student = Student::findOrFail($student_id);
+
+        // Assign a new transaction to the student here
+        $transaction = new Transaction();
+        $transaction->transaction_type_id = $transaction_type_id;
+        $transaction->student_id = $student_id;
+        $transaction->price = $transaction_type->price;
+        $transaction->midtrans_booking_code = $transaction->id . '-' . Str::random(5);
+
+        $transaction_details = [
+            'order_id' => $transaction->midtrans_booking_code,
+            'gross_amount' => $transaction->price,
+        ];
+
+        $item_details = [
+            [
+                'id' => $transaction->midtrans_booking_code,
+                'price' => $transaction->price,
+                'quantity' => 1,
+                'name' => "Pembayaran {$transaction_type->name} {$transaction->student->fullname}",
+            ],
+        ];
+
+        $userData = [
+            'first_name' => $transaction->student->fullname,
+            'last_name' => "",
+            'postal_code' => "",
+            'address' => $transaction->student->studentAddress->address,
+            'email' => $transaction->student->email,
+            'country_code' => "IDN",
+        ];
+
+        $customer_details = [
+            'first_name' => $transaction->student->fullname,
+            'last_name' => "",
+            'email' => $transaction->student->email,
+            'billing_address' => $userData,
+            'shipping_address' => $userData,
+        ];
+
+        $midtrans_params = [
+            'transaction_details' => $transaction_details,
+            'customer_details' => $customer_details,
+            'item_details' => $item_details,
+        ];
+
+        try {
+            $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
+            $transaction->midtrans_url = $paymentUrl;
+            $transaction->save();
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
 
-        // Create a new transaction
-        $transaction = new Transaction();
-        $transaction->transaction_type_id = $transactionTypeId;
-        $transaction->student_id = $student_id;
-        $transaction->price = TransactionType::where('id', $transactionTypeId)->value('price');
-        $orderId = $transactionTypeId . '-' . Str::random(5);
-        $transaction->midtrans_booking_code = $orderId;
-        $transaction->payment_status = 'pending';
+        // You may need to update the transaction data to store all required information,
+        // and then redirect the user to the appropriate page.
 
-        $transaction->save();
-
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Payment assigned successfully!');
     }
 }
