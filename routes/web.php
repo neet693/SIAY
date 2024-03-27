@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::get('students', [AdminStudentController::class, 'index'])->name('student');
         Route::get('students/{unique_code}', [AdminStudentController::class, 'show'])->name('student.show');
-        Route::post('set-paid/{booking_code}', [PPDBController::class, 'adminSetPaid'])->name('set.paid');
+        Route::post('set-paid/{booking_code}', [AdminDashboardController::class, 'adminSetPaid'])->name('set.paid');
         Route::post('ppdb/{unique_code}/accept', [PPDBController::class, 'acceptPPDB'])->name('set.accept');
         Route::post('ppdb/{unique_code}/reject', [PPDBController::class, 'rejectPPDB'])->name('set.reject');
         Route::get('assign-payment', [AdminDashboardController::class, 'assignPaymentChecklist'])->name('assignment.payment');

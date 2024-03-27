@@ -20,18 +20,16 @@ class DashboardController extends Controller
         $students = Student::all();
         $parents = StudentParent::all();
         $transactions = Transaction::all();
-        $PPDBPaid = Transaction::where('transaction_type_id', 1)
-            ->where('payment_status', 'paid')
+        $PaidTransaction = Transaction::where('payment_status', 'paid')
             ->sum('price');
 
-        $PPDBUnpaid = Transaction::where('transaction_type_id', 1)
-            ->where('payment_status', 'pending')
+        $PPDBUnpaid = Transaction::where('payment_status', 'pending')
             ->sum('price');
 
         return view('Admin.Dashboard.index', compact(
             'students',
             'parents',
-            'PPDBPaid',
+            'PaidTransaction',
             'PPDBUnpaid',
             'transactions'
 
@@ -84,6 +82,15 @@ class DashboardController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function adminSetPaid(Transaction $transaction, $midtransBookingCode)
+    {
+        $transaction = Transaction::where('midtrans_booking_code', $midtransBookingCode)->firstOrFail();
+        $transaction->payment_status = 'paid';
+        $transaction->save();
+
+        return redirect()->back();
     }
 
     public function paymentAssign()
