@@ -26,7 +26,7 @@ class Student extends Model
         'blood_type_id',
         'email',
         'residence_status_id',
-        'payment_method',
+        // 'payment_method',
         'status_penerimaan',
         // 'snap_token',
         // 'payment_status',
