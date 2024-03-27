@@ -318,7 +318,7 @@
                                                 </h3>
                                             </div>
                                             <div class="modal-footer">
-                                                <form action="{{ route('process-payment') }}" method="post">
+                                                <form action="{{ route('pay-now') }}" method="post">
                                                     @csrf
                                                     <input type="hidden" id="transaction_id" name="transaction_id"
                                                         value="{{ $transaction->id }}">
