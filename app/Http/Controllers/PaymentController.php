@@ -88,13 +88,14 @@ class PaymentController extends Controller
         //
     }
 
-    public function payNow(Request $request)
+    public function processPayment($transaction_id)
     {
-        $transaction_id = $request->input('transaction_id');
-        $transaction = Transaction::findOrFail($transaction_id);
+        $transaction = Transaction::find($transaction_id);
 
         $orderId = $transaction->id . '-' . Str::random(5);
         $transaction->midtrans_booking_code = $orderId;
+        $transaction->save();
+
         $price = $transaction->transactionType->price;
 
         $transaction_details = [
@@ -130,19 +131,18 @@ class PaymentController extends Controller
             'transaction_details' => $transaction_details,
             'customer_details' => $customer_details,
             'item_details' => $item_details,
-
         ];
 
         try {
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
-            $transaction->midtrans_url = $paymentUrl;
-            $transaction->payment_status = 'paid';
-            $transaction->save(); // uncommented this line
+            // $transaction->midtrans_url = $paymentUrl;
 
-            return redirect()->back();
+            // Redirect ke halaman pembayaran
+            return redirect()->away($paymentUrl);
         } catch (Exception $e) {
-            echo $e->getMessage();
+            // Handle error
         }
+
         return redirect()->back();
     }
 
