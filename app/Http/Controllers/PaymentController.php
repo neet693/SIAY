@@ -154,7 +154,7 @@ class PaymentController extends Controller
                 $transaction->payment_status = 'pending';
             } else if ($fraud == 'accept') {
                 $transaction->payment_status = 'paid';
-                return redirect(route('welcome'));
+                return redirect(route('dashboard'));
             }
         } else if ($transaction_status == 'cancel') {
             if ($fraud == 'challenge') {
@@ -173,6 +173,6 @@ class PaymentController extends Controller
         }
 
         $transaction->save();
-        return redirect(route('welcome'));
+        return redirect(route('dashboard'));
     }
 }
