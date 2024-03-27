@@ -90,7 +90,6 @@ class PPDBController extends Controller
             'parent_village' => 'required',
             'address' => 'required',
             'parentStay' => 'required',
-            'payment_method' => 'required',
             'transaction_type_id' => 'required',
             'title' => 'required',
             'interview_date' => 'required',
