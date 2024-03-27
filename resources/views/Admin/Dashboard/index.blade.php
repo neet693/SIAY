@@ -190,7 +190,7 @@
                                         {{ $transaction->student->fullname }}
                                     </a>
                                 </td>
-                                <td>{{ $transaction->student->payment_method }}</td>
+                                <td>{{ $transaction->transactionType->name }}</td>
                                 <td>{{ $transaction->payment_status }}</td>
                                 <td>
                                     <form method="POST"
