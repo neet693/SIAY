@@ -141,7 +141,10 @@ class PaymentController extends Controller
         try {
             $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
             $transaction->midtrans_url = $paymentUrl;
+            // $transaction->save();
+            $transaction->payment_status = 'paid';
             $transaction->save();
+
             return redirect()->back();
         } catch (Exception $e) {
             echo $e->getMessage();
