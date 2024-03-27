@@ -568,22 +568,6 @@
                                         </div>
                                     </div>
                                     <!-- Akhir Bagian Address -->
-
-                                    <!-- Payment Method -->
-                                    <div class="col-lg">
-                                        <div class="form-group">
-                                            <label for="paymentMethod">Metode Pembayaran:</label>
-                                            <select class="form-control" id="paymentMethod" name="payment_method"
-                                                required>
-                                                <option selected disabled>Pilih Metode</option>
-                                                <option value="1">Tunai</option>
-                                                <option value="2">Transfer</option>
-                                            </select>
-                                            @if ($errors->has('payment_method'))
-                                                <p class="text-danger">{{ $errors }}</p>
-                                            @endif
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div id="WaliRow" style="display: none;">

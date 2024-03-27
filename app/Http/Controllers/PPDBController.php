@@ -140,7 +140,6 @@ class PPDBController extends Controller
             'blood_type_id' => $request->input('blood_type_id'),
             'email' => $request->input('email'),
             'residence_status_id' => $request->input('residence_status_id'),
-            'payment_method' => $request->input('payment_method'),
             'status_penerimaan' => 'Menunggu Persetujuan',
         ]);
 
@@ -216,25 +215,8 @@ class PPDBController extends Controller
         $student->save();
         $interview->save();
 
-        // $transactionType = TransactionType::find($request->input('transaction_type_id'));
-        // $price = $transactionType->price;
-
-        // $transaction = Transaction::create([
-        //     'student_id' => $student->id,
-        //     'transaction_type_id' => $request->input('transaction_type_id'),
-        //     'paymet_status' => 'waiting',
-        //     'price' => $price,
-        // ]);
-
-        if ($student->payment_method === 'Tunai') {
-            $this->sendStudentCredential($student->id, $user->password);
-            // $this->offlinePayment($transaction);
-            return view('PPDB.tunai', compact('student'));
-        } elseif ($student->payment_method === 'Transfer') {
-            $this->sendStudentCredential($student->id, $user->password);
-            // $this->process($transaction);
-            // return redirect()->away($transaction->midtrans_url);
-        }
+        $this->sendStudentCredential($student->id, $user->password);
+        return view('PPDB.success', compact('student'));
     }
 
     public function process(Transaction $transaction)
@@ -339,15 +321,6 @@ class PPDBController extends Controller
     public function invoice()
     {
         return view('Invoice');
-    }
-
-    public function adminSetPaid(Transaction $transaction, $midtransBookingCode)
-    {
-        $transaction = Transaction::where('midtrans_booking_code', $midtransBookingCode)->firstOrFail();
-        $transaction->payment_status = 'paid';
-        $transaction->save();
-
-        return redirect()->back();
     }
 
     public function acceptPPDB(Request $request, $uniqueCode)
