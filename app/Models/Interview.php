@@ -17,7 +17,8 @@ class Interview extends Model
         'method',
         'status',
         'user_id',
-        'reason'
+        'reason',
+        'link'
     ];
 
     public function user()

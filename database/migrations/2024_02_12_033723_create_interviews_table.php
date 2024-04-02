@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->date('interview_date');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
             $table->enum('method', ['online', 'offline'])->default('offline');
             $table->string('status')->default('Dijadwalkan');
             $table->foreignId('user_id')->constrained('users');
             $table->string('reason')->nullable();
+            $table->text('link')->nullable();
             $table->timestamps();
         });
     }

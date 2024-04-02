@@ -10,7 +10,9 @@
 
             <div class="col-12 col-md-6 col-lg-12">
                 <div class="statistics-card">
-                    <a href="{{ route('interview.create') }}">Buat Interview</a>
+                    <h2 class="content-title">Pengumuman</h2>
+                    {{ $interview->title }} dilakukan secara {{ $interview->metode }} pada tanggal
+                    {{ $interview->interview_date }}
                 </div>
             </div>
 
@@ -21,7 +23,7 @@
                         <div class="d-flex flex-column justify-content-between align-items-start">
                             <h5 class="content-desc">Total Student</h5>
 
-                            <h3 class="statistics-value">{{ $students->count() }}</h3>
+                            <h3 class="statistics-value">item</h3>
                         </div>
 
                         <button class="btn-statistics">
@@ -53,7 +55,7 @@
                         <div class="d-flex flex-column justify-content-between align-items-start">
                             <h5 class="content-desc">Total Student</h5>
 
-                            <h3 class="statistics-value">{{ $students->count() }}</h3>
+                            <h3 class="statistics-value">Item</h3>
                         </div>
 
                         <button class="btn-statistics">
@@ -85,7 +87,7 @@
                         <div class="d-flex flex-column justify-content-between align-items-start">
                             <h5 class="content-desc">Total Student</h5>
 
-                            <h3 class="statistics-value">{{ $students->count() }}</h3>
+                            <h3 class="statistics-value">item</h3>
                         </div>
 
                         <button class="btn-statistics">

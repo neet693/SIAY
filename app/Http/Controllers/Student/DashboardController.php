@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Interview;
 use App\Models\Student;
-use App\Models\StudentParent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -14,9 +15,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $students = Student::all()->take(5);
-        $parents = StudentParent::all();
-        return view('Student.dashboard', compact('students', 'parents'));
+        $user  = Auth::user();
+        $interview = Interview::where('user_id', $user->id)->first();
+        return view('Student.dashboard', compact('interview'));
     }
 
     /**
