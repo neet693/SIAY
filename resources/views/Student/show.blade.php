@@ -45,33 +45,48 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <h5 class="content-desc mb-4">Nickname: {{ $student->nickname }}</h5>
-                                        <h5 class="content-desc mb-4">Citizenship: {{ $student->citizenship }}</h5>
-                                        <h5 class="content-desc mb-4">Gender: {{ $student->gender }}</h5>
-                                        <h5 class="content-desc mb-4">Tempat, Tanggal Lahir:
-                                            {{ $student->birth_place }},
-                                            {{ $student->birth_date }}</h5>
-                                        <h5 class="content-desc mb-4"> Agama:
-                                            {{ $student->religion->religion_name }}
-                                            |
-                                            Bergereja di
-                                            {{ $student->church_domicile }}</h5>
-                                        <h5 class="content-desc mb-4">Anak ke - {{ $student->child_position }} Dari
-                                            {{ $student->child_number }} Bersaudara</h5>
-                                        <h5 class="content-desc mb-4">Golongan Darah:
-                                            {{ $student->bloodType->type_name }}</h5>
-                                        <h5 class="content-desc mb-4"><i class="bi bi-envelope"></i> :
-                                            {{ $student->email }}</h5>
-                                        <h5 class="content-desc mb-4">Status Tinggal:
-                                            {{ $student->residenceStatus->status_name }}
-                                        </h5>
-                                        <h5 class="content-desc mb-4">Alamat Siswa:
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <!-- Bagian 1 -->
+                                                <p class="modal-title mb-4">Nama Panggilan: <br> {{ $student->nickname }}
+                                                </p>
+                                                <p class="modal-title mb-4">Warga Negara: <br> {{ $student->citizenship }}
+                                                </p>
+                                                <p class="modal-title mb-4">Tempat, Tanggal Lahir: <br>
+                                                    {{ $student->birth_place }},
+                                                    {{ $student->birth_date->format('d F Y') }}
+                                                </p>
+                                                <p class="modal-title mb-4">Anak ke - {{ $student->child_position }} Dari
+                                                    {{ $student->child_number }} Bersaudara
+                                                </p>
+                                                <p class="modal-title mb-4">Email Siswa: <br>
+                                                    {{ $student->email }}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- Bagian 2 -->
+                                                <p class="modal-title mb-4">Jenis Kelamin: <br>
+                                                    {{ $student->gender = $student->gender == 'female' ? 'Perempuan' : 'Laki - Laki' }}
+                                                </p>
+                                                <p class="modal-title mb-4">Golongan Darah: <br>
+                                                    {{ $student->bloodType->type_name }}</p>
+                                                <p class="modal-title mb-4"> Agama: <br>
+                                                    {{ $student->religion->religion_name }}
+                                                </p>
+                                                <p class="modal-title mb-4"> Bergereja di
+                                                    {{ $student->church_domicile }}
+                                                </p>
+                                                <p class="modal-title mb-4">Status Tinggal: <br>
+                                                    {{ $student->residenceStatus->status_name }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <p class="modal-title mb-4">Alamat Siswa:
                                             {{ $student->studentAddress->student_province }},
                                             {{ $student->studentAddress->student_regency }},
                                             {{ $student->studentAddress->student_district }},
                                             {{ $student->studentAddress->student_village }},
                                             {{ $student->studentAddress->address }}
-                                        </h5>
+                                        </p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
@@ -84,7 +99,7 @@
 
                         {{-- Student Parent Modal --}}
                         <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#parentModal">
-                            Parent Info
+                            Info Orangtua
                         </button>
 
                         <!-- Modal -->
@@ -101,29 +116,47 @@
                                     </div>
                                     @if (!empty($studentParent))
                                         <div class="modal-body">
-                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_name }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_name }}</h5>
-                                            <!-- tambahkan penanganan untuk kemungkinan nilai null -->
-                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_degree ?? 'N/A' }}
-                                            </h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_degree ?? 'N/A' }}
-                                            </h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_job ?? 'N/A' }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_job ?? 'N/A' }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_tel ?? 'N/A' }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_tel ?? 'N/A' }}</h5>
-                                            <!-- tambahkan penanganan untuk alamat orang tua -->
-                                            @if ($studentParent->studentParentAddress)
-                                                <h5 class="content-desc mb-4">Alamat Orang Tua:
-                                                    {{ $studentParent->studentParentAddress->parent_province ?? 'N/A' }},
-                                                    {{ $studentParent->studentParentAddress->parent_regency ?? 'N/A' }},
-                                                    {{ $studentParent->studentParentAddress->parent_district ?? 'N/A' }},
-                                                    {{ $studentParent->studentParentAddress->parent_village ?? 'N/A' }},
-                                                    {{ $studentParent->studentParentAddress->address ?? 'N/A' }}
-                                                </h5>
-                                            @else
-                                                <p>Alamat Orang Tua tidak tersedia.</p>
-                                            @endif
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <!-- Bagian 1 -->
+                                                    <h4>Informasi ayah</h4>
+                                                    <p class="modal-title mb-4">Nama Ayah: <br>
+                                                        {{ $studentParent->dad_name }}
+                                                    </p>
+                                                    <p class="modal-title mb-4">Gelar Ayah: <br>
+                                                        {{ $studentParent->dad_degree ?? 'N/A' }}
+                                                    </p>
+                                                    <p class="modal-title mb-4">Pekerjaan
+                                                        Ayah: <br> {{ $studentParent->dad_job ?? 'N/A' }}</p>
+                                                    <p class="modal-title mb-4">No. Telp
+                                                        Ayah: <br> {{ $studentParent->dad_tel ?? 'N/A' }}</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!-- Bagian 2 -->
+                                                    <h4>Informasi Ibu</h4>
+                                                    <p class="modal-title mb-4">Nama Ibu: <br>
+                                                        {{ $studentParent->mom_name }}
+                                                    </p>
+                                                    <p class="modal-title mb-4">Gelar Ibu: <br>
+                                                        {{ $studentParent->mom_degree ?? 'N/A' }}
+                                                    </p>
+                                                    <p class="modal-title mb-4">Pekerjaan Ibu: <br>
+                                                        {{ $studentParent->mom_job ?? 'N/A' }}</p>
+                                                    <p class="modal-title mb-4">No. Telp Ibu: <br>
+                                                        {{ $studentParent->mom_tel ?? 'N/A' }}</p>
+                                                </div>
+                                                @if ($studentParent->studentParentAddress)
+                                                    <p class="modal-title mb-4">Alamat Orang Tua:
+                                                        {{ $studentParent->studentParentAddress->parent_province ?? 'N/A' }},
+                                                        {{ $studentParent->studentParentAddress->parent_regency ?? 'N/A' }},
+                                                        {{ $studentParent->studentParentAddress->parent_district ?? 'N/A' }},
+                                                        {{ $studentParent->studentParentAddress->parent_village ?? 'N/A' }},
+                                                        {{ $studentParent->studentParentAddress->address ?? 'N/A' }}
+                                                    </p>
+                                                @else
+                                                    <p>Alamat Orang Tua tidak tersedia.</p>
+                                                @endif
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
@@ -136,9 +169,11 @@
                         </div>
 
                         {{-- Wali Modal --}}
-                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#waliModal">
-                            Info Wali
-                        </button>
+                        @if (!empty($student->wali))
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#waliModal">
+                                Info Wali
+                            </button>
+                        @endif
 
                         <!-- Modal -->
                         <div class="modal fade" id="waliModal" tabindex="-1" aria-labelledby="waliModalLabel"
@@ -154,17 +189,17 @@
                                     </div>
                                     @if (!empty($student))
                                         <div class="modal-body">
-                                            <h5 class="content-desc mb-4">{{ $student->wali->wali_name ?? 'N/A' }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $student->wali->wali_degree ?? 'N/A' }}
-                                            </h5>
+                                            <p class="modal-title mb-4">{{ $student->wali->wali_name ?? 'N/A' }}</p>
+                                            <p class="modal-title mb-4">{{ $student->wali->wali_degree ?? 'N/A' }}
+                                            </p>
 
-                                            <h5 class="content-desc mb-4">{{ $student->wali->wali_job ?? 'N/A' }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $student->wali->wali_tel ?? 'N/A' }}</h5>
+                                            <p class="modal-title mb-4">{{ $student->wali->wali_job ?? 'N/A' }}</p>
+                                            <p class="modal-title mb-4">{{ $student->wali->wali_tel ?? 'N/A' }}</p>
                                             <!-- tambahkan penanganan untuk alamat orang tua -->
                                             @if ($studentParent->studentParentAddress)
-                                                <h5 class="content-desc mb-4">Alamat Wali:
+                                                <p class="modal-title mb-4">Alamat Wali:
                                                     {{ $student->wali->wali_address ?? 'N/A' }}
-                                                </h5>
+                                                </p>
                                             @else
                                                 <p>Alamat Wali tidak tersedia.</p>
                                             @endif
@@ -222,7 +257,7 @@
         <div class="row mt-5">
             <div class="col-12 col-lg-6">
                 <h2 class="content-title">History</h2>
-                <h5 class="content-desc mb-4">Track the flow</h5>
+                <p class="modal-title mb-4">Track the flow</p>
 
                 <div class="document-card">
                     <div class="document-item">

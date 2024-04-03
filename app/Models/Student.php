@@ -32,6 +32,10 @@ class Student extends Model
         // 'payment_status',
     ];
 
+    protected $casts = [
+        'birth_date' => 'datetime'
+    ];
+
     public function religion()
     {
         return $this->belongsTo(Religion::class);

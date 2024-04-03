@@ -21,6 +21,10 @@ class Interview extends Model
         'link'
     ];
 
+    protected $casts = [
+        'interview_date' => 'datetime'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
