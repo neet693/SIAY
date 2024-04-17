@@ -22,7 +22,7 @@
                 <div class="statistics-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column justify-content-between align-items-start">
-                            <h5 class="content-desc">Total Student</h5>
+                            <h5 class="content-desc">Tugas Baru</h5>
 
                             <h3 class="statistics-value">item</h3>
                         </div>
@@ -54,7 +54,7 @@
                 <div class="statistics-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column justify-content-between align-items-start">
-                            <h5 class="content-desc">Total Student</h5>
+                            <h5 class="content-desc">Kelas Anda</h5>
 
                             <h3 class="statistics-value">Item</h3>
                         </div>
@@ -86,7 +86,7 @@
                 <div class="statistics-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column justify-content-between align-items-start">
-                            <h5 class="content-desc">Total Student</h5>
+                            <h5 class="content-desc">Deadline Anda</h5>
 
                             <h3 class="statistics-value">item</h3>
                         </div>
