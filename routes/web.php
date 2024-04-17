@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('student/')->namespace('Student')->name('student.')->middleware('ensureStudentRole')->group(function () {
         Route::get('dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
         Route::get('{unique_code}', [StudentDashboardController::class, 'show'])->name('student.show');
+        Route::put('/update-parent/{unique_code}', [StudentDashboardController::class, 'updateParent'])->name('update-parent');
     });
 
 
