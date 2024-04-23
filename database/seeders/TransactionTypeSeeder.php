@@ -14,18 +14,44 @@ class TransactionTypeSeeder extends Seeder
     public function run(): void
     {
         TransactionType::create([
-            'name' => 'PPDB',
-            'price' => 150000,
+            'name' => 'Biaya Pendidikan Toodler	',
+            'price' => 4000000,
         ]);
-
         TransactionType::create([
-            'name' => 'Pembayaran SPP',
-            'price' => 1000000,
+            'name' => 'Biaya pendidikan KB',
+            'price' => 4000000,
         ]);
-
         TransactionType::create([
-            'name' => 'Pembayaran Ujian Nasional',
-            'price' => 500000,
+            'name' => 'Biaya Pendidikan Toddler + KB',
+            'price' => 6000000,
+        ]);
+        TransactionType::create([
+            'name' => 'Biaya Pendidikan TK A + TK B',
+            'price' => 8500000,
+        ]);
+        TransactionType::create([
+            'name' => 'Biaya Pendidikan TK B',
+            'price' => 7000000,
+        ]);
+        TransactionType::create([
+            'name' => 'Biaya Pendidikan KB - TK B',
+            'price' => 9500000,
+        ]);
+        TransactionType::create([
+            'name' => 'Biaya Pendidikan Toddler + TK B',
+            'price' => 11000000,
+        ]);
+        TransactionType::create([
+            'name' => 'Biaya Pendidikan SD',
+            'price' => 13000000,
+        ]);
+        TransactionType::create([
+            'name' => 'Biaya Pendidikan SMP',
+            'price' => 14000000,
+        ]);
+        TransactionType::create([
+            'name' => 'Biaya Pendidikan SMA',
+            'price' => 16000000,
         ]);
     }
 }

@@ -69,20 +69,39 @@
                                     </a>
                                 </td>
                                 <td>{{ $interview->method }}</td>
-                                <td>{{ $interview->status }}</td>
                                 <td>
-                                    <a href="{{ route('interview.edit', $interview->id) }}"
-                                        class="text-decoration-none link-warning">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <form action="{{ route('interview.destroy', $interview->id) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="link-danger text-decoration-none btn">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                    </form>
+                                    <span
+                                        class="badge rounded-pill {{ $interview->status == 'Ditolak' ? 'text-bg-danger' : ($interview->status == 'Selesai' ? 'text-bg-success' : 'text-bg-info') }}">{{ $interview->status }}</span>
+
+                                </td>
+                                <td>
+                                    @if ($interview->status == 'Dijadwalkan')
+                                        <a href="{{ route('interview.edit', $interview->id) }}"
+                                            class="text-decoration-none link-success"
+                                            title="Selesaikan Interview {{ $interview->user->name }}">
+                                            <i class="bi bi-check-circle"></i>
+                                        </a>
+                                        @if ($interview->status == 'Dijadwalkan')
+                                            <a href="{{ route('interview.edit', $interview->id) }}"
+                                                class="text-decoration-none link-warning"
+                                                title="Edit Interview {{ $interview->user->name }}">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                        @endif
+                                        <a href="{{ route('interview.edit', $interview->id) }}"
+                                            class="text-decoration-none link-info" title="Set Link Zoom">
+                                            <i class="bi bi-camera-video"></i>
+                                        </a>
+                                        <form action="{{ route('interview.destroy', $interview->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="link-danger text-decoration-none btn">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+
                                 </td>
                             </tr>
                         @endforeach
