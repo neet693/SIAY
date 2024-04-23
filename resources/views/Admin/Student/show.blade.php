@@ -25,113 +25,37 @@
                             •
                             {{ $student->payment_method ?? 'Not available' }}</span>
                         </div>
-
-                        {{-- Student Modal --}}
+                    </div>
+                    <div class="d-flex align-items-center">
+                        {{-- Button Student Info --}}
                         <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#contactModal">
                             Contact Info
                         </button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="contactModalLabel">{{ $student->fullname }}
-                                        </h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h5 class="content-desc mb-4">Nickname: {{ $student->nickname }}</h5>
-                                        <h5 class="content-desc mb-4">Citizenship: {{ $student->citizenship }}</h5>
-                                        <h5 class="content-desc mb-4">Gender: {{ $student->gender }}</h5>
-                                        <h5 class="content-desc mb-4">Tempat, Tanggal Lahir:
-                                            {{ $student->birth_place }},
-                                            {{ $student->birth_date }}</h5>
-                                        <h5 class="content-desc mb-4"> Agama:
-                                            {{ $student->religion->religion_name }}
-                                            |
-                                            Bergereja di
-                                            {{ $student->church_domicile }}</h5>
-                                        <h5 class="content-desc mb-4">Anak ke - {{ $student->child_position }} Dari
-                                            {{ $student->child_number }} Bersaudara</h5>
-                                        <h5 class="content-desc mb-4">Golongan Darah:
-                                            {{ $student->bloodType->type_name }}</h5>
-                                        <h5 class="content-desc mb-4"><i class="bi bi-envelope"></i> :
-                                            {{ $student->email }}</h5>
-                                        <h5 class="content-desc mb-4">Status Tinggal:
-                                            {{ $student->residenceStatus->status_name }}
-                                        </h5>
-                                        <h5 class="content-desc mb-4">Alamat Siswa:
-                                            {{ $student->studentAddress->student_province }},
-                                            {{ $student->studentAddress->student_regency }},
-                                            {{ $student->studentAddress->student_district }},
-                                            {{ $student->studentAddress->student_village }},
-                                            {{ $student->studentAddress->address }}
-                                        </h5>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Modal Student Info -->
+                        @include('components.modal-show-student-info ')
 
-                        {{-- Student Parent Modal --}}
+                        {{-- Button Info orangtua --}}
                         <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#parentModal">
-                            Parent Info
+                            Info Orangtua
                         </button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="parentModal" tabindex="-1" aria-labelledby="parentModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="parentModalLabel">Parent Of
-                                            {{ $student->fullname }}
-                                        </h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    @if (!empty($studentParent))
-                                        <div class="modal-body">
-                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_name }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_name }}</h5>
-                                            <!-- tambahkan penanganan untuk kemungkinan nilai null -->
-                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_degree ?? 'N/A' }}
-                                            </h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_degree ?? 'N/A' }}
-                                            </h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_job ?? 'N/A' }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_job ?? 'N/A' }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->dad_tel ?? 'N/A' }}</h5>
-                                            <h5 class="content-desc mb-4">{{ $studentParent->mom_tel ?? 'N/A' }}</h5>
-                                            <!-- tambahkan penanganan untuk alamat orang tua -->
-                                            @if ($studentParent->studentParentAddress)
-                                                <h5 class="content-desc mb-4">Alamat Orang Tua:
-                                                    {{ $studentParent->studentParentAddress->parent_province ?? 'N/A' }},
-                                                    {{ $studentParent->studentParentAddress->parent_regency ?? 'N/A' }},
-                                                    {{ $studentParent->studentParentAddress->parent_district ?? 'N/A' }},
-                                                    {{ $studentParent->studentParentAddress->parent_village ?? 'N/A' }},
-                                                    {{ $studentParent->studentParentAddress->address ?? 'N/A' }}
-                                                </h5>
-                                            @else
-                                                <p>Alamat Orang Tua tidak tersedia.</p>
-                                            @endif
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Modal Info Orangtua -->
+                        @include('components.modal-show-parent')
+
+                        <!-- Modal edit orangtua -->
+                        @include('components.modal-edit-parent')
+
+                        {{-- Button Wali --}}
+                        @if (!empty($student->wali))
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#waliModal">
+                                Info Wali
+                            </button>
+                        @endif
+
+                        <!-- Modal Wali -->
+                        @include('components.modal-show-wali')
+
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
