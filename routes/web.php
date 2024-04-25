@@ -43,6 +43,8 @@ Route::resource('transaction', TransactionController::class);
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::resource('interview', InterviewController::class);
+    Route::post('/end-interview/{id}', [InterviewController::class, 'accept'])->name('end-interview');
+    Route::post('/set-zoom/{id}', [InterviewController::class, 'setZoom'])->name('set-zoom');
     Route::resource('transactiontype', TransactionTypeController::class);
 
     Route::post('/pay-now', [PaymentController::class, 'payNow'])->name('pay-now');

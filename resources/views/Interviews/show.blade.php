@@ -33,8 +33,27 @@
                                     <th>User</th>
                                     <td>{{ $interview->user->name }}</td>
                                 </tr>
+                                <tr>
+                                    <th>Link Zoom</th>
+                                    @if ($interview->method == 'offline')
+                                        <td>
+                                            <a href="{{ $interview->link }}" target="_blank">Join Zoom meeting</a>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <p>Silahkan datang ke Sekolah pada tanggal yang ditetapkan.</p>
+                                        </td>
+                                    @endif
+
+                                </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ route('interview.edit', $interview->id) }}" class="text-decoration-none link-warning"
+                            title="Edit Interview {{ $interview->user->name }}">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
                     </div>
                 </div>
             </div>

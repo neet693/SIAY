@@ -84,4 +84,20 @@ class InterviewController extends Controller
         $interview->delete();
         return redirect()->route('interviews.index')->with('success', 'Interview deleted successfully');
     }
+
+    public function accept(Interview $interview, $id)
+    {
+        $interview = Interview::find($id);
+        $interview->status = 'Selesai';
+        $interview->save();
+        return redirect()->back();
+    }
+
+    public function setZoom(Interview $interview, Request $request, $id,)
+    {
+        $interview = Interview::find($id);
+        $interview->link = $request->input('link');
+        $interview->save();
+        return redirect()->back();
+    }
 }

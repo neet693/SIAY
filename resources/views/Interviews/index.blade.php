@@ -76,32 +76,19 @@
                                 </td>
                                 <td>
                                     @if ($interview->status == 'Dijadwalkan')
-                                        <a href="{{ route('interview.edit', $interview->id) }}"
-                                            class="text-decoration-none link-success"
-                                            title="Selesaikan Interview {{ $interview->user->name }}">
-                                            <i class="bi bi-check-circle"></i>
-                                        </a>
-                                        @if ($interview->status == 'Dijadwalkan')
-                                            <a href="{{ route('interview.edit', $interview->id) }}"
-                                                class="text-decoration-none link-warning"
-                                                title="Edit Interview {{ $interview->user->name }}">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a>
-                                        @endif
-                                        <a href="{{ route('interview.edit', $interview->id) }}"
-                                            class="text-decoration-none link-info" title="Set Link Zoom">
-                                            <i class="bi bi-camera-video"></i>
-                                        </a>
-                                        <form action="{{ route('interview.destroy', $interview->id) }}" method="POST"
-                                            class="d-inline">
+                                        <form method="POST"
+                                            action="{{ route('end-interview', ['id' => $interview->id]) }}">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="link-danger text-decoration-none btn">
-                                                <i class="bi bi-trash-fill"></i>
+                                            <button type="submit" class="btn btn-link link-success">
+                                                <i class="bi bi-check-circle"></i>
+                                            </button><button href="#addZoomModal" data-bs-toggle="modal"
+                                                class="btn btn-link link-success"
+                                                title="Set Link Zoom {{ $interview->user->name }}">
+                                                <i class="bi bi-camera-video"></i>
                                             </button>
                                         </form>
+                                        @include('components.modal-add-zoom')
                                     @endif
-
                                 </td>
                             </tr>
                         @endforeach

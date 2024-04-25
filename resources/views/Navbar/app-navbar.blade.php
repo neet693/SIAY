@@ -24,7 +24,7 @@
                     </li>
                 </ul>
                 <div class="d-flex user-logged">
-                    <a href="#">
+                    <a href="{{ route('dashboard') }}" class="text-white">
                         Halo, {{ Auth::user()->name }}!
                         <img src="{{ asset('app/assets/images/user_photo.png') }}" class="user-photo" alt="">
                     </a>
