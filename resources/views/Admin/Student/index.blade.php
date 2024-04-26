@@ -115,6 +115,7 @@
                             <th>No.</th>
                             <th>Nama</th>
                             <th>Jenjang</th>
+                            <th>Tahun Ajaran</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -125,19 +126,24 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $student->fullname }}</td>
                                 <td>{{ $student->schoolInformation->educationLevel->level_name }}</td>
+                                <td>{{ $student->schoolInformation->academicYear->name }}</td>
                                 <td>{{ $student->status_penerimaan }}</td>
                                 <td>
-                                    <form method="POST"
-                                        action="{{ route('admin.set.accept', ['unique_code' => $student->unique_code]) }}">
-                                        @csrf
-                                        <button type="submit"
-                                            class="link-success text-decoration-none btn">Diterima</button>
-                                    </form>
-                                    <form method="POST" class="d-inline"
-                                        action="{{ route('admin.set.reject', ['unique_code' => $student->unique_code]) }}">
-                                        @csrf
-                                        <button type="submit" class="link-danger text-decoration-none btn">Ditolak</button>
-                                    </form>
+                                    @if ($student->status_penerimaan == 'Diterima')
+                                    @else
+                                        <form method="POST"
+                                            action="{{ route('admin.set.accept', ['unique_code' => $student->unique_code]) }}">
+                                            @csrf
+                                            <button type="submit"
+                                                class="link-success text-decoration-none btn">Diterima</button>
+                                        </form>
+                                        <form method="POST" class="d-inline"
+                                            action="{{ route('admin.set.reject', ['unique_code' => $student->unique_code]) }}">
+                                            @csrf
+                                            <button type="submit"
+                                                class="link-danger text-decoration-none btn">Ditolak</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -147,6 +153,7 @@
                             <th>No.</th>
                             <th>Nama</th>
                             <th>Jenjang</th>
+                            <th>Tahun Ajaran</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
