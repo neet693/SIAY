@@ -14,24 +14,17 @@ class ExamController extends Controller
     public function index()
     {
         $exams = Exam::all();
-        return view('Exams.index', compact('exams'));
+        return view('exams.index', compact('exams'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $teachers = User::where('role_id', 2)->get();
-        return view('Exams.create', compact('teachers'));
+        return view('exams.create', compact('teachers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // Validate the request data
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -40,54 +33,41 @@ class ExamController extends Controller
             'schedule_at' => 'required|date',
         ]);
 
-        // Create a new exam instance
-        $exam = new Exam();
+        $exam = Exam::create($request->all());
 
-        // Set the exam properties
-        $exam->title = $request->title;
-        $exam->description = $request->description;
-        $exam->teacher_id = $request->teacher_id;
-        $exam->duration = $request->duration;
-        $exam->schedule_at = $request->schedule_at;
-
-        // Save the exam to the database
-        $exam->save();
-
-        // Redirect to the exam index page
-        return redirect()->route('admin.exam.index');
+        return redirect()->route('admin.exam.index')->with('success', 'Exam created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Exam $exam)
     {
+        $exam->load('questions');
         return view('exams.show', compact('exam'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Exam $exam)
     {
-        //
+        $teachers = User::where('role_id', 2)->get();
+        return view('exams.edit', compact('exam', 'teachers'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Exam $exam)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'teacher_id' => 'required',
+            'duration' => 'required|integer',
+            'schedule_at' => 'required|date',
+        ]);
+
+        $exam->update($request->all());
+
+        return redirect()->route('admin.exam.index')->with('success', 'Exam updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Exam $exam)
     {
         $exam->delete();
-
-        return redirect()->route('exam.index')->with('success', 'Exam deleted successfully.');
+        return redirect()->route('admin.exam.index')->with('success', 'Exam deleted successfully.');
     }
 }

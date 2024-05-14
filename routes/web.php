@@ -8,6 +8,7 @@ use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PPDBController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionTypeController;
@@ -66,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::get('assign-payment', [AdminDashboardController::class, 'assignPaymentChecklist'])->name('assignment.payment');
         Route::post('assign-payment', [AdminDashboardController::class, 'assignPayment'])->name('payment.assign');
         Route::resource('exam', ExamController::class);
+        Route::resource('question', QuestionController::class);
 
 
         // Admin Profile routes

@@ -13,16 +13,16 @@ class Question extends Model
 
     public function exam()
     {
-        return $this->belongsTo(Exam::class);
+        return $this->belongsTo('App\Models\Exam');
     }
 
     public function options()
     {
-        return $this->hasMany(Option::class);
+        return $this->hasMany('App\Models\Option');
     }
 
     public function responses()
     {
-        return $this->hasMany(Response::class);
+        return $this->hasMany('App\Models\Response');
     }
 }

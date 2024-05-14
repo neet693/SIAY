@@ -20,8 +20,13 @@ class Exam extends Model
         return $this->belongsTo(User::class, 'teacher_id');
     }
 
-    public function question()
+    public function questions()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany('App\Models\Question');
+    }
+
+    public function responses()
+    {
+        return $this->hasMany('App\Models\Response');
     }
 }

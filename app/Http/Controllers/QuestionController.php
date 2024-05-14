@@ -29,33 +29,41 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'exam_id' => 'required|exists:exams,id',
             'question_text' => 'required',
             'question_type' => 'required|in:multiple_choice,true_false,short_answer,essay',
-            'options' => 'array|required_if:question_type,multiple_choice',
-            'options.*.option_text' => 'required_if:question_type,multiple_choice',
-            'options.*.is_correct' => 'boolean|required_if:question_type,multiple_choice'
+
         ]);
 
-        // Buat pertanyaan baru
-        $question = Question::create($request->only(['exam_id', 'question_text', 'question_type']));
+        // Simpan pertanyaan
+        $question = new Question([
+            'exam_id' => $request->input('exam_id'),
+            'question_text' => $request->input('question_text'),
+            'question_type' => $request->input('question_type')
+        ]);
+        $question->save();
 
-        // Tambahkan opsi jika ada (untuk pertanyaan pilihan ganda)
-        if ($request->has('options')) {
-            $options = [];
-            foreach ($request->options as $option) {
-                $options[] = new Option([
-                    'option_text' => $option['option_text'],
-                    'is_correct' => $option['is_correct']
+        // Jika tipe pertanyaan adalah multiple choice, simpan pilihan jawaban
+        if ($request->input('question_type') === 'multiple_choice') {
+            $request->validate([
+                'options.*.option_text' => 'required_if:question_type,multiple_choice',
+                'options.*.is_correct' => 'boolean' // Opsional: Validasi untuk is_correct
+            ]);
+            foreach ($request->input('options') as $optionData) {
+                $option = new Option([
+                    'option_text' => $optionData['option_text'],
+                    'is_correct' => isset($optionData['is_correct']) ? (bool)$optionData['is_correct'] : false
                 ]);
+                $question->options()->save($option);
             }
-            $question->options()->saveMany($options);
         }
 
-        return redirect()->back()->with('success', 'Question created successfully.');
+        return redirect()->back()->with('success', 'Question added successfully.');
     }
+
+
+
 
     /**
      * Display the specified resource.
