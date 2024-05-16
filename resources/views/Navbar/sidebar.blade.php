@@ -103,7 +103,7 @@
           </a>
       @endif
 
-      @if (Auth::check() && Auth::user()->role_id == 2)
+      @if (Auth::check() && Auth::user()->role_id == 3)
           {{-- <a href="{{ route('student.dashboard.index') }}" --}}
           <a href="{{ route('student.dashboard') }}"
               class="sidebar-item {{ request()->is('dashboard*') ? 'active' : '' }}" onclick="toggleActive(this)">

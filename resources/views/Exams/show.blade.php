@@ -30,13 +30,11 @@
                             </div>
                         </div>
 
-                        {{-- <button class="btn-statistics">
+                        <button type="button" class="btn-statistics" data-bs-toggle="modal"
+                            data-bs-target="#assignStudentsModal">
                             <img src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
-                        </button> --}}
-
-                        <a href="#" class="btn-statistics">
-                            <img src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
-                        </a>
+                        </button>
+                        @include('components.modal-add-student')
 
                     </div>
                 </div>
@@ -51,7 +49,7 @@
                             <h3 class="statistics-value">{{ $exam->questions->count() }}</h3>
                         </div>
 
-                        {{-- Button Info orangtua --}}
+                        {{-- Button Info tambah soal --}}
                         <button type="button" class="btn-statistics" data-bs-toggle="modal"
                             data-bs-target="#addQuestionModal">
                             <img src="{{ asset('template/assets/img/global/times.svg') }}" alt="">
@@ -82,10 +80,43 @@
                                     <td>
                                         @foreach ($question->options as $answer)
                                             @if ($answer->is_correct)
-                                                <span class="text-success">{{ $question->question_text }}</span>
+                                                <span class="text-success">{{ $answer->option_text }}</span>
                                             @endif
                                             <br>
                                         @endforeach
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {{-- Daftar Siswa yang ikut Ujian --}}
+            <div class="col-12 mt-5">
+                <h2 class="content-title">Daftar Siswa</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nama Siswa</th>
+                                <th scope="col">Kelas</th>
+                                <th scope="col">Total Score</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($exam->assignedStudents as $assignedStudent)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $assignedStudent->student->fullname }}</td>
+                                    <td>{{ $assignedStudent->student->schoolInformation->educationLevel->level_name }}</td>
+                                    <td>
+                                        {{ $assignedStudent->student->score->score }}
+                                    </td>
+                                    <td>
+                                        asdasd
                                     </td>
                                 </tr>
                             @endforeach

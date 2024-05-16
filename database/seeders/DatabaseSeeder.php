@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
                 ReligionSeeder::class,
                 TransactionTypeSeeder::class,
                 // SchoolInformationSeeder::class,
-                // StudentSeeder::class,
+                StudentSeeder::class,
                 // StudentParentSeeder::class,
                 // StudentAddressSeeder::class,
                 // StudentParentAddressSeeder::class,

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
+use App\Http\Controllers\AssignExamController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\InterviewController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PPDBController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionTypeController;
@@ -56,6 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/callback', [PaymentController::class, 'callback']);
     Route::post('/callback', [PaymentController::class, 'callback']);
 
+
     // Admin routes
     Route::prefix('admin')->name('admin.')->middleware('ensureStudentRole')->group(function () {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
@@ -68,6 +71,9 @@ Route::middleware('auth')->group(function () {
         Route::post('assign-payment', [AdminDashboardController::class, 'assignPayment'])->name('payment.assign');
         Route::resource('exam', ExamController::class);
         Route::resource('question', QuestionController::class);
+        Route::post('exams/{exam}/assign', [ExamController::class, 'assignExam'])->name('exams.assign');
+
+
 
 
         // Admin Profile routes
@@ -81,6 +87,12 @@ Route::middleware('auth')->group(function () {
         Route::get('dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
         Route::get('{unique_code}', [StudentDashboardController::class, 'show'])->name('student.show');
         Route::put('update-parent/{unique_code}', [StudentDashboardController::class, 'updateParent'])->name('update-parent');
+
+
+        //Student take the exam Route
+        Route::get('take-exam/{exam}', [StudentDashboardController::class, 'takeExam'])->name('take-exam');
+        // Student Submit exam
+        Route::post('submit-exam/{exam}', [ResponseController::class, 'store'])->name('submit-exam');
 
         // Student Profile routes
         Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');

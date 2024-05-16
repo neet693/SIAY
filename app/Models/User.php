@@ -48,7 +48,8 @@ class User extends Authenticatable
     {
         return match ((int)$this->role_id) {
             1 => 'admin/dashboard',
-            2 => 'student/dashboard',
+            2 => 'teacher/dashboard',
+            3 => 'student/dashboard',
             // ...
         };
     }
@@ -61,5 +62,10 @@ class User extends Authenticatable
     public function student()
     {
         return $this->hasOne(Student::class);
+    }
+
+    public function assignedExams()
+    {
+        return $this->hasMany(AssignExam::class, 'student_id');
     }
 }

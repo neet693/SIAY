@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exam;
+use App\Models\Score;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,8 @@ class ExamController extends Controller
     public function show(Exam $exam)
     {
         $exam->load('questions');
-        return view('exams.show', compact('exam'));
+        $students = User::where('role_id', 3)->get();
+        return view('exams.show', compact('exam', 'students'));
     }
 
     public function edit(Exam $exam)
@@ -69,5 +71,23 @@ class ExamController extends Controller
     {
         $exam->delete();
         return redirect()->route('admin.exam.index')->with('success', 'Exam deleted successfully.');
+    }
+
+    public function assignExam(Request $request, Exam $exam)
+    {
+        // Validasi data yang diterima dari formulir
+        $request->validate([
+            'students' => 'required|array',
+            'students.*' => 'exists:users,id',
+        ]);
+
+        // Ambil id siswa yang dipilih dari request
+        $studentIds = $request->input('students');
+
+        // Menugaskan ujian kepada siswa dengan menggunakan metode attach
+        $exam->assignedStudents()->attach($studentIds);
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('admin.exam.show', $exam)->with('success', 'Exam assigned to students successfully.');
     }
 }

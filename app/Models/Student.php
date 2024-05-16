@@ -97,4 +97,9 @@ class Student extends Model
     {
         return $this->belongsTo(transactionType::class);
     }
+
+    public function score()
+    {
+        return $this->hasOne(Score::class, 'user_id', 'student_id')->where('exam_id', $this->exam_id);
+    }
 }

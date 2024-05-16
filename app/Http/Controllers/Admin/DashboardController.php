@@ -31,7 +31,7 @@ class DashboardController extends Controller
             'parents',
             'PaidTransaction',
             'PPDBUnpaid',
-            'transactions'
+            'transactions',
 
         ));
     }

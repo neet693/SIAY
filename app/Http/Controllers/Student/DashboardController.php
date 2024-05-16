@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Exam;
 use App\Models\Interview;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class DashboardController extends Controller
     {
         $user  = Auth::user();
         $interview = Interview::where('user_id', $user->id)->first();
-        return view('Student.dashboard', compact('interview'));
+        $assignedExams = $user->assignedExams()->with('exam')->get();
+        return view('Student.dashboard', compact('interview', 'assignedExams'));
     }
 
     /**
@@ -138,5 +140,11 @@ class DashboardController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function takeExam(Exam $exam)
+    {
+        $questions = $exam->questions;
+        return view('Student.takeExam', compact('exam', 'questions'));
     }
 }
