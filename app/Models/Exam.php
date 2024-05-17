@@ -32,6 +32,28 @@ class Exam extends Model
 
     public function assignedStudents()
     {
-        return $this->belongsToMany(User::class, 'assign_exams', 'exam_id', 'student_id');
+        return $this->belongsToMany(Student::class, 'assign_exams', 'exam_id', 'student_id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'assigned_students', 'exam_id', 'student_id')
+            ->withPivot('score');
+    }
+
+    public function score($student)
+    {
+        $questions = $this->questions;
+        $studentScore = 0;
+        foreach ($questions as $question) {
+            $answer = $question->options()->where('is_correct', 1)->first();
+            $studentAnswer = $student->answers()
+                ->where('question_id', $question->id)
+                ->first();
+            if ($studentAnswer && $studentAnswer->option_id == $answer->id) {
+                $studentScore += $question->point;
+            }
+        }
+        return $studentScore;
     }
 }

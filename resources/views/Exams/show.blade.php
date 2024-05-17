@@ -107,17 +107,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($exam->assignedStudents as $assignedStudent)
+                            @foreach ($assignedStudents as $student)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $assignedStudent->student->fullname }}</td>
-                                    <td>{{ $assignedStudent->student->schoolInformation->educationLevel->level_name }}</td>
-                                    <td>
-                                        {{ $assignedStudent->student->score->score }}
-                                    </td>
-                                    <td>
-                                        asdasd
-                                    </td>
+                                    <td>{{ $student->fullname }}</td>
+                                    <td>{{ $student->schoolInformation->educationLevel->level_name }}</td>
+                                    @foreach ($student->scores as $score)
+                                        <td>{{ $score->mark }}</td>
+                                    @endforeach
                                 </tr>
                             @endforeach
                         </tbody>

@@ -13,16 +13,16 @@ class Response extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function exam()
     {
-        return $this->belongsTo('App\Models\Exam');
+        return $this->belongsTo(Exam::class);
     }
 
     public function question()
     {
-        return $this->belongsTo('App\Models\Question');
+        return $this->belongsTo(Question::class);
     }
 }

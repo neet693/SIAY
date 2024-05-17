@@ -43,7 +43,9 @@ class ExamController extends Controller
     {
         $exam->load('questions');
         $students = User::where('role_id', 3)->get();
-        return view('exams.show', compact('exam', 'students'));
+        $assignedStudents = $exam->assignedStudents;
+
+        return view('exams.show', compact('exam', 'students', 'assignedStudents'));
     }
 
     public function edit(Exam $exam)

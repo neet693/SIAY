@@ -7,6 +7,7 @@ use App\Models\Option;
 use App\Models\Response;
 use App\Models\Score;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ResponseController extends Controller
 {
@@ -14,19 +15,20 @@ class ResponseController extends Controller
     {
         // Validasi data yang diterima dari formulir
         $request->validate([
-            'answers.*' => 'required', // Sesuaikan dengan aturan validasi yang diperlukan
+            'answers' => 'required|array',
+            'answers.*' => 'required', // Pastikan semua jawaban diisi
         ]);
 
         // Simpan jawaban ke dalam tabel responses
         foreach ($request->answers as $questionId => $answer) {
             Response::create([
-                'user_id' => auth()->id(),
+                'student_id' => auth()->id(),
                 'exam_id' => $exam->id,
                 'question_id' => $questionId,
-                'response_text' => $answer,
+                'option_id' => $answer,
+                'response_text' => $answer, // Pastikan ini adalah teks jawaban atau ID yang diinginkan
             ]);
         }
-
 
         // Lakukan evaluasi ujian
         $this->evaluateExam($exam, auth()->id());
@@ -36,26 +38,27 @@ class ResponseController extends Controller
     }
 
 
+
     public function evaluateExam(Exam $exam, $studentId)
     {
         // Ambil jawaban siswa untuk ujian tertentu
-        $studentResponses = Response::where('user_id', $studentId)
-            ->whereIn('question_id', $exam->questions->pluck('id'))
-            ->pluck('response_text', 'question_id');
+        $studentResponses = Response::where('student_id', $studentId)
+            ->whereIn('question_id', $exam->questions()->pluck('id'))
+            ->pluck('option_id', 'question_id');
 
         // Hitung skor
         $score = 0;
         $totalQuestions = $exam->questions->count(); // Jumlah total pertanyaan
 
         foreach ($exam->questions as $question) {
-            if ($question->question_type === 'multiple_choice') {
+            if ($question->question_type === 'multiple_choice' || $question->question_type === 'pilihan_ganda') {
                 // Ambil opsi jawaban yang benar dari model Option
                 $correctOption = Option::where('question_id', $question->id)
                     ->where('is_correct', true)
                     ->first();
 
-                // Bandingkan jawaban siswa dengan jawaban yang benar (jika ada)
-                if ($correctOption && $studentResponses->get($question->id) === $correctOption->option_text) {
+                // Bandingkan jawaban siswa dengan jawaban yang benar
+                if ($studentResponses->get($question->id) == $correctOption->id) {
                     $score++;
                 }
             } else {
@@ -64,16 +67,15 @@ class ResponseController extends Controller
         }
 
         // Jika semua jawaban benar, atur skor menjadi 100
-        if ($score === $totalQuestions) {
-            $score = 100;
+        if ($totalQuestions > 0) {
+            $score = ($score / $totalQuestions) * 100;
         }
 
-        // Simpan skor ke dalam tabel Score
-        Score::create([
-            'exam_id' => $exam->id,
-            'user_id' => $studentId,
-            'score' => $score,
-        ]);
+        // Simpan atau perbarui skor di dalam tabel Score
+        Score::updateOrCreate(
+            ['exam_id' => $exam->id, 'student_id' => $studentId],
+            ['mark' => $score]
+        );
 
         // Kembalikan nilai skor untuk digunakan dalam tampilan tabel
         return $score;
