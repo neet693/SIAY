@@ -66,6 +66,8 @@ class User extends Authenticatable
 
     public function assignedExams()
     {
-        return $this->hasMany(AssignExam::class, 'student_id');
+        return $this->hasManyThrough(AssignExam::class, Student::class);
     }
+
+
 }

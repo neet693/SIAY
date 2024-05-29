@@ -102,4 +102,14 @@ class Student extends Model
     {
         return $this->hasMany(Score::class);
     }
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+public function assignedExams()
+{
+    return $this->hasMany(AssignExam::class, 'student_id');
+}
+
 }

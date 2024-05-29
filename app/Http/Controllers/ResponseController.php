@@ -12,30 +12,34 @@ use Illuminate\Support\Facades\Log;
 class ResponseController extends Controller
 {
     public function store(Request $request, Exam $exam)
-    {
-        // Validasi data yang diterima dari formulir
-        $request->validate([
-            'answers' => 'required|array',
-            'answers.*' => 'required', // Pastikan semua jawaban diisi
+{
+    // Validasi data yang diterima dari formulir
+    $request->validate([
+        'answers' => 'required|array',
+        'answers.*' => 'required', // Pastikan semua jawaban diisi
+    ]);
+
+    // Dapatkan ID siswa berdasarkan pengguna yang sedang masuk
+    $studentId = auth()->user()->student->id;
+
+    // Simpan jawaban ke dalam tabel responses
+    foreach ($request->answers as $questionId => $answer) {
+        Response::create([
+            'student_id' => $studentId,
+            'exam_id' => $exam->id,
+            'question_id' => $questionId,
+            'option_id' => $answer,
+            'response_text' => $answer, // Pastikan ini adalah teks jawaban atau ID yang diinginkan
         ]);
-
-        // Simpan jawaban ke dalam tabel responses
-        foreach ($request->answers as $questionId => $answer) {
-            Response::create([
-                'student_id' => auth()->id(),
-                'exam_id' => $exam->id,
-                'question_id' => $questionId,
-                'option_id' => $answer,
-                'response_text' => $answer, // Pastikan ini adalah teks jawaban atau ID yang diinginkan
-            ]);
-        }
-
-        // Lakukan evaluasi ujian
-        $this->evaluateExam($exam, auth()->id());
-
-        // Redirect kembali dengan pesan sukses
-        return redirect()->route('student.dashboard')->with('success', 'Exam submitted successfully.');
     }
+
+    // Lakukan evaluasi ujian
+    $this->evaluateExam($exam, $studentId);
+
+    // Redirect kembali dengan pesan sukses
+    return redirect()->route('student.dashboard')->with('success', 'Exam submitted successfully.');
+}
+
 
 
 

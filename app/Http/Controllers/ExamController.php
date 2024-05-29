@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Exam;
 use App\Models\Score;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -80,14 +81,17 @@ class ExamController extends Controller
         // Validasi data yang diterima dari formulir
         $request->validate([
             'students' => 'required|array',
-            'students.*' => 'exists:users,id',
+            'students.*' => 'exists:students,user_id',
         ]);
 
-        // Ambil id siswa yang dipilih dari request
-        $studentIds = $request->input('students');
+        // Ambil user_id siswa yang dipilih dari request
+        $userIds = $request->input('students', []);
 
-        // Menugaskan ujian kepada siswa dengan menggunakan metode attach
-        $exam->assignedStudents()->attach($studentIds);
+        // Dapatkan student_id berdasarkan user_id yang sesuai
+        $students = Student::whereIn('user_id', $userIds)->pluck('id');
+
+        // Menugaskan ujian kepada siswa dengan menggunakan metode syncWithoutDetaching
+        $exam->assignedStudents()->syncWithoutDetaching($students);
 
         // Redirect kembali dengan pesan sukses
         return redirect()->route('admin.exam.show', $exam)->with('success', 'Exam assigned to students successfully.');
