@@ -276,6 +276,10 @@ body {
     padding-bottom: 70px;
 }
 
+.pt-70{
+    padding-top:70px;
+}
+
 .header-wrap .primary-header {
     margin-top: 8px;
 }

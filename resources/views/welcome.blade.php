@@ -48,7 +48,7 @@
             <div class="row justify-items-center justify-content-center">
                 <div class="col-lg-3 col-12">
                     <div class="item-benefit">
-                        <img src="{{ asset('app/assets/images/ic_globe.png') }}" class="icon" alt="">
+                        <img src="{{ asset('app/assets/images/ic-s.png') }}" class="icon" alt="">
                         <h3 class="title">
                             Seimbang
                         </h3>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-lg-3 col-12">
                     <div class="item-benefit">
-                        <img src="{{ asset('app/assets/images/ic_globe-1.png') }}" class="icon" alt="">
+                        <img src="{{ asset('app/assets/images/ic-m.png') }}" class="icon" alt="">
                         <h3 class="title">
                             Maju
                         </h3>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-lg-3 col-12">
                     <div class="item-benefit">
-                        <img src="{{ asset('app/assets/images/ic_globe-2.png') }}" class="icon" alt="">
+                        <img src="{{ asset('app/assets/images/ic-a.png') }}" class="icon" alt="">
                         <h3 class="title">
                             Alkitabiah
                         </h3>
@@ -84,7 +84,7 @@
             <div class="row justify-items-center justify-content-center">
                 <div class="col-lg-3 col-12">
                     <div class="item-benefit">
-                        <img src="{{ asset('app/assets/images/ic_globe-3.png') }}" class="icon" alt="">
+                        <img src="{{ asset('app/assets/images/ic-r.png') }}" class="icon" alt="">
                         <h3 class="title">
                             Ramah
                         </h3>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-lg-3 col-12">
                     <div class="item-benefit">
-                        <img src="{{ asset('app/assets/images/ic_globe-3.png') }}" class="icon" alt="">
+                        <img src="{{ asset('app/assets/images/ic-t.png') }}" class="icon" alt="">
                         <h3 class="title">
                             Tertib
                         </h3>
@@ -190,7 +190,7 @@
 
     <section class="brands">
         <div class="container">
-            <div class="row text-center pb-70">
+            <div class="row text-center pb-70 pt-70">
                 <div class="col-lg-12 col-12 header-wrap">
                     <p class="story">
                         SPONSOR KAMI
@@ -213,7 +213,7 @@
 
     <section class="testimonials">
         <div class="container">
-            <div class="row text-center pb-70">
+            <div class="row text-center pb-70 pt-70">
                 <div class="col-lg-12 col-12 header-wrap">
                     <p class="story">
                         CERITA SUKSES SISWA
