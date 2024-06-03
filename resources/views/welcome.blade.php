@@ -10,15 +10,15 @@
                                 Sekolah Kristen Yahya
                             </p>
                             <h1 class="header">
-                                Discover <span class="text-purple">SMART <br> Learning</span> With Us!
+                                Temukan <span class="text-purple">Pembelajaran <br> CERDAS </span> Bersama Kami!
                             </h1>
                             <p class="support">
-                                Empowering Students to Thrive in a Balanced, Progressive, Scripture-based, Friendly, and
-                                Disciplined Environment
+                                Memberdayakan Siswa untuk Berkembang di Lingkungan yang Seimbang, Progresif, Berdasarkan
+                                Kitab Suci, Ramah, dan Disiplin
                             </p>
                             <p class="cta">
                                 <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-primary">
-                                    Enroll Now
+                                    Daftar Sekarang
                                 </a>
                             </p>
                         </div>
@@ -30,15 +30,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row brands">
-                {{-- Awal col-lg-12 col-12 text-centre --}}
-                <div class="col-lg-6 col-12 text-center">
-                    <img src="{{ asset('app/assets/images/ovs-es.png') }}" alt="">
-                </div>
-                <div class="col-lg-6 col-12 text-center">
-                    <img src="{{ asset('app/assets/images/g-suite.png') }}" alt="">
-                </div>
-            </div>
         </div>
     </section>
 
@@ -47,10 +38,10 @@
             <div class="row text-center pb-70">
                 <div class="col-lg-12 col-12 header-wrap">
                     <p class="story">
-                        Why Choose Sekolah Kristen Yahya?
+                        Mengapa Memilih Sekolah Kristen Yahya?
                     </p>
                     <h2 class="primary-header">
-                        Experience SMART Excellence With Us!
+                        Rasakan Keunggulan CERDAS Bersama Kami!
                     </h2>
                 </div>
             </div>
@@ -59,7 +50,7 @@
                     <div class="item-benefit">
                         <img src="{{ asset('app/assets/images/ic_globe.png') }}" class="icon" alt="">
                         <h3 class="title">
-                            Seimbang (Balanced)
+                            Seimbang
                         </h3>
                         <p class="support">
                             Pendekatan pembelajaran yang menekankan keseimbangan kecerdasan intelektual, emosional, dan
@@ -71,7 +62,7 @@
                     <div class="item-benefit">
                         <img src="{{ asset('app/assets/images/ic_globe-1.png') }}" class="icon" alt="">
                         <h3 class="title">
-                            Maju (Progressive)
+                            Maju
                         </h3>
                         <p class="support">
                             Pengajaran terkini yang mengikuti perkembangan teknologi dan metode pembelajaran terbaru.
@@ -82,7 +73,7 @@
                     <div class="item-benefit">
                         <img src="{{ asset('app/assets/images/ic_globe-2.png') }}" class="icon" alt="">
                         <h3 class="title">
-                            Alkitabiah (Scripture-based)
+                            Alkitabiah
                         </h3>
                         <p class="support">
                             Integrasi nilai-nilai Kristen dan ajaran Alkitab dalam seluruh aspek pembelajaran.
@@ -95,7 +86,7 @@
                     <div class="item-benefit">
                         <img src="{{ asset('app/assets/images/ic_globe-3.png') }}" class="icon" alt="">
                         <h3 class="title">
-                            Ramah (Friendly)
+                            Ramah
                         </h3>
                         <p class="support">
                             Kolaborasi antara siswa, guru, dan orang tua untuk menciptakan atmosfer positif.
@@ -106,7 +97,7 @@
                     <div class="item-benefit">
                         <img src="{{ asset('app/assets/images/ic_globe-3.png') }}" class="icon" alt="">
                         <h3 class="title">
-                            Tertib (Disciplined)
+                            Tertib
                         </h3>
                         <p class="support">
                             Disiplin yang diajarkan dengan pendekatan pedagogis yang mendukung perkembangan pribadi.
@@ -122,10 +113,10 @@
             <div class="row text-center pb-70">
                 <div class="col-lg-12 col-12 header-wrap">
                     <p class="story">
-                        Effortless PPDB Enrollment in 3 Simple Steps
+                        Pendaftaran PPDB yang Mudah dalam 3 Langkah Sederhana
                     </p>
                     <h2 class="primary-header">
-                        Join Our SMART Learning Community with Ease
+                        Bergabunglah dengan Komunitas Pembelajaran CERDAS Kami dengan Mudah
                     </h2>
                 </div>
             </div>
@@ -135,17 +126,17 @@
                 </div>
                 <div class="col-lg-6 col-12 text-left copywriting">
                     <p class="story">
-                        Explore
+                        Jelajahi
                     </p>
                     <h2 class="primary-header">
-                        Explore Our Program
+                        Jelajahi Program Kami
                     </h2>
                     <p class="support">
-                        Find the perfect fit <br> for your interests and goals.
+                        Temukan kesesuaian yang tepat <br> untuk minat dan tujuan Anda.
                     </p>
                     <p class="mt-5">
                         <a href="#" class="btn btn-master btn-secondary me-3">
-                            Explore Program
+                            Jelajahi Program
                         </a>
                     </p>
                 </div>
@@ -153,13 +144,13 @@
             <div class="row item-step pb-70">
                 <div class="col-lg-6 col-12 text-left copywriting pl-150">
                     <p class="story">
-                        Apply
+                        Lamar
                     </p>
                     <h2 class="primary-header">
-                        Apply with ease
+                        Lamar dengan Mudah
                     </h2>
                     <p class="support">
-                        Just fillout the School Information, Student Information, and Parent Information.
+                        Cukup isi Informasi Sekolah, Informasi Siswa, dan Informasi Orang Tua.
                     </p>
                     <p class="mt-5">
                         <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-secondary me-3">
@@ -178,14 +169,14 @@
                 </div>
                 <div class="col-lg-6 col-12 text-left copywriting">
                     <p class="story">
-                        Confirm
+                        Konfirmasi
                     </p>
                     <h2 class="primary-header">
-                        Pay and Await Confirmation
+                        Bayar dan Tunggu Konfirmasi
                     </h2>
                     <p class="support">
-                        You can pay it via Online or Offiline. Afterwards <br>
-                        Sit back, relax, and await confirmation through the PPDB application or website
+                        Anda dapat membayarnya secara Online atau Offline. Kemudian <br>
+                        Duduklah, bersantailah, dan tunggu konfirmasi melalui aplikasi atau situs web PPDB
                     </p>
                     <p class="mt-5">
                         <a href="{{ route('login') }}" class="btn btn-master btn-secondary me-3">
@@ -249,15 +240,38 @@
             </div>
     </section> --}}
 
+    <section class="brands">
+        <div class="container">
+            <div class="row text-center pb-70">
+                <div class="col-lg-12 col-12 header-wrap">
+                    <p class="story">
+                        SPONSOR KAMI
+                    </p>
+                    <h2 class="primary-header">
+                        Sekolah Kristen Yahya bekerja sama dengan
+                    </h2>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-lg-6 col-12 text-center">
+                <img src="{{ asset('app/assets/images/ovs-es.png') }}" alt="">
+            </div>
+            <div class="col-lg-6 col-12 text-center">
+                <img src="{{ asset('app/assets/images/g-suite.png') }}" alt="">
+            </div>
+        </div>
+    </div>
+    </section>
+
     <section class="testimonials">
         <div class="container">
             <div class="row text-center pb-70">
                 <div class="col-lg-12 col-12 header-wrap">
                     <p class="story">
-                        SUCCESS STUDENTS
+                        CERITA SUKSES SISWA
                     </p>
                     <h2 class="primary-header">
-                        We Really Love Laracamp
+                        Kami Benar-benar Mencintai Sekolah Kristen Yahya
                     </h2>
                 </div>
             </div>
@@ -268,18 +282,17 @@
                             <div class="item-review">
                                 <img src="{{ asset('app/assets/images/stars.svg') }}" alt="">
                                 <p class="message">
-                                    I was not really into code but after they teach me how to train my logic then I was
-                                    really fall in love with code
+                                    Yahya adalah lingkungan ideal untuk mengembangkan ilmu pengetahuan. Dengan guru-guru yang berpengalaman dan teman-teman yang suportif, serta fasilitas yang memadai, Yahya adalah pilihan terpercaya. Pengembangan karakter menjadi fokus utama di sini.
                                 </p>
                                 <div class="user">
                                     <img src="{{ asset('app/assets/images/fanny_photo.png') }}" class="photo"
                                         alt="">
                                     <div class="info">
                                         <h4 class="name">
-                                            Fanny
+                                            Mishel Bryna Nathania
                                         </h4>
                                         <p class="role">
-                                            Developer at Google
+                                            Universitas Padjajaran
                                         </p>
                                     </div>
                                 </div>
@@ -289,16 +302,16 @@
                             <div class="item-review">
                                 <img src="{{ asset('app/assets/images/stars.svg') }}" alt="">
                                 <p class="message">
-                                    Code is really important if we want to build a company and strike to the win
+                                    Setiap pelajaran di Yahya dihiasi dengan keberagaman guru-guru yang menghadirkan cerita-cerita bermakna. Hal ini menjadikan setiap jam pelajaran menjadi pengalaman yang tidak monoton.
                                 </p>
                                 <div class="user">
                                     <img src="{{ asset('app/assets/images/angga.png') }}" class="photo" alt="">
                                     <div class="info">
                                         <h4 class="name">
-                                            Angga
+                                           Steven Nathanael Setiawan
                                         </h4>
                                         <p class="role">
-                                            CEO at BWA Corp
+                                            Universitas Diponegoro
                                         </p>
                                     </div>
                                 </div>
@@ -308,18 +321,17 @@
                             <div class="item-review">
                                 <img src="{{ asset('app/assets/images/stars.svg') }}" alt="">
                                 <p class="message">
-                                    My background is design and art but I do really love how to make my design working
-                                    in the development phase
+                                    Merasa sangat bahagia dan bersyukur di Yahya, tempat di mana belajar tidak hanya tentang akademik, tapi juga tentang kepemimpinan dan organisasi. Guru-gurunya sangat komunikatif dan teman-temannya baik, tanpa adanya intimidasi. Semoga Yahya terus menjadi berkat bagi banyak orang.
                                 </p>
                                 <div class="user">
                                     <img src="{{ asset('app/assets/images/beatrice.png') }}" class="photo"
                                         alt="">
                                     <div class="info">
                                         <h4 class="name">
-                                            Beatrice
+                                            Keisha Grace Kristian
                                         </h4>
                                         <p class="role">
-                                            QA at Facebook
+                                            Program Pendidikan IT BCA
                                         </p>
                                     </div>
                                 </div>
@@ -329,7 +341,7 @@
                     <div class="row copyright">
                         <div class="col-lg-12 col-12">
                             <p>
-                                All Rights Reserved. Made With ❤️ By Yahya IT Dept
+                                Hak Cipta Dilindungi. Dibuat Dengan ❤️ Oleh Departemen IT Yahya
                             </p>
                         </div>
                     </div>
