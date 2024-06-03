@@ -17,7 +17,7 @@
                                 Kitab Suci, Ramah, dan Disiplin
                             </p>
                             <p class="cta">
-                                <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-primary">
+                                <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-login">
                                     Daftar Sekarang
                                 </a>
                             </p>
@@ -144,16 +144,16 @@
             <div class="row item-step pb-70">
                 <div class="col-lg-6 col-12 text-left copywriting pl-150">
                     <p class="story">
-                        Lamar
+                        Daftar
                     </p>
                     <h2 class="primary-header">
-                        Lamar dengan Mudah
+                        Daftar dengan Mudah
                     </h2>
                     <p class="support">
                         Cukup isi Informasi Sekolah, Informasi Siswa, dan Informasi Orang Tua.
                     </p>
                     <p class="mt-5">
-                        <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-secondary me-3">
+                        <a href="{{ route('ppdb.create') }}" class="btn btn-master btn-login">
                             Daftar PPDB
                         </a>
                     </p>
