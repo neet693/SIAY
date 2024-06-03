@@ -197,7 +197,7 @@
         </div>
     </section>
 
-    <section id="AcceptedStudent" class="pricing">
+    {{-- <section id="AcceptedStudent" class="pricing">
         <div class="container">
             <div class="row text-center pb-70">
                 <div class="col-lg-12 col-12 header-wrap">
@@ -247,7 +247,7 @@
                     </div>
                 </div>
             </div>
-    </section>
+    </section> --}}
 
     <section class="testimonials">
         <div class="container">
@@ -337,9 +337,9 @@
             </div>
         </div>
     </section>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#ppdbTable').DataTable();
         });
-    </script>
+    </script> --}}
 @endsection

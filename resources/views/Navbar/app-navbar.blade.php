@@ -11,18 +11,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('program*') ? 'active' : '' }}" aria-current="page"
-                            href="#">Program</a>
+                        <a class="nav-link {{ request()->is('visimisi*') ? 'active' : '' }}" aria-current="page"
+                            href="#">Visi Misi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('mentor*') ? 'active' : '' }}" href="#">Mentor</a>
+                        <a class="nav-link {{ request()->is('program*') ? 'active' : '' }}" href="#">Program</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('AcceptanceStudent*') ? 'active' : '' }}"
-                            href="#AcceptedStudent">Tabel Penerimaan</a>
+                        <a class="nav-link {{ request()->is('keunggulan*') ? 'active' : '' }}" href="#">Keunggulan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('bussines*') ? 'active' : '' }}" href="#">Business</a>
+                        <a class="nav-link {{ request()->is('fasilitas*') ? 'active' : '' }}" href="#">Fasilitas</a>
                     </li>
                 </ul>
                 <div class="d-flex user-logged">
@@ -49,18 +48,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('program*') ? 'active' : '' }}" aria-current="page"
-                            href="#">Program</a>
+                        <a class="nav-link {{ request()->is('visimisi*') ? 'active' : '' }}" aria-current="page"
+                            href="#">Visi Misi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('mentor*') ? 'active' : '' }}" href="#">Mentor</a>
+                        <a class="nav-link {{ request()->is('program*') ? 'active' : '' }}" href="#">Program</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link {{ request()->is('AcceptanceStudent*') ? 'active' : '' }}"
                             href="#AcceptedStudent">Tabel Penerimaan</a>
+                    </li> --}}
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('keunggulan*') ? 'active' : '' }}" href="#">Keunggulan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('bussines*') ? 'active' : '' }}" href="#">Business</a>
+                        <a class="nav-link {{ request()->is('fasilitas*') ? 'active' : '' }}" href="#">Fasilitas</a>
                     </li>
                 </ul>
                 <div class="d-flex">
