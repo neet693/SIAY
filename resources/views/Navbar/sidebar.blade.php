@@ -4,7 +4,7 @@
               {{-- <img src="{{ asset('template/assets/img/global/logo.svg') }}" alt="">
                --}}
               {{-- <span>PowerHuman</span> --}}
-              <img src="{{ asset('app/assets/images/logo-sky.png') }}" alt="" width="150px">
+              <img src="{{ asset('app/assets/images/siay-logo.png') }}" alt="" width="150px">
           </div>
 
           <button id="toggle-navbar" onclick="toggleNavbar()">
