@@ -10,7 +10,7 @@
                                 Sekolah Kristen Yahya
                             </p>
                             <h1 class="header">
-                                Temukan <span class="text-purple">Pembelajaran <br> CERDAS </span> Bersama Kami!
+                                Temukan <span class="text-purple">Pembelajaran <br> SMART </span> Bersama Kami!
                             </h1>
                             <p class="support">
                                 Memberdayakan Siswa untuk Berkembang di Lingkungan yang Seimbang, Progresif, Berdasarkan
@@ -188,58 +188,6 @@
         </div>
     </section>
 
-    {{-- <section id="AcceptedStudent" class="pricing">
-        <div class="container">
-            <div class="row text-center pb-70">
-                <div class="col-lg-12 col-12 header-wrap">
-                    <p class="story">
-                        Lihat siapa saja yang sudah diterima
-                    </p>
-                    <h2 class="primary-header text-white">
-                        Tabel Penerimaan
-                    </h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-12">
-                        <div class="table-pricing">
-                            <table id="ppdbTable" class="table table-striped"
-                                style="width:100%; justify-content: center">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Nama</th>
-                                        <th>Jenjang</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($students as $student)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $student->fullname }}</td>
-                                            <td>{{ $student->schoolInformation->educationLevel->level_name }}</td>
-                                            <td>
-                                                <p style="color: green">{{ $student->status_penerimaan }}
-                                                </p>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Nama</th>
-                                        <th>Jenjang</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section> --}}
-
     <section class="brands">
         <div class="container">
             <div class="row text-center pb-70">
@@ -256,7 +204,7 @@
             <div class="col-lg-6 col-12 text-center">
                 <img src="{{ asset('app/assets/images/ovs-es.png') }}" alt="">
             </div>
-            <div class="col-lg-6 col-12 text-center">
+            <div class="col-lg-6 col-6 text-center">
                 <img src="{{ asset('app/assets/images/g-suite.png') }}" alt="">
             </div>
         </div>
@@ -292,7 +240,7 @@
                                             Mishel Bryna Nathania
                                         </h4>
                                         <p class="role">
-                                            Universitas Padjajaran
+                                            Univ. Padjajaran
                                         </p>
                                     </div>
                                 </div>
@@ -311,7 +259,7 @@
                                            Steven Nathanael Setiawan
                                         </h4>
                                         <p class="role">
-                                            Universitas Diponegoro
+                                            Univ. Diponegoro
                                         </p>
                                     </div>
                                 </div>
@@ -331,7 +279,7 @@
                                             Keisha Grace Kristian
                                         </h4>
                                         <p class="role">
-                                            Program Pendidikan IT BCA
+                                            Prog. Pendidikan IT BCA
                                         </p>
                                     </div>
                                 </div>
@@ -349,9 +297,5 @@
             </div>
         </div>
     </section>
-    {{-- <script>
-        $(document).ready(function() {
-            $('#ppdbTable').DataTable();
-        });
-    </script> --}}
+
 @endsection
