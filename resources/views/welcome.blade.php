@@ -201,7 +201,7 @@
                 </div>
             </div>
         <div class="row">
-            <div class="col-lg-6 col-12 text-center">
+            <div class="col-lg-6 col-6 text-center">
                 <img src="{{ asset('app/assets/images/ovs-es.png') }}" alt="">
             </div>
             <div class="col-lg-6 col-6 text-center">
