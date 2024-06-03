@@ -285,7 +285,7 @@
                                     Yahya adalah lingkungan ideal untuk mengembangkan ilmu pengetahuan. Dengan guru-guru yang berpengalaman dan teman-teman yang suportif, serta fasilitas yang memadai, Yahya adalah pilihan terpercaya. Pengembangan karakter menjadi fokus utama di sini.
                                 </p>
                                 <div class="user">
-                                    <img src="{{ asset('app/assets/images/fanny_photo.png') }}" class="photo"
+                                    <img src="{{ asset('app/assets/images/mishelbryna.png') }}" class="photo"
                                         alt="">
                                     <div class="info">
                                         <h4 class="name">
@@ -305,7 +305,7 @@
                                     Setiap pelajaran di Yahya dihiasi dengan keberagaman guru-guru yang menghadirkan cerita-cerita bermakna. Hal ini menjadikan setiap jam pelajaran menjadi pengalaman yang tidak monoton.
                                 </p>
                                 <div class="user">
-                                    <img src="{{ asset('app/assets/images/angga.png') }}" class="photo" alt="">
+                                    <img src="{{ asset('app/assets/images/stevennathanael.png') }}" class="photo" alt="">
                                     <div class="info">
                                         <h4 class="name">
                                            Steven Nathanael Setiawan
@@ -324,7 +324,7 @@
                                     Merasa sangat bahagia dan bersyukur di Yahya, tempat di mana belajar tidak hanya tentang akademik, tapi juga tentang kepemimpinan dan organisasi. Guru-gurunya sangat komunikatif dan teman-temannya baik, tanpa adanya intimidasi. Semoga Yahya terus menjadi berkat bagi banyak orang.
                                 </p>
                                 <div class="user">
-                                    <img src="{{ asset('app/assets/images/beatrice.png') }}" class="photo"
+                                    <img src="{{ asset('app/assets/images/keishagrace.png') }}" class="photo"
                                         alt="">
                                     <div class="info">
                                         <h4 class="name">
