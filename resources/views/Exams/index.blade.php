@@ -3,13 +3,11 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Daftar Ujian</div>
-
-                    <div class="card-body">
+            <div class="col-md-12">
+                <div class="row mt-5">
+                    <div class="container">
                         <a href="{{ route('admin.exam.create') }}" class="btn btn-primary mb-3">Tambah Ujian</a>
-                        <table class="table">
+                        <table id="examsTable" class="table table-striped" style="width:100%; justify-content: center">
                             <thead>
                                 <tr>
                                     <th>Nama Ujian</th>
@@ -42,10 +40,26 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Nama Ujian</th>
+                                    <th>Deskripsi</th>
+                                    <th>Guru</th>
+                                    <th>Durasi</th>
+                                    <th>Tanggal</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#examsTable').DataTable(); // #example adalah ID tabel yang ingin Anda terapkan DataTables
+        });
+    </script>
 @endsection
