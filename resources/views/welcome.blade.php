@@ -41,7 +41,7 @@
                         Mengapa Memilih Sekolah Kristen Yahya?
                     </p>
                     <h2 class="primary-header">
-                        Rasakan Keunggulan CERDAS Bersama Kami!
+                        Rasakan <span class="text-purple">Keunggulan SMART</span> Bersama Kami!
                     </h2>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                         Pendaftaran PPDB yang Mudah dalam 3 Langkah Sederhana
                     </p>
                     <h2 class="primary-header">
-                        Bergabunglah dengan Komunitas Pembelajaran CERDAS Kami dengan Mudah
+                        Bergabunglah dengan Komunitas <span class="text-purple">Pembelajaran SMART</span> Kami dengan Mudah
                     </h2>
                 </div>
             </div>
