@@ -15,7 +15,7 @@
             @endif
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3 pt-70">
             <div class="col-lg-12">
                 <form action="{{ route('ppdb.store') }}" method="post">
                     @csrf
@@ -62,8 +62,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="yahyaNews">Mengetahui Sekolah Kristen Yahya dari:</label>
-                                            <input type="text" class="form-control" id="yahyaNews" name="news_from"
-                                                required />
+                                            <input type="text" class="form-control" placeholder="Ex: Dari Teman"
+                                                id="yahyaNews" name="news_from" required />
                                             @if ($errors->has('news_from'))
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
@@ -73,8 +73,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="lastSchool">Asal Sekolah:</label>
-                                            <input type="text" class="form-control" id="lastSchool" name="last_school"
-                                                required />
+                                            <input type="text" class="form-control" placeholder="Ex: TK Yahya"
+                                                id="lastSchool" name="last_school" required />
                                             @if ($errors->has('last_school'))
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
@@ -103,16 +103,16 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="fullName">Nama Lengkap:</label>
-                                                    <input type="text" class="form-control" id="fullName"
-                                                        name="fullname" required />
+                                                    <input type="text" class="form-control" placeholder="Ex: John Doe"
+                                                        id="fullName" name="fullname" required />
                                                     @if ($errors->has('fullname'))
                                                         <p class="text-danger">{{ $errors }}</p>
                                                     @endif
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nickName">Nama Panggilan:</label>
-                                                    <input type="text" class="form-control" id="nickName"
-                                                        name="nickname" required />
+                                                    <input type="text" class="form-control" placeholder="Ex: John"
+                                                        id="nickName" name="nickname" required />
                                                     @if ($errors->has('nickname'))
                                                         <p class="text-danger">{{ $errors }}</p>
                                                     @endif
@@ -121,8 +121,8 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="citizenship">Kewarganegaraan:</label>
-                                                    <input type="text" class="form-control" id="citizenship"
-                                                        name="citizenship" required />
+                                                    <input type="text" class="form-control" placeholder="Ex: Indonesia"
+                                                        id="citizenship" name="citizenship" required />
                                                     @if ($errors->has('citizenship'))
                                                         <p class="text-danger">{{ $errors }}</p>
                                                     @endif
@@ -152,7 +152,7 @@
                                                 <div class="form-group">
                                                     <label for="birthPlace">Tempat Lahir:</label>
                                                     <input type="text" class="form-control" id="birthPlace"
-                                                        name="birth_place" required />
+                                                        placeholder="Ex: Bandung" name="birth_place" required />
                                                     @if ($errors->has('birth_place'))
                                                         <p class="text-danger">{{ $errors }}</p>
                                                     @endif
@@ -187,7 +187,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="chruchDomicile">Berjemaat di:</label>
-                                                    <input type="text" class="form-control" id="chruchDomicile"
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Ex: GKI Taman Cibunut" id="chruchDomicile"
                                                         name="church_domicile" required />
                                                     @if ($errors->has('church_domicile'))
                                                         <p class="text-danger">{{ $errors }}</p>
@@ -198,17 +199,18 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="childPosition">Anak Ke:</label>
-                                                    <input type="number" class="form-control" min="1"
-                                                        max="20" id="childPosition" name="child_position"
-                                                        required />
+                                                    <input type="number" class="form-control" placeholder="Ex: 1"
+                                                        min="1" max="20" id="childPosition"
+                                                        name="child_position" required />
                                                     @if ($errors->has('child_position'))
                                                         <p class="text-danger">{{ $errors }}</p>
                                                     @endif
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="childNumber">Dari Berapa Saudara:</label>
-                                                    <input type="number" class="form-control" min="1"
-                                                        max="20" id="childNumber" name="child_number" required />
+                                                    <input type="number" class="form-control" placeholder="Ex: 1"
+                                                        min="1" max="20" id="childNumber"
+                                                        name="child_number" required />
                                                     @if ($errors->has('child_number'))
                                                         <p class="text-danger">{{ $errors }}</p>
                                                     @endif
@@ -283,6 +285,7 @@
                                                         <label for="regency">Kabupaten / Kota:</label>
                                                         <select class="form-control" id="regency"
                                                             name="student_regency">
+                                                            <option selected disabled>Pilih Kabupaten / Kota</option>
                                                             <!-- Options will be added dynamically by JavaScript -->
                                                         </select>
                                                         <input type="hidden" id="student_regency" name="regency" />
@@ -296,6 +299,7 @@
                                                         <label for="district">Kecamatan:</label>
                                                         <select class="form-control" id="district"
                                                             name="student_district">
+                                                            <option selected disabled>Pilih Kecamatan</option>
                                                             <!-- Options will be added dynamically by JavaScript -->
                                                         </select>
                                                         <input type="hidden" id="student_district" name="district" />
@@ -309,6 +313,7 @@
                                                         <label for="village">Desa / Kelurahan:</label>
                                                         <select class="form-control" id="village"
                                                             name="student_village">
+                                                            <option selected disabled>Pilih Desa / Kelurahan</option>
                                                             <!-- Options will be added dynamically by JavaScript -->
                                                         </select>
 
@@ -321,8 +326,10 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="address">Alamat:</label>
-                                                        <input type="textarea" class="form-control" id="address"
+                                                        <input type="textarea" class="form-control"
+                                                            placeholder="Ex: Jl. Riau No.71A" id="address"
                                                             name="address" />
+
                                                         @if ($errors->has('address'))
                                                             <p class="text-danger">{{ $errors }}</p>
                                                         @endif
@@ -359,8 +366,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="dadName">Nama Ayah:</label>
-                                            <input type="text" class="form-control" id="dadName" name="dad_name"
-                                                required />
+                                            <input type="text" class="form-control" placeholder="Ex: John Doe"
+                                                id="dadName" name="dad_name" required />
                                             @if ($errors->has('dad_name'))
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
@@ -370,8 +377,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="momName">Nama Ibu:</label>
-                                            <input type="text" class="form-control" id="momName" name="mom_name"
-                                                required />
+                                            <input type="text" class="form-control" placeholder="Ex: Nina Doe"
+                                                id="momName" name="mom_name" required />
                                             @if ($errors->has('mom_name'))
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
@@ -429,8 +436,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="dadJob">Pekerjaan Ayah:</label>
-                                            <input type="text" class="form-control" id="dadJob" name="dad_job"
-                                                required />
+                                            <input type="text" class="form-control" placeholder="Ex: Guru"
+                                                id="dadJob" name="dad_job" required />
                                             @if ($errors->has('dad_job'))
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
@@ -440,8 +447,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="momJob">Pekerjaan Ibu:</label>
-                                            <input type="text" class="form-control" id="momJob" name="mom_job"
-                                                required />
+                                            <input type="text" class="form-control" placeholder="Ex: Guru"
+                                                id="momJob" name="mom_job" required />
                                             @if ($errors->has('mom_job'))
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
@@ -453,10 +460,6 @@
                                         <div class="form-group">
                                             <label for="dadphoneNumber">No. Telp Ayah:</label>
                                             <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">+62</span>
-                                                    <!-- Country code or any other prefix -->
-                                                </div>
                                                 <input type="tel" class="form-control" id="dadphoneNumber"
                                                     name="dad_tel" placeholder="Enter phone number" required />
                                                 @if ($errors->has('dad_tel'))
@@ -470,10 +473,6 @@
                                         <div class="form-group">
                                             <label for="momphoneNumber">No. Telp Ibu:</label>
                                             <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">+62</span>
-                                                    <!-- Country code or any other prefix -->
-                                                </div>
                                                 <input type="tel" class="form-control" id="momphoneNumber"
                                                     name="mom_tel" placeholder="Enter phone number" required />
                                                 @if ($errors->has('mom_tel'))
@@ -507,6 +506,7 @@
                                         <div class="form-group">
                                             <label for="regencyParent">Kabupaten / Kota:</label>
                                             <select class="form-control" id="regencyParent" name="parent_regency">
+                                                <option selected disabled>Pilih Kabupaten / Kota</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
                                             <input type="hidden" id="regencyParent" name="regencyParent" />
@@ -520,6 +520,7 @@
                                         <div class="form-group">
                                             <label for="districtParent">Kecamatan:</label>
                                             <select class="form-control" id="districtParent" name="parent_district">
+                                                <option selected disabled>Pilih Kecamatan</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
                                             <input type="hidden" id="districtParent" name="districtParent" />
@@ -532,6 +533,7 @@
                                         <div class="form-group">
                                             <label for="villageParent">Desa / Kelurahan:</label>
                                             <select class="form-control" id="villageParent" name="parent_village">
+                                                <option selected disabled>Pilih Desa / Kelurahan</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
                                             <input type="hidden" id="villageParent" name="villageParent" />
@@ -544,8 +546,8 @@
                                     <div class="col-lg">
                                         <div class="form-group">
                                             <label for="addressParent">Alamat:</label>
-                                            <input type="textarea" class="form-control" id="addressParent"
-                                                name="address" />
+                                            <input type="textarea" class="form-control"
+                                                placeholder="Ex: Jl. Riau No. 71A" id="addressParent" name="address" />
                                             @if ($errors->has('address'))
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
@@ -645,7 +647,7 @@
                             <div class="step" id="step4">
                                 <h2>Step 4: Penjadwalan Wawancara</h2>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="title">Judul</label>
                                             <input type="text" name="title" id="title"
@@ -691,93 +693,5 @@
             </div>
         </div>
     </div>
-    {{-- Script Interview Reason --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const methodSelect = document.querySelector('#method');
-            const onlineReason = document.querySelector('#onlineReason');
-
-            methodSelect.addEventListener('change', function() {
-                if (this.value === 'online') {
-                    onlineReason.style.display = 'block';
-                } else {
-                    onlineReason.style.display = 'none';
-                }
-            });
-
-            // Setel visibilitas form alasan sesuai dengan pilihan metode saat load halaman
-            if (methodSelect.value === 'online') {
-                onlineReason.style.display = 'block';
-            } else {
-                onlineReason.style.display = 'none';
-            }
-        });
-    </script>
-    {{-- Script Alamat --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the Residence Status select element
-            var studentResidenceStatus = document.querySelector('select[name="residence_status_id"]');
-
-            // Get the Student Address row
-            var studentAddressRow = document.querySelector('#studentAddressRow');
-
-            // Function to show or hide the Student Address row based on the Residence Status
-            function updateStudentAddressVisibility() {
-                if (studentResidenceStatus.value === '1') {
-                    studentAddressRow.style.display = 'none';
-                } else {
-                    studentAddressRow.style.display = 'block';
-                }
-            }
-
-            // Call the function when the page loads
-            updateStudentAddressVisibility();
-
-            // Call the function when the Residence Status select element changes
-            studentResidenceStatus.addEventListener('change', updateStudentAddressVisibility);
-        });
-    </script>
-    {{-- Script Wali --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the Residence Status select element
-            var studentResidenceStatus = document.querySelector('select[name="residence_status_id"]');
-
-            // Get the WaliRow div section
-            var waliRow = document.getElementById("WaliRow");
-
-            // Show WaliRow when the student selects 'Bersama Wali' option
-            studentResidenceStatus.addEventListener("change", function() {
-                if (this.value === "2") {
-                    waliRow.style.display = "block";
-                } else {
-                    waliRow.style.display = "none";
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the title input element
-            const titleInput = document.querySelector('#title');
-
-            // Add an event listener for input event
-            titleInput.addEventListener('input', function() {
-                // Set the value of the title input to the desired format
-                this.value = `Penjadwalan Interview PPDB - ${document.querySelector('#fullName').value}`;
-            });
-
-            // Trigger the input event initially to set the value on page load
-            titleInput.dispatchEvent(new Event('input'));
-
-            // Add a class to disable editing the input field
-            titleInput.classList.add('form-control-disabled');
-
-            // Prevent default behavior when clicking on the input field
-            titleInput.addEventListener('click', function(event) {
-                event.preventDefault();
-            });
-        });
-    </script>
+    @include('components.script')
 @endsection

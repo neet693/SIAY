@@ -48,6 +48,8 @@ aside {
     padding: 50px 24px;
     padding-bottom: 250px;
     height: 100vh;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
     overflow-y: scroll;
     position: fixed;
     top: 0;
