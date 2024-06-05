@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
                 // StudentParentSeeder::class,
                 // StudentAddressSeeder::class,
                 // StudentParentAddressSeeder::class,
+                UserSeeder::class,
             ]
         );
 
@@ -38,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@siay.com',
             'password' => bcrypt('admin1siay'),
-            'role_id' => 1, // Set the role_id to the ID of the 'admin' role
+            'role_id' => 1, //role admin
         ]);
 
         //teacher account
@@ -46,7 +47,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'guru',
             'email' => 'guru@siay.com',
             'password' => bcrypt('guru1siay'),
-            'role_id' => 2, // Set the role_id to the ID of the 'admin' role
+            'role_id' => 2, // role guru
         ]);
     }
 }

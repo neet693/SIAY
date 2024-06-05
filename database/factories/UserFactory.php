@@ -23,12 +23,15 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $adminNumber = $this->faker->unique()->numberBetween(2, 6);
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => 'Admin Demo ' . $adminNumber,
+            'email' => 'admin' . $adminNumber . '@siay.com',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
+            'role_id' => 1,
         ];
     }
 
