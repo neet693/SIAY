@@ -437,3 +437,59 @@
      });
  </script>
  {{-- EndScript Penjadwalan Interview --}}
+
+ {{-- Script Hidden Btn Next --}}
+ <script>
+     document.addEventListener('DOMContentLoaded', function() {
+         const steps = [1, 2, 3, 4]; // List of step numbers
+
+         function validateForm(step) {
+             const inputs = document.querySelectorAll(`#step${step} input, #step${step} select`);
+             const nextButton = document.getElementById(`nextButtonStep${step}`);
+             let isValid = true;
+
+             // Check if all inputs in the step are filled
+             inputs.forEach(input => {
+                 if (!input.value) {
+                     isValid = false;
+                 }
+             });
+
+             // Check if residence status is not "Bersama Orang Tua"
+             if (step === 2) {
+                 const residenceStatus = document.getElementById('userStay').value;
+                 if (residenceStatus !== '1') {
+                     document.getElementById('studentAddressRow').style.display = 'block';
+                 } else {
+                     document.getElementById('studentAddressRow').style.display = 'none';
+                 }
+             }
+
+             // Show or hide next button based on form validity
+             if (step === 3) {
+                 const selectedOption = document.getElementById('selectedOption').value;
+                 if (selectedOption !== '') {
+                     nextButton.style.display = 'block';
+                 } else {
+                     nextButton.style.display = 'none';
+                 }
+             } else {
+                 nextButton.style.display = isValid ? 'block' : 'none';
+             }
+         }
+
+         steps.forEach(step => {
+             const inputs = document.querySelectorAll(`#step${step} input, #step${step} select`);
+             inputs.forEach(input => {
+                 input.addEventListener('input', () => validateForm(step));
+                 input.addEventListener('change', () => validateForm(step));
+             });
+
+             // Initial validation check for each step
+             validateForm(step);
+         });
+     });
+ </script>
+
+
+ {{-- End Script Hidden Btn Next --}}

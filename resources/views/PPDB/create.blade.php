@@ -28,9 +28,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="grade">Jenjang:</label>
-                                            <select class="form-control" id="grade" name="education_level_id" required>
+                                            <select class="form-control" id="grade" name="education_level_id"
+                                                data-required="true" required>
                                                 <option selected disabled>Pilih Jenjang</option>
-                                                <option value="1">TK</option>
+                                                <option value="1">TK
+                                                </option>
                                                 <option value="2">SD</option>
                                                 <option value="3">SMP</option>
                                                 <option value="4">SMA</option>
@@ -82,7 +84,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                                <button type="button" class="btn btn-primary" id="nextButtonStep1" onclick="nextStep(2)">
                                     Selanjutnya
                                 </button>
                             </div>
@@ -343,7 +345,8 @@
                                             <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
                                                 Sebelumnya
                                             </button>
-                                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                                            <button type="button" class="btn btn-primary" id="nextButtonStep2"
+                                                onclick="nextStep(3)">
                                                 Selanjutnya
                                             </button>
                                         </div>
@@ -461,7 +464,8 @@
                                             <label for="dadphoneNumber">No. Telp Ayah:</label>
                                             <div class="input-group">
                                                 <input type="tel" class="form-control" id="dadphoneNumber"
-                                                    name="dad_tel" placeholder="Enter phone number" required />
+                                                    name="dad_tel" placeholder="0823xxxxxxx" pattern="^\0\d{9,15}$"
+                                                    required />
                                                 @if ($errors->has('dad_tel'))
                                                     <p class="text-danger">{{ $errors }}</p>
                                                 @endif
@@ -474,7 +478,8 @@
                                             <label for="momphoneNumber">No. Telp Ibu:</label>
                                             <div class="input-group">
                                                 <input type="tel" class="form-control" id="momphoneNumber"
-                                                    name="mom_tel" placeholder="Enter phone number" required />
+                                                    name="mom_tel" placeholder="0823xxxxxx" pattern="^\0\d{9,15}$"
+                                                    required />
                                                 @if ($errors->has('mom_tel'))
                                                     <p class="text-danger">{{ $errors }}</p>
                                                 @endif
@@ -618,7 +623,8 @@
                                                         <!-- Country code or any other prefix -->
                                                     </div>
                                                     <input type="tel" class="form-control" id="waliTelNumber"
-                                                        name="wali_tel" placeholder="Enter phone number" />
+                                                        name="wali_tel" placeholder="0823xxxxxxx"
+                                                        pattern="^\+62\d{9,15}$" />
                                                     @if ($errors->has('wali_tel'))
                                                         <p class="text-danger">{{ $errors }}</p>
                                                     @endif
@@ -638,7 +644,8 @@
                                 <button type="button" class="btn btn-secondary" onclick="prevStep(2)">
                                     Sebelumnya
                                 </button>
-                                <button type="button" class="btn btn-primary" onclick="nextStep(4)">
+                                <button type="button" class="btn btn-primary" id="nextButtonStep3"
+                                    onclick="nextStep(4)">
                                     Selanjutnya
                                 </button>
                             </div>
