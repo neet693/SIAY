@@ -619,8 +619,7 @@
                                                 <label for="waliPhoneNumber">No. Telp Wali:</label>
                                                 <div class="input-group">
                                                     <input type="tel" class="form-control" id="waliTelNumber"
-                                                        name="wali_tel" placeholder="0823xxxxxxx" pattern="0\d{9,15}"
-                                                        required />
+                                                        name="wali_tel" placeholder="0823xxxxxxx" pattern="0\d{9,15}" />
                                                     @if ($errors->has('wali_tel'))
                                                         <p class="text-danger">{{ $errors }}</p>
                                                     @endif
