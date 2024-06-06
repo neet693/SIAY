@@ -450,31 +450,49 @@
 
              // Check if all inputs in the step are filled
              inputs.forEach(input => {
-                 if (!input.value) {
+                 if (input.hasAttribute('required') && !input.value) {
                      isValid = false;
                  }
              });
 
-             // Check if residence status is not "Bersama Orang Tua"
+             // Special handling for step 2
              if (step === 2) {
                  const residenceStatus = document.getElementById('userStay').value;
+                 const studentAddressRow = document.getElementById('studentAddressRow');
+                 const WaliRow = document.getElementById('WaliRow');
+
                  if (residenceStatus !== '1') {
-                     document.getElementById('studentAddressRow').style.display = 'block';
+                     studentAddressRow.style.display = 'block';
+                     WaliRow.style.display = 'block';
                  } else {
-                     document.getElementById('studentAddressRow').style.display = 'none';
+                     studentAddressRow.style.display = 'none';
+                     WaliRow.style.display = 'none';
                  }
              }
 
-             // Show or hide next button based on form validity
              if (step === 3) {
-                 const selectedOption = document.getElementById('selectedOption').value;
-                 if (selectedOption !== '') {
-                     nextButton.style.display = 'block';
+                 const previousStep = step - 1; // Step sebelumnya
+                 const previousResidenceStatus = document.getElementById(`userStayStep${previousStep}`)
+                     .value; // Mendapatkan status tinggal dari step sebelumnya
+                 const residenceStatus = document.getElementById('userStay').value;
+                 const studentAddressRow = document.getElementById('studentAddressRow');
+                 const WaliRow = document.getElementById('WaliRow');
+
+                 // Menampilkan atau menyembunyikan row berdasarkan status tinggal pada step 3
+                 if (previousResidenceStatus !== '1' && residenceStatus !== '1') {
+                     studentAddressRow.style.display = 'block';
+                     WaliRow.style.display = 'block';
                  } else {
-                     nextButton.style.display = 'none';
+                     studentAddressRow.style.display = 'none';
+                     WaliRow.style.display = 'none';
                  }
+             }
+
+             // Display or hide the next button based on validity
+             if (isValid) {
+                 nextButton.style.display = 'block';
              } else {
-                 nextButton.style.display = isValid ? 'block' : 'none';
+                 nextButton.style.display = 'none';
              }
          }
 
