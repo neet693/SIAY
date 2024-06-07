@@ -83,11 +83,12 @@
                                                 <i class="bi bi-check-circle"></i>
                                             </button>
                                         </form>
-                                        <button href="#addZoomModal" data-bs-toggle="modal"
+                                        <button href="#addZoomModal{{ $interview->id }}" data-bs-toggle="modal"
                                             class="btn btn-link link-success d-inline-block"
                                             title="Set Link Zoom {{ $interview->user->name }}">
                                             <i class="bi bi-camera-video"></i>
                                         </button>
+
                                         @include('components.modal-add-zoom')
                                     @endif
                                 </td>
@@ -95,7 +96,7 @@
                         @endforeach
                     </tbody>
                     <tfoot>
-                        <tr>
+                        <tr>`
                             <th>No.</th>
                             <th>Nama</th>
                             <th>Method</th>
