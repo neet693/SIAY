@@ -511,3 +511,25 @@
 
 
  {{-- End Script Hidden Btn Next --}}
+
+ {{-- Script Telp --}}
+ <script>
+     // Memilih input nomor telepon Ayah
+     const dadTelInput = document.getElementById('dadphoneNumber');
+     const momTelInput = document.getElementById('momphoneNumber');
+     const waliTelInput = document.getElementById('waliphoneNumber');
+
+     // Menambahkan event listener untuk memeriksa setiap kali nilai input berubah
+     dadTelInput.addEventListener('input', function(event) {
+         // Menghapus karakter non-angka dari nilai input
+         this.value = this.value.replace(/\D/g, '');
+     });
+     momTelInput.addEventListener('input', function(event) {
+         // Menghapus karakter non-angka dari nilai input
+         this.value = this.value.replace(/\D/g, '');
+     });
+     waliTelInput.addEventListener('input', function(event) {
+         // Menghapus karakter non-angka dari nilai input
+         this.value = this.value.replace(/\D/g, '');
+     });
+ </script>

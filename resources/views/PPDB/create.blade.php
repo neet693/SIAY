@@ -562,7 +562,7 @@
                                             <input type="text"
                                                 class="form-control {{ $errors->has('mom_job') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: Guru" id="momJob" name="mom_job"
-                                                vvalue="{{ old('mom_job') }}" required />
+                                                value="{{ old('mom_job') }}" required />
                                             @if ($errors->has('mom_job'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('mom_job') }}</p>
@@ -577,7 +577,7 @@
                                             <div class="input-group">
                                                 <input type="tel"
                                                     class="form-control {{ $errors->has('dad_tel') ? 'is-invalid' : '' }}"
-                                                    id="dadphoneNumber" name="dad_tel" placeholder="0823xxxxxxx"
+                                                    name="dad_tel" placeholder="0823xxxxxxx" id="dadphoneNumber"
                                                     pattern="0\d{9,15}" value="{{ old('dad_tel') }}" required />
                                                 @if ($errors->has('dad_tel'))
                                                     <p class="text-danger invalid-feedback" role="alert">
@@ -593,7 +593,7 @@
                                             <div class="input-group">
                                                 <input type="tel"
                                                     class="form-control {{ $errors->has('mom_tel') ? 'is-invalid' : '' }}"
-                                                    id="momphoneNumber" name="mom_tel" placeholder="0823xxxxxx"
+                                                    name="mom_tel" placeholder="0823xxxxxxx" id="momphoneNumber"
                                                     pattern="0\d{9,15}" value="{{ old('mom_tel') }}" required />
                                                 @if ($errors->has('mom_tel'))
                                                     <p class="text-danger invalid-feedback" role="alert">
@@ -709,7 +709,7 @@
                                             <div class="form-group">
                                                 <label for="waliName">Nama Wali:</label>
                                                 <input type="text" class="form-control" id="waliName"
-                                                    name="wali_name" value="old{{ 'wali_name' }}" />
+                                                    name="wali_name" value="{{ old('wali_name') }}" />
                                             </div>
                                         </div>
 
@@ -763,7 +763,7 @@
                                             <div class="form-group">
                                                 <label for="waliPhoneNumber">No. Telp Wali:</label>
                                                 <div class="input-group">
-                                                    <input type="tel" class="form-control" id="waliTelNumber"
+                                                    <input type="tel" class="form-control" id="waliphoneNumber"
                                                         name="wali_tel" placeholder="0823xxxxxxx" pattern="0\d{9,15}"
                                                         value="{{ old('wali_tel') }}" />
                                                     @if ($errors->has('wali_tel'))

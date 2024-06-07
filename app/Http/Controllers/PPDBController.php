@@ -52,8 +52,187 @@ class PPDBController extends Controller
         return view('PPDB.create');
     }
 
+    // public function store(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'education_level_id' => 'required',
+    //         'academic_year_id' => 'required',
+    //         'news_from' => 'required',
+    //         'last_school' => 'required',
+    //         'fullname' => 'required',
+    //         'nickname' => 'required',
+    //         'citizenship' => 'required',
+    //         'gender' => 'required',
+    //         'birth_place' => 'required',
+    //         'birth_date' => 'required',
+    //         'religion_id' => 'required',
+    //         'church_domicile' => 'required',
+    //         // 'student_province' => 'required',
+    //         // 'student_regency' => 'required',
+    //         // 'student_district' => 'required',
+    //         // 'student_village' => 'required',
+    //         // 'address' => 'required',
+    //         'child_position' => 'required',
+    //         'child_number' => 'required',
+    //         'blood_type_id' => 'required',
+    //         'email' => 'required|email',
+    //         'residence_status_id' => 'required',
+    //         'dad_tel' => 'required',
+    //         'mom_tel' => 'required',
+    //         'dad_name' => 'required',
+    //         'mom_name' => 'required',
+    //         'dad_degree' => 'required',
+    //         'mom_degree' => 'required',
+    //         'dad_job' => 'required',
+    //         'mom_job' => 'required',
+    //         'parent_province' => 'required',
+    //         'parent_regency' => 'required',
+    //         'parent_district' => 'required',
+    //         'parent_village' => 'required',
+    //         'address' => 'required',
+    //         'parentStay' => 'required',
+    //         'transaction_type_id' => 'required',
+    //         'title' => 'required',
+    //         'interview_date' => 'required',
+    //         // 'start_time' => 'required',
+    //         // 'end_time' => 'required',
+    //         'method' => 'required',
+    //         // 'reason' => 'required',
+    //         // 'user_id' => 'required',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         // Jika terjadi kesalahan validasi, kembalikan data dengan pesan error dan input sebelumnya
+    //         return redirect()->back()->withErrors($validator)->withInput();
+    //     }
+
+
+    //     $schoolInformation = SchoolInformation::create([
+    //         'academic_year_id' => $request->input('academic_year_id'),
+    //         'education_level_id' => $request->input('education_level_id'),
+    //         'news_from' => $request->input('news_from'),
+    //         'last_school' => $request->input('last_school'),
+    //     ]);
+    //     $schoolInformation->save();
+
+    //     $email = $request->input('email');
+
+    //     if (User::where('email', $email)->exists()) {
+    //         return redirect()->back()->withErrors($validator);
+    //     }
+    //     //Create Student
+    //     $user = User::create([
+    //         'name' => $request->input('fullname'),
+    //         'email' => $request->input('email'),
+    //         'role_id' => 3,
+    //         'password' => 'sekolahyahya*',
+    //     ]);
+    //     $user->save();
+
+    //     //Generate Unique Code
+    //     $academicYear = substr($schoolInformation->academicYear->name, 2, 2) . substr($schoolInformation->academicYear->name, -2, 2);
+    //     $uniqueCode = $schoolInformation->educationLevel->level_name . '-' . $academicYear . '-' .  sprintf("%04d", $schoolInformation->id);
+
+    //     // Step 2: Save Student Information
+    //     $student = Student::create([
+    //         'user_id' => $user->id,
+    //         'school_information_id' => $schoolInformation->id,
+    //         'unique_code' => $uniqueCode,
+    //         'fullname' => $request->input('fullname'),
+    //         'nickname' => $request->input('nickname'),
+    //         'citizenship' => $request->input('citizenship'),
+    //         'gender' => $request->input('gender'),
+    //         'birth_place' => $request->input('birth_place'),
+    //         'birth_date' => $request->input('birth_date'),
+    //         'religion_id' => $request->input('religion_id'),
+    //         'church_domicile' => $request->input('church_domicile'),
+    //         'child_position' => $request->input('child_position'),
+    //         'child_number' => $request->input('child_number'),
+    //         'blood_type_id' => $request->input('blood_type_id'),
+    //         'email' => $request->input('email'),
+    //         'residence_status_id' => $request->input('residence_status_id'),
+    //         'status_penerimaan' => 'Menunggu Persetujuan',
+    //     ]);
+
+    //     // $student->studentAddress()->create([
+    //     //     'student_province' => $request->input('student_province_name'),
+    //     //     'student_regency' => $request->input('student_regency_name'),
+    //     //     'student_district' => $request->input('student_district_name'),
+    //     //     'student_village' => $request->input('student_village_name'),
+    //     //     'address' => $request->input('address'),
+    //     // ]);
+
+    //     // Step 3: Save Student Parent Information
+    //     $studentParent = StudentParent::create([
+    //         'student_id' => $student->id,
+    //         'dad_name' => $request->input('dad_name'),
+    //         'mom_name' => $request->input('mom_name'),
+    //         'dad_degree' => $request->input('dad_degree'),
+    //         'mom_degree' => $request->input('mom_degree'),
+    //         'dad_job' => $request->input('dad_job'),
+    //         'mom_job' => $request->input('mom_job'),
+    //         'dad_tel' => $request->input('dad_tel'),
+    //         'mom_tel' => $request->input('mom_tel'),
+    //     ]);
+    //     $studentParent->studentParentAddress()->create([
+    //         'parent_province' => $request->input('parent_province_name'),
+    //         'parent_regency' => $request->input('parent_regency_name'),
+    //         'parent_district' => $request->input('parent_district_name'),
+    //         'parent_village' => $request->input('parent_village_name'),
+    //         'address' => $request->input('address'),
+    //         'parentStay' => $request->input('parentStay'),
+    //     ]);
+
+    //     if ($request->input('residence_status_id') == 1) {
+    //         $studentParentAddress = $studentParent->studentParentAddress->first();
+    //         $student->studentAddress()->create([
+    //             'student_province' => $studentParentAddress->parent_province,
+    //             'student_regency' => $studentParentAddress->parent_regency,
+    //             'student_district' => $studentParentAddress->parent_district,
+    //             'student_village' => $studentParentAddress->parent_village,
+    //             'address' => $studentParentAddress->address,
+    //         ]);
+    //     } elseif ($student->residence_status_id == 2) {
+    //         $wali = Wali::create([
+    //             'student_id' => $student->id,
+    //             'wali_name' => $request->input('wali_name'),
+    //             'wali_degree' => $request->input('wali_degree'),
+    //             'wali_job' => $request->input('wali_job'),
+    //             'wali_address' => $request->input('wali_address'),
+    //             'wali_tel' => $request->input('wali_tel'),
+    //         ]);
+    //     } else {
+    //         $student->studentAddress()->create([
+    //             'student_province' => $request->input('student_province_name'),
+    //             'student_regency' => $request->input('student_regency_name'),
+    //             'student_district' => $request->input('student_district_name'),
+    //             'student_village' => $request->input('student_village_name'),
+    //             'address' => $request->input('address'),
+    //         ]);
+    //     }
+
+    //     // Step 3: Save Interview Information
+    //     $interview = Interview::create([
+    //         'title' => $request->input('title'),
+    //         'interview_date' => $request->input('interview_date'),
+    //         'start_time' => $request->input('start_time'),
+    //         'end_time' => $request->input('end_time'),
+    //         'method' => $request->input('method'),
+    //         'reason' => $request->input('reason'),
+    //         'user_id' => $user->id,
+    //     ]);
+
+    //     $student->school_information_id = $schoolInformation->id;
+    //     $student->save();
+    //     $interview->save();
+
+    //     $this->sendStudentCredential($student->id, $user->password);
+    //     return view('PPDB.success', compact('student'));
+    // }
+
     public function store(Request $request)
     {
+        // Validasi input
         $validator = Validator::make($request->all(), [
             'education_level_id' => 'required',
             'academic_year_id' => 'required',
@@ -67,15 +246,10 @@ class PPDBController extends Controller
             'birth_date' => 'required',
             'religion_id' => 'required',
             'church_domicile' => 'required',
-            // 'student_province' => 'required',
-            // 'student_regency' => 'required',
-            // 'student_district' => 'required',
-            // 'student_village' => 'required',
-            // 'address' => 'required',
             'child_position' => 'required',
             'child_number' => 'required',
             'blood_type_id' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'residence_status_id' => 'required',
             'dad_tel' => 'required',
             'mom_tel' => 'required',
@@ -94,11 +268,7 @@ class PPDBController extends Controller
             'transaction_type_id' => 'required',
             'title' => 'required',
             'interview_date' => 'required',
-            // 'start_time' => 'required',
-            // 'end_time' => 'required',
             'method' => 'required',
-            // 'reason' => 'required',
-            // 'user_id' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -106,29 +276,41 @@ class PPDBController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-
+        // Step 1: Create School Information
         $schoolInformation = SchoolInformation::create([
             'academic_year_id' => $request->input('academic_year_id'),
             'education_level_id' => $request->input('education_level_id'),
             'news_from' => $request->input('news_from'),
             'last_school' => $request->input('last_school'),
         ]);
-        $schoolInformation->save();
 
-        //Create Student
+        if (!$schoolInformation) {
+            return redirect()->back()->withErrors('Error creating school information.')->withInput();
+        }
+
+        // Step 2: Check for duplicate email
+        $email = $request->input('email');
+        if (User::where('email', $email)->exists()) {
+            return redirect()->back()->withErrors('Email Sudah Pernah Digunakan.')->withInput();
+        }
+
+        // Step 3: Create User
         $user = User::create([
             'name' => $request->input('fullname'),
             'email' => $request->input('email'),
             'role_id' => 3,
-            'password' => 'sekolahyahya*',
+            'password' => bcrypt('sekolahyahya*'),
         ]);
-        $user->save();
 
-        //Generate Unique Code
+        if (!$user) {
+            return redirect()->back()->withErrors('Error creating user.')->withInput();
+        }
+
+        // Generate Unique Code
         $academicYear = substr($schoolInformation->academicYear->name, 2, 2) . substr($schoolInformation->academicYear->name, -2, 2);
-        $uniqueCode = $schoolInformation->educationLevel->level_name . '-' . $academicYear . '-' .  sprintf("%04d", $schoolInformation->id);
+        $uniqueCode = $schoolInformation->educationLevel->level_name . '-' . $academicYear . '-' . sprintf("%04d", $schoolInformation->id);
 
-        // Step 2: Save Student Information
+        // Step 4: Create Student
         $student = Student::create([
             'user_id' => $user->id,
             'school_information_id' => $schoolInformation->id,
@@ -149,15 +331,11 @@ class PPDBController extends Controller
             'status_penerimaan' => 'Menunggu Persetujuan',
         ]);
 
-        // $student->studentAddress()->create([
-        //     'student_province' => $request->input('student_province_name'),
-        //     'student_regency' => $request->input('student_regency_name'),
-        //     'student_district' => $request->input('student_district_name'),
-        //     'student_village' => $request->input('student_village_name'),
-        //     'address' => $request->input('address'),
-        // ]);
+        if (!$student) {
+            return redirect()->back()->withErrors('Error creating student.')->withInput();
+        }
 
-        // Step 3: Save Student Parent Information
+        // Step 5: Create Student Parent
         $studentParent = StudentParent::create([
             'student_id' => $student->id,
             'dad_name' => $request->input('dad_name'),
@@ -169,17 +347,27 @@ class PPDBController extends Controller
             'dad_tel' => $request->input('dad_tel'),
             'mom_tel' => $request->input('mom_tel'),
         ]);
-        $studentParent->studentParentAddress()->create([
-            'parent_province' => $request->input('parent_province_name'),
-            'parent_regency' => $request->input('parent_regency_name'),
-            'parent_district' => $request->input('parent_district_name'),
-            'parent_village' => $request->input('parent_village_name'),
+
+        if (!$studentParent) {
+            return redirect()->back()->withErrors('Error creating student parent.')->withInput();
+        }
+
+        // Step 6: Create Student Parent Address
+        $studentParentAddress = $studentParent->studentParentAddress()->create([
+            'parent_province' => $request->input('parent_province'),
+            'parent_regency' => $request->input('parent_regency'),
+            'parent_district' => $request->input('parent_district'),
+            'parent_village' => $request->input('parent_village'),
             'address' => $request->input('address'),
             'parentStay' => $request->input('parentStay'),
         ]);
 
+        if (!$studentParentAddress) {
+            return redirect()->back()->withErrors('Error creating student parent address.')->withInput();
+        }
+
+        // Step 7: Create Student Address if needed
         if ($request->input('residence_status_id') == 1) {
-            $studentParentAddress = $studentParent->studentParentAddress->first();
             $student->studentAddress()->create([
                 'student_province' => $studentParentAddress->parent_province,
                 'student_regency' => $studentParentAddress->parent_regency,
@@ -187,7 +375,7 @@ class PPDBController extends Controller
                 'student_village' => $studentParentAddress->parent_village,
                 'address' => $studentParentAddress->address,
             ]);
-        } elseif ($student->residence_status_id == 2) {
+        } elseif ($request->input('residence_status_id') == 2) {
             $wali = Wali::create([
                 'student_id' => $student->id,
                 'wali_name' => $request->input('wali_name'),
@@ -196,17 +384,25 @@ class PPDBController extends Controller
                 'wali_address' => $request->input('wali_address'),
                 'wali_tel' => $request->input('wali_tel'),
             ]);
+
+            if (!$wali) {
+                return redirect()->back()->withErrors('Error creating wali.')->withInput();
+            }
         } else {
-            $student->studentAddress()->create([
+            $studentAddress = $student->studentAddress()->create([
                 'student_province' => $request->input('student_province_name'),
                 'student_regency' => $request->input('student_regency_name'),
                 'student_district' => $request->input('student_district_name'),
                 'student_village' => $request->input('student_village_name'),
                 'address' => $request->input('address'),
             ]);
+
+            if (!$studentAddress) {
+                return redirect()->back()->withErrors('Error creating student address.')->withInput();
+            }
         }
 
-        // Step 3: Save Interview Information
+        // Step 8: Create Interview
         $interview = Interview::create([
             'title' => $request->input('title'),
             'interview_date' => $request->input('interview_date'),
@@ -217,13 +413,22 @@ class PPDBController extends Controller
             'user_id' => $user->id,
         ]);
 
+        if (!$interview) {
+            return redirect()->back()->withErrors('Error creating interview.')->withInput();
+        }
+
+        // Save Student and Interview data
         $student->school_information_id = $schoolInformation->id;
         $student->save();
         $interview->save();
 
+        // Send student credentials
         $this->sendStudentCredential($student->id, $user->password);
+
+        // Return success view
         return view('PPDB.success', compact('student'));
     }
+
 
     public function process(Transaction $transaction)
     {
