@@ -13,7 +13,13 @@
                     <h2 class="content-title">Pengumuman</h2>
                     <strong>{{ $interview->title }}</strong> dilakukan secara <strong>{{ $interview->method }}</strong> pada
                     tanggal
-                    <strong>{{ $interview->interview_date->format('d M Y') }} </strong>
+                    <strong>{{ $interview->interview_date->format('d M Y') }}</strong>
+                    {!! $interview->method === 'online'
+                        ? ($interview->link
+                            ? "<p>Silakan akses wawancara online Anda di <a href=\"{$interview->link}\">tautan ini</a>.</p>"
+                            : '<p>Link belum dibuat oleh admin.</p>')
+                        : '' !!}
+
                 </div>
             </div>
 

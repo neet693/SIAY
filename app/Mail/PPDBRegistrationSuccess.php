@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Interview;
 use App\Models\Student;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,15 +17,18 @@ class PPDBRegistrationSuccess extends Mailable
 
     public $student;
     public $password;
+    public $interview;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Student $student)
+    public function __construct(Student $student, $password, Interview $interview)
     {
         $this->student = $student;
-        $this->password = 'sekolahyahya*';
+        $this->password = "sekolahyahya*";
+        $this->interview = $interview;
     }
+
 
     /**
      * Get the message envelope.

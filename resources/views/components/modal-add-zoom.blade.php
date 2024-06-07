@@ -11,11 +11,12 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-md-6">
-                            <h4>Informasi Ayah</h4>
+                        <div class="col">
+                            <h4>Link Zoom</h4>
                             <div class="mb-3">
                                 <label for="link" class="form-label">Link Zoom</label>
-                                <input type="text" class="form-control" id="link" name="link">
+                                <input type="text" class="form-control" id="link" name="link"
+                                    value="{{ old('link', $interview->link) }}">
                             </div>
                         </div>
                         <div class="modal-footer">

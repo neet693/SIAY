@@ -81,12 +81,13 @@
                                             @csrf
                                             <button type="submit" class="btn btn-link link-success">
                                                 <i class="bi bi-check-circle"></i>
-                                            </button><button href="#addZoomModal" data-bs-toggle="modal"
-                                                class="btn btn-link link-success"
-                                                title="Set Link Zoom {{ $interview->user->name }}">
-                                                <i class="bi bi-camera-video"></i>
                                             </button>
                                         </form>
+                                        <button href="#addZoomModal" data-bs-toggle="modal"
+                                            class="btn btn-link link-success d-inline-block"
+                                            title="Set Link Zoom {{ $interview->user->name }}">
+                                            <i class="bi bi-camera-video"></i>
+                                        </button>
                                         @include('components.modal-add-zoom')
                                     @endif
                                 </td>

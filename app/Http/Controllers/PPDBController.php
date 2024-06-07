@@ -406,8 +406,7 @@ class PPDBController extends Controller
         $interview = Interview::create([
             'title' => $request->input('title'),
             'interview_date' => $request->input('interview_date'),
-            'start_time' => $request->input('start_time'),
-            'end_time' => $request->input('end_time'),
+            'status' => 'Dijadwalkan',
             'method' => $request->input('method'),
             'reason' => $request->input('reason'),
             'user_id' => $user->id,
@@ -555,7 +554,8 @@ class PPDBController extends Controller
     public function sendStudentCredential($student_id, $password)
     {
         $student = Student::findOrFail($student_id);
-        Mail::to($student->email)->send(new PPDBRegistrationSuccess($student, $password));
+        $interview = Interview::where('user_id', $student->user_id)->first(); // Mengambil informasi wawancara berdasarkan user_id
+        Mail::to($student->email)->send(new PPDBRegistrationSuccess($student, $password, $interview));
         return redirect()->back()->with('success', 'Email kredensial telah dikirim ke student.');
     }
 }
