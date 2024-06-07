@@ -19,6 +19,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
 use Illuminate\Support\Str;
 
@@ -53,7 +54,7 @@ class PPDBController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'education_level_id' => 'required',
             'academic_year_id' => 'required',
             'news_from' => 'required',
@@ -99,6 +100,12 @@ class PPDBController extends Controller
             // 'reason' => 'required',
             // 'user_id' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            // Jika terjadi kesalahan validasi, kembalikan data dengan pesan error dan input sebelumnya
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
 
         $schoolInformation = SchoolInformation::create([
             'academic_year_id' => $request->input('academic_year_id'),
