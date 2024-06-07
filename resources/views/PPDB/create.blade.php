@@ -448,7 +448,7 @@
                                             <input type="text"
                                                 class="form-control {{ $errors->has('dad_name') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: John Doe" id="dadName" name="dad_name"
-                                                value="old{{ 'dad_name' }}" required />
+                                                value="{{ old('mom_name') }}" required />
                                             @if ($errors->has('dad_name'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('dad_name') }}</p>
