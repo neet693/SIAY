@@ -36,14 +36,14 @@
                                 <input type="date" name="interview_date" id="interview_date" class="form-control"
                                     required>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="start_time">Waktu Mulai</label>
                                 <input type="time" name="start_time" id="start_time" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="end_time">Waktu Selesai</label>
                                 <input type="time" name="end_time" id="end_time" class="form-control" required>
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label for="method">Metode</label>
                                 <select name="method" id="method" class="form-control" required>
@@ -65,9 +65,12 @@
                                     <label for="user_id">User</label>
                                     <select name="user_id" id="user_id" class="form-control"
                                         onchange="updateTitle(this.value)" required>
-                                        <option value="">-- Pilih User --</option>
+                                        <option selected disabled>Pilih student</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @if ($user->role_id === 3)
+                                                <!-- Ganti angka 3 dengan ID role yang sesuai -->
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

@@ -616,8 +616,8 @@
                                                 <p class="text-danger">{{ $errors }}</p>
                                             @endif
 
-                                            <input type="hidden" id="provinceParent" name="provinceParent" />
-                                            <input type="hidden" id="parent_province_name" name="parent_province_name"
+                                            <input type="hidden" id="parent_province" name="provinceParent" />
+                                            <input type="hidden" id="parent_province_name" name="parent_province"
                                                 readonly />
                                         </div>
                                     </div>
@@ -630,8 +630,8 @@
                                                 <option selected disabled>Pilih Kabupaten / Kota</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
-                                            <input type="hidden" id="regencyParent" name="regencyParent" />
-                                            <input type="hidden" id="parent_regency_name" name="parent_regency_name"
+                                            <input type="hidden" id="parent_regency" name="regencyParent" />
+                                            <input type="hidden" id="parent_regency_name" name="parent_regency"
                                                 readonly />
                                         </div>
                                     </div>
@@ -644,8 +644,8 @@
                                                 <option selected disabled>Pilih Kecamatan</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
-                                            <input type="hidden" id="districtParent" name="districtParent" />
-                                            <input type="hidden" id="parent_district_name" name="parent_district_name"
+                                            <input type="hidden" id="parent_district" name="districtParent" />
+                                            <input type="hidden" id="parent_district_name" name="parent_district"
                                                 readonly />
                                         </div>
                                     </div>
@@ -657,8 +657,8 @@
                                                 <option selected disabled>Pilih Desa / Kelurahan</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
-                                            <input type="hidden" id="villageParent" name="villageParent" />
-                                            <input type="hidden" id="parent_village_name" name="parent_village_name"
+                                            <input type="hidden" id="parent_village" name="villageParent" />
+                                            <input type="hidden" id="parent_village_name" name="parent_village"
                                                 readonly />
                                         </div>
                                     </div>

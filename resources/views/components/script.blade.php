@@ -199,8 +199,9 @@
              fetch("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json")
                  .then((response) => response.json())
                  .then((data) => {
-                     const provinceSelect =
-                         document.getElementById("provinceParent");
+                     const provinceSelect = document.getElementById("provinceParent");
+                     provinceSelect.innerHTML =
+                         "<option value=''>Select Province</option>"; // Clear existing options
                      data.forEach((province) => {
                          const option = document.createElement("option");
                          option.value = province.id;
@@ -210,16 +211,13 @@
                  })
                  .catch((error) => {
                      console.error("Error fetching provinces:", error);
-                     // Display error message
                      document.getElementById("error-message").innerText =
                          "Error fetching provinces. Please check the console for more details.";
                  });
          }
 
          function fetchRegenciesParent(provinceParentID) {
-             fetch(
-                     `https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceParentID}.json`
-                 )
+             fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceParentID}.json`)
                  .then((response) => {
                      if (!response.ok) {
                          throw new Error("Network response was not ok");
@@ -228,7 +226,8 @@
                  })
                  .then((data) => {
                      const regencySelect = document.getElementById("regencyParent");
-                     regencySelect.innerHTML = "";
+                     regencySelect.innerHTML =
+                         "<option value=''>Select Regency</option>"; // Clear existing options
                      data.forEach((regency) => {
                          const option = document.createElement("option");
                          option.value = regency.id;
@@ -238,16 +237,13 @@
                  })
                  .catch((error) => {
                      console.error("Error fetching regencies:", error);
-                     // Display error message
                      document.getElementById("error-message").innerText =
                          "Error fetching regencies. Please check the console for more details.";
                  });
          }
 
          function fetchDistrictsParent(regencyParentID) {
-             fetch(
-                     `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${regencyParentID}.json`
-                 )
+             fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/districts/${regencyParentID}.json`)
                  .then((response) => {
                      if (!response.ok) {
                          throw new Error("Network response was not ok");
@@ -255,9 +251,9 @@
                      return response.json();
                  })
                  .then((data) => {
-                     const districtSelect =
-                         document.getElementById("districtParent");
-                     districtSelect.innerHTML = "";
+                     const districtSelect = document.getElementById("districtParent");
+                     districtSelect.innerHTML =
+                         "<option value=''>Select District</option>"; // Clear existing options
                      data.forEach((district) => {
                          const option = document.createElement("option");
                          option.value = district.id;
@@ -267,16 +263,13 @@
                  })
                  .catch((error) => {
                      console.error("Error fetching districts:", error);
-                     // Display error message
                      document.getElementById("error-message").innerText =
                          "Error fetching districts. Please check the console for more details.";
                  });
          }
 
          function fetchVillagesParent(districtParentID) {
-             fetch(
-                     `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${districtParentID}.json`
-                 )
+             fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/villages/${districtParentID}.json`)
                  .then((response) => {
                      if (!response.ok) {
                          throw new Error("Network response was not ok");
@@ -285,7 +278,8 @@
                  })
                  .then((data) => {
                      const villageSelect = document.getElementById("villageParent");
-                     villageSelect.innerHTML = "";
+                     villageSelect.innerHTML =
+                         "<option value=''>Select Village</option>"; // Clear existing options
                      data.forEach((village) => {
                          const option = document.createElement("option");
                          option.value = village.id;
@@ -295,44 +289,61 @@
                  })
                  .catch((error) => {
                      console.error("Error fetching villages:", error);
-                     // Display error message
                      document.getElementById("error-message").innerText =
                          "Error fetching villages. Please check the console for more details.";
                  });
          }
 
-         document
-             .getElementById("provinceParent")
-             .addEventListener("change", function(event) {
-                 const selectedProvinceId = event.target.value;
-                 fetchRegenciesParent(selectedProvinceId);
-                 const selectedProvinceName =
-                     event.target.options[event.target.selectedIndex].text;
-                 document.getElementById("parent_province_name").value =
-                     selectedProvinceName;
-             });
+         document.getElementById("provinceParent").addEventListener("change", function(event) {
+             const selectedProvinceId = event.target.value;
+             const selectedProvinceName = event.target.options[event.target.selectedIndex].text;
+             fetchRegenciesParent(selectedProvinceId);
+             document.getElementById("parent_province_name").value = selectedProvinceName;
+             document.getElementById("parent_province").value =
+                 selectedProvinceId; // Save the ID as well
 
-         document
-             .getElementById("regencyParent")
-             .addEventListener("change", function(event) {
-                 const selectedRegencyId = event.target.value;
-                 fetchDistrictsParent(selectedRegencyId);
-                 const selectedRegencyName =
-                     event.target.options[event.target.selectedIndex].text;
-                 document.getElementById("parent_regency_name").value =
-                     selectedRegencyName;
-             });
+             // Clear dependent fields
+             document.getElementById("regencyParent").innerHTML =
+                 "<option value=''>Select Regency</option>";
+             document.getElementById("districtParent").innerHTML =
+                 "<option value=''>Select District</option>";
+             document.getElementById("villageParent").innerHTML =
+                 "<option value=''>Select Village</option>";
+         });
 
-         document
-             .getElementById("districtParent")
-             .addEventListener("change", function(event) {
-                 const selectedDistrictId = event.target.value;
-                 fetchVillagesParent(selectedDistrictId);
-                 const selectedDistrictName =
-                     event.target.options[event.target.selectedIndex].text;
-                 document.getElementById("parent_district_name").value =
-                     selectedDistrictName;
-             });
+         document.getElementById("regencyParent").addEventListener("change", function(event) {
+             const selectedRegencyId = event.target.value;
+             const selectedRegencyName = event.target.options[event.target.selectedIndex].text;
+             fetchDistrictsParent(selectedRegencyId);
+             document.getElementById("parent_regency_name").value = selectedRegencyName;
+             document.getElementById("parent_regency").value = selectedRegencyId; // Save the ID as well
+
+             // Clear dependent fields
+             document.getElementById("districtParent").innerHTML =
+                 "<option value=''>Select District</option>";
+             document.getElementById("villageParent").innerHTML =
+                 "<option value=''>Select Village</option>";
+         });
+
+         document.getElementById("districtParent").addEventListener("change", function(event) {
+             const selectedDistrictId = event.target.value;
+             const selectedDistrictName = event.target.options[event.target.selectedIndex].text;
+             fetchVillagesParent(selectedDistrictId);
+             document.getElementById("parent_district_name").value = selectedDistrictName;
+             document.getElementById("parent_district").value =
+                 selectedDistrictId; // Save the ID as well
+
+             // Clear dependent fields
+             document.getElementById("villageParent").innerHTML =
+                 "<option value=''>Select Village</option>";
+         });
+
+         document.getElementById("villageParent").addEventListener("change", function(event) {
+             const selectedVillageId = event.target.value;
+             const selectedVillageName = event.target.options[event.target.selectedIndex].text;
+             document.getElementById("parent_village_name").value = selectedVillageName;
+             document.getElementById("parent_village").value = selectedVillageId; // Save the ID as well
+         });
 
          fetchProvincesParent();
      });

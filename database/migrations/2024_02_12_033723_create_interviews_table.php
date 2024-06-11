@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('interviews', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
+            $table->string('slug')->unique();
             $table->date('interview_date');
-            $table->time('start_time')->nullable();
-            $table->time('end_time')->nullable();
+            // $table->time('start_time')->nullable();
+            // $table->time('end_time')->nullable();
             $table->enum('method', ['online', 'offline'])->default('offline');
             $table->string('status')->default('Dijadwalkan');
             $table->foreignId('user_id')->constrained('users');

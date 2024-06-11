@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">Edit Interview</div>
                     <div class="card-body">
-                        <form action="{{ route('interviews.update', $interview->id) }}" method="POST">
+                        <form action="{{ route('interview.update', $interview->slug) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
@@ -18,17 +18,8 @@
                             <div class="form-group">
                                 <label for="interview_date">Tanggal</label>
                                 <input type="date" name="interview_date" id="interview_date" class="form-control"
-                                    value="{{ old('interview_date', $interview->interview_date) }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="start_time">Waktu Mulai</label>
-                                <input type="time" name="start_time" id="start_time" class="form-control"
-                                    value="{{ old('start_time', $interview->start_time) }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="end_time">Waktu Selesai</label>
-                                <input type="time" name="end_time" id="end_time" class="form-control"
-                                    value="{{ old('end_time', $interview->end_time) }}" required>
+                                    value="{{ old('interview_date', $interview->interview_date->format('Y-m-d')) }}"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label for="method">Metode</label>

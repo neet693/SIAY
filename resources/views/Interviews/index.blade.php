@@ -63,7 +63,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <a href="{{ route('interview.show', $interview->id) }}"
+                                    <a href="{{ route('interview.show', $interview->slug) }}"
                                         class="text-decoration-none text-dark">
                                         {{ $interview->user->name }}
                                     </a>
@@ -77,13 +77,13 @@
                                 <td>
                                     @if ($interview->status == 'Dijadwalkan')
                                         <form method="POST"
-                                            action="{{ route('end-interview', ['id' => $interview->id]) }}">
+                                            action="{{ route('end-interview', ['slug' => $interview->slug]) }}">
                                             @csrf
                                             <button type="submit" class="btn btn-link link-success">
                                                 <i class="bi bi-check-circle"></i>
                                             </button>
                                         </form>
-                                        <button href="#addZoomModal{{ $interview->id }}" data-bs-toggle="modal"
+                                        <button href="#addZoomModal{{ $interview->slug }}" data-bs-toggle="modal"
                                             class="btn btn-link link-success d-inline-block"
                                             title="Set Link Zoom {{ $interview->user->name }}">
                                             <i class="bi bi-camera-video"></i>

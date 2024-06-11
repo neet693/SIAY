@@ -92,8 +92,8 @@ class StudentSeeder extends Seeder
         $interview = Interview::create([
             'title' => 'Interview Title',
             'interview_date' => '2024-05-20', // Change as needed
-            'start_time' => '09:00', // Change as needed
-            'end_time' => '10:00', // Change as needed
+            // 'start_time' => '09:00', // Change as needed
+            // 'end_time' => '10:00', // Change as needed
             'method' => 'Offline', // Change as needed
             'reason' => 'Assessment', // Change as needed
             'user_id' => $user->id,

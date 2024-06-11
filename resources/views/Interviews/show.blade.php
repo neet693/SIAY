@@ -15,11 +15,7 @@
                                 </tr>
                                 <tr>
                                     <th>Tanggal</th>
-                                    <td>{{ $interview->interview_date }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Waktu</th>
-                                    <td>{{ $interview->start_time }} - {{ $interview->end_time }}</td>
+                                    <td>{{ $interview->interview_date->format(' D, d M Y ') }}</td>
                                 </tr>
                                 <tr>
                                     <th>Metode</th>
@@ -50,7 +46,7 @@
                         </table>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ route('interview.edit', $interview->id) }}" class="text-decoration-none link-warning"
+                        <a href="{{ route('interview.edit', $interview->slug) }}" class="text-decoration-none link-warning"
                             title="Edit Interview {{ $interview->user->name }}">
                             <i class="bi bi-pencil-square"></i>
                         </a>

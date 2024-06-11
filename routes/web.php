@@ -47,9 +47,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
     // Interview routes
-    Route::resource('interview', InterviewController::class);
-    Route::post('/end-interview/{id}', [InterviewController::class, 'accept'])->name('end-interview');
-    Route::post('/set-zoom/{id}', [InterviewController::class, 'setZoom'])->name('set-zoom');
+    Route::resource('interview', InterviewController::class)->parameters([
+        'interview' => 'slug'
+    ]);
+    Route::post('/end-interview/{slug}', [InterviewController::class, 'accept'])->name('end-interview');
+    Route::post('/set-zoom/{slug}', [InterviewController::class, 'setZoom'])->name('set-zoom');
     Route::resource('transactiontype', TransactionTypeController::class);
 
     // Payment routes

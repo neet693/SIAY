@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class Interview extends Model
 {
@@ -12,8 +14,8 @@ class Interview extends Model
     protected  $fillable = [
         'title',
         'interview_date',
-        'start_time',
-        'end_time',
+        // 'start_time',
+        // 'end_time',
         'method',
         'status',
         'user_id',
@@ -21,9 +23,23 @@ class Interview extends Model
         'link'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     protected $casts = [
         'interview_date' => 'datetime'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->slug = Str::slug($model->title);
+        });
+    }
 
     public function user()
     {
