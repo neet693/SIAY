@@ -63,7 +63,7 @@ class Student extends Model
 
     public function studentParent()
     {
-        return $this->hasMany(StudentParent::class);
+        return $this->hasOne(StudentParent::class);
     }
 
     public function wali()
@@ -103,13 +103,12 @@ class Student extends Model
         return $this->hasMany(Score::class);
     }
     public function user()
-{
-    return $this->belongsTo(User::class);
-}
+    {
+        return $this->belongsTo(User::class);
+    }
 
-public function assignedExams()
-{
-    return $this->hasMany(AssignExam::class, 'student_id');
-}
-
+    public function assignedExams()
+    {
+        return $this->hasMany(AssignExam::class, 'student_id');
+    }
 }

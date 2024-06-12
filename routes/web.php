@@ -16,23 +16,10 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('welcome');
 
 Route::get('/', [PPDBController::class, 'index'])->name('welcome');
 Route::get('invoice', [PPDBController::class, 'invoice'])->name('invoice');
+Route::get('ppdb/{unique_code}/print', [PPDBController::class, 'print'])->name('print-formmulir-ppdb');
 
 // Midtrans routes
 Route::resource('ppdb', PPDBController::class);

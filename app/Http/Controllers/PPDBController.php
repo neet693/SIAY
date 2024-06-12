@@ -375,7 +375,7 @@ class PPDBController extends Controller
                 'student_village' => $studentParentAddress->parent_village,
                 'address' => $studentParentAddress->address,
             ]);
-        } elseif ($request->input('residence_status_id') == 2) {
+        } else {
             $wali = Wali::create([
                 'student_id' => $student->id,
                 'wali_name' => $request->input('wali_name'),
@@ -384,11 +384,6 @@ class PPDBController extends Controller
                 'wali_address' => $request->input('wali_address'),
                 'wali_tel' => $request->input('wali_tel'),
             ]);
-
-            if (!$wali) {
-                return redirect()->back()->withErrors('Error creating wali.')->withInput();
-            }
-        } else {
             $studentAddress = $student->studentAddress()->create([
                 'student_province' => $request->input('student_province_name'),
                 'student_regency' => $request->input('student_regency_name'),
@@ -399,6 +394,10 @@ class PPDBController extends Controller
 
             if (!$studentAddress) {
                 return redirect()->back()->withErrors('Error creating student address.')->withInput();
+            }
+
+            if (!$wali) {
+                return redirect()->back()->withErrors('Error creating wali.')->withInput();
             }
         }
 
@@ -557,5 +556,12 @@ class PPDBController extends Controller
         $interview = Interview::where('user_id', $student->user_id)->first(); // Mengambil informasi wawancara berdasarkan user_id
         Mail::to($student->email)->send(new PPDBRegistrationSuccess($student, $password, $interview));
         return redirect()->back()->with('success', 'Email kredensial telah dikirim ke student.');
+    }
+
+    public function print($uniqueCode)
+    {
+        $student = Student::where('unique_code', $uniqueCode)->firstOrFail();
+
+        return view('print-formulir', compact('student'));
     }
 }

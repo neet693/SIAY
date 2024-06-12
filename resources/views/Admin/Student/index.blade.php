@@ -131,18 +131,37 @@
                                 <td>
                                     @if ($student->status_penerimaan == 'Diterima')
                                     @else
-                                        <form method="POST"
-                                            action="{{ route('admin.set.accept', ['unique_code' => $student->unique_code]) }}">
-                                            @csrf
-                                            <button type="submit"
-                                                class="link-success text-decoration-none btn">Diterima</button>
-                                        </form>
-                                        <form method="POST" class="d-inline"
-                                            action="{{ route('admin.set.reject', ['unique_code' => $student->unique_code]) }}">
-                                            @csrf
-                                            <button type="submit"
-                                                class="link-danger text-decoration-none btn">Ditolak</button>
-                                        </form>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Pilih Aksi
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <form method="POST"
+                                                        action="{{ route('admin.set.accept', ['unique_code' => $student->unique_code]) }}">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="link-success text-decoration-none btn">Diterima</button>
+                                                    </form>
+                                                </li>
+                                                <li>
+                                                    <form method="POST" class="d-inline"
+                                                        action="{{ route('admin.set.reject', ['unique_code' => $student->unique_code]) }}">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="link-danger text-decoration-none btn">Ditolak</button>
+                                                    </form>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-link link-success d-inline-block"
+                                                        title="Print Formulir{{ $student->fullname }}"
+                                                        href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
+                                                        <i class="bi bi-printer"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     @endif
                                 </td>
                             </tr>

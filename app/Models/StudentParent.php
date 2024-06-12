@@ -23,7 +23,7 @@ class StudentParent extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasMany(Student::class);
     }
 
     public function studentParentAddress()

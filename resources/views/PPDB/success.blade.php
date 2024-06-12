@@ -15,6 +15,9 @@
                     </h2>
                     <h5 class="content-desc">Konfirmasikan ke admin untuk mengaktifkan akun
                     </h5>
+                    <a href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
+                        Print Formulir PPDB
+                    </a>
                 </div>
             </div>
         </div>
