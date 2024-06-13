@@ -20,18 +20,12 @@
             align-items: center;
             margin-bottom: 20px;
             background-color: #2b6eff;
-            height: 100px;
+            height: 150px;
         }
 
         .logo img,
         .slogan img {
             max-height: 70px;
-            /* Sesuaikan dengan ukuran yang diinginkan */
-        }
-
-        input[type="checkbox"]:checked {
-            color: #2b6eff;
-            /* Change the font color of the label when checkbox is checked */
         }
     </style>
 </head>
@@ -42,28 +36,29 @@
         <div class="logo">
             <img src="{{ asset('app/assets/images/siay-logo.png') }}" alt="Logo Sekolah">
         </div>
-        <div class="text-center text-white font-bold">
-            <h1>Form Pendaftaran</h1>
-            <h2>{{ $student->schoolInformation->academicYear->name }}</h2>
+        <div class="text-center text-white">
+            <h1 class="font-bold">SEKOLAH KRISTEN YAHYA</h1>
+            <h2 class="font-bold">TERAKREDITASI "A"</h2>
+            <p> Jl. L. L. R. E. Martadinata No. 71A - 73
+                - Bandung</p>
+            <p class="text-xs">Telp: +62 22 - 420 6108 , +62 813 2210 8575
+            </p>
+            <p class="text-sm">Email: info@sekolahyahya.sch.id</p>
         </div>
         <div class="slogan">
             <img src="{{ asset('app/assets/images/slogan-yahya.png') }}" alt="Logo Sekolah">
         </div>
     </div>
 
+    <h1 class="text-center font-bold">Form Pendaftaran</h1>
+    <h2 class="text-center font-bold">{{ $student->schoolInformation->academicYear->name }}</h2>
 
-    <div class="text-center font-bold">
-        <h1>Form Pendaftaran</h1>
-        <h2>{{ $student->schoolInformation->academicYear->name }}</h2>
-    </div>
-
-    <div class="school-data p-4">
+    <div class="school-data">
         <span class="flex items-center">
-            <span class="h-px flex-1 bg-black"></span>
-            <span class="shrink-0 px-6">Data Umum</span>
+            <span class="pr-6">Data Umum</span>
             <span class="h-px flex-1 bg-black"></span>
         </span>
-        <ul>
+        <ul class="px-4">
             {{-- Fieldset Unit --}}
             <fieldset>
                 <div class="flex space-x-4">
@@ -125,16 +120,15 @@
         </ul>
     </div>
 
-    <div class="student-data p-4">
+    <div class="student-data">
         <span class="flex items-center">
-            <span class="h-px flex-1 bg-black"></span>
-            <span class="shrink-0 px-6">Data Siswa</span>
+            <span class="pr-6">Data Siswa</span>
             <span class="h-px flex-1 bg-black"></span>
         </span>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div class="grid grid-cols-1 lg:grid-cols-2 print:grid-cols-2">
             <div class="h-32">
-                <ul class="p-2">
+                <ul class="px-4">
                     <li>Nama Lengkap: {{ $student->fullname }}</li>
                     <li>Nama Panggilan: {{ $student->nickname }}</li>
                     <li>Jenis Kelamin: {{ $student->gender === 'male' ? 'Laki-laki' : 'Perempuan' }}</li>
@@ -146,7 +140,7 @@
                 </ul>
             </div>
             <div class="h-32">
-                <ul class="p-2">
+                <ul class="px-4">
                     <li>Kewarganegaraan: {{ $student->citizenship }}</li>
                     <li>Status Tinggal: {{ $student->residenceStatus->status_name }}</li>
                     <li>Status dalam keluarga: Anak ke - {{ $student->child_position }} dari -
@@ -160,17 +154,16 @@
         </div>
     </div>
 
-    <div class="parent-data p-4">
+    <div class="parent-data py-20">
         <span class="flex items-center">
-            <span class="h-px flex-1 bg-black"></span>
-            <span class="shrink-0 px-6">Data Orangtua / Wali</span>
+            <span class="pr-6">Data Orangtua / Wali</span>
             <span class="h-px flex-1 bg-black"></span>
         </span>
-        <ul>
+        <ul class="px-4">
             @if ($student->residence_status_id === 1)
-                <div class="grid grid-cols-1 lg:grid-cols-2">
+                <div class="grid grid-cols-1 lg:grid-cols-2 print:grid-cols-2">
                     <div class="h-32">
-                        <ul class="p-2">
+                        <ul class="px-4">
                             <li>Nama Ayah: {{ $student->studentParent->dad_name }}</li>
                             <li>Gelar Ayah: {{ $student->studentParent->dad_degree }}</li>
                             <li>Pekerjaan Ayah: {{ $student->studentParent->dad_job }}</li>
@@ -178,7 +171,7 @@
                         </ul>
                     </div>
                     <div class="h-32">
-                        <ul class="p-2">
+                        <ul class="px-4">
                             <li>Nama Ibu: {{ $student->studentParent->mom_name }}</li>
                             <li>Gelar Ibu: {{ $student->studentParent->mom_degree }}</li>
                             <li>Pekerjaan Ibu: {{ $student->studentParent->mom_job }}</li>
@@ -202,6 +195,16 @@
         </ul>
     </div>
 
+    <div class="pr-4">
+        <div class="text-right">
+            <p>Bandung, <span id="currentDate"></span></p>
+            <br><br>
+            <p>Orang Tua/Wali,</p>
+            <br><br>
+            <p>_____________________</p>
+        </div>
+    </div>
+
     <!-- Tombol cetak -->
     <div class="text-center no-print">
         <button
@@ -219,6 +222,18 @@
             <span class="text-sm font-medium transition-all group-hover:me-4"> Cetak </span>
         </button>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            var today = new Date().toLocaleDateString("id-ID", options);
+            document.getElementById('currentDate').textContent = today;
+        });
+    </script>
 </body>
 
 </html>
