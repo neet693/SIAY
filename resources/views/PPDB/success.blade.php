@@ -13,7 +13,12 @@
                     <h2 class="primary-header ">
                         {{ $student->fullname }} Berhasil di Daftarkan
                     </h2>
-                    <h5 class="content-desc">Konfirmasikan ke admin untuk mengaktifkan akun
+                    <h5 class="content-desc">Silahkan Transfer ke rekening berikut BCA <strong>0083481002 </strong>
+                        a.n <strong>YAYASAN PENDIDIKAN KRISTEN YAHYA </strong></h5>
+                    <h5 class="content-desc">Berikut ini adalah nomor kontak yang dapat Anda hubungi untuk proses pengiriman
+                        bukti transfer dan konfirmasi pembayaran:
+                        <strong>0813-2210-8575</strong> dan
+                        <strong>0852-9011-8600</strong>.
                     </h5>
                     <a href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
                         Print Formulir PPDB
