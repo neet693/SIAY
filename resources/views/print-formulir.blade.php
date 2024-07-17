@@ -27,6 +27,14 @@
         .slogan img {
             max-height: 70px;
         }
+
+        /* Kustomisasi Checkbox */
+        input[type="checkbox"].custom-checkbox:checked {
+            background-color: #10B981;
+            /* Warna hijau */
+            border-color: #10B981;
+            /* Warna hijau */
+        }
     </style>
 </head>
 
@@ -67,7 +75,8 @@
                     <label for="Option1" class="flex cursor-pointer items-start gap-4">
                         <div class="flex items-center">
                             &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="Option1" disabled
+                            <input type="checkbox" class="custom-checkbox size-4 rounded border-gray-300" id="Option1"
+                                disabled
                                 {{ $student->schoolInformation->educationLevel->level_name === 'TK' ? 'checked' : '' }} />
                         </div>
 
@@ -79,7 +88,8 @@
                     <label for="Option2" class="flex cursor-pointer items-start gap-4">
                         <div class="flex items-center">
                             &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="Option2" disabled
+                            <input type="checkbox" class="custom-checkbox size-4 rounded border-gray-300" id="Option2"
+                                disabled
                                 {{ $student->schoolInformation->educationLevel->level_name === 'SD' ? 'checked' : '' }} />
                         </div>
 
@@ -91,7 +101,8 @@
                     <label for="Option3" class="flex cursor-pointer items-start gap-4">
                         <div class="flex items-center">
                             &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="Option3" disabled
+                            <input type="checkbox" class="custom-checkbox size-4 rounded border-gray-300" id="Option3"
+                                disabled
                                 {{ $student->schoolInformation->educationLevel->level_name === 'SMP' ? 'checked' : '' }} />
                         </div>
 
@@ -103,7 +114,8 @@
                     <label for="Option4" class="flex cursor-pointer items-start gap-4">
                         <div class="flex items-center">
                             &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="Option3" disabled
+                            <input type="checkbox" class="custom-checkbox size-4 rounded border-gray-300" id="Option3"
+                                disabled
                                 {{ $student->schoolInformation->educationLevel->level_name === 'SMA' ? 'checked' : '' }} />
                         </div>
 
@@ -120,7 +132,7 @@
         </ul>
     </div>
 
-    <div class="student-data">
+    <div class="student-data py-10">
         <span class="flex items-center">
             <span class="pr-6">Data Siswa</span>
             <span class="h-px flex-1 bg-black"></span>
@@ -154,13 +166,13 @@
         </div>
     </div>
 
-    <div class="parent-data py-20">
+    <div class="parent-data py-10">
         <span class="flex items-center">
             <span class="pr-6">Data Orangtua / Wali</span>
             <span class="h-px flex-1 bg-black"></span>
         </span>
         <ul class="px-4">
-            @if ($student->residence_status_id === 1)
+            @if ($student->residence_status_id == 1)
                 <div class="grid grid-cols-1 lg:grid-cols-2 print:grid-cols-2">
                     <div class="h-32">
                         <ul class="px-4">
@@ -184,11 +196,11 @@
                     </div>
                 </div>
             @else
-                <li>Nama Wali: {{ $student->wali->wali_name }}</li>
-                <li>Gelar Wali: {{ $student->wali->wali_degree }}</li>
-                <li>Pekerjaan Wali: {{ $student->wali->wali_job }}</li>
-                <li>Alamat Wali: {{ $student->wali->wali_address }}</li>
-                <li>No. Telp Wali: {{ $student->wali->wali_tel }}</li>
+                <li>Nama Wali: {{ $student->wali->wali_name ?? 'Tidak ada' }}</li>
+                <li>Gelar Wali: {{ $student->wali->wali_degree ?? 'Tidak ada' }}</li>
+                <li>Pekerjaan Wali: {{ $student->wali->wali_job ?? 'Tidak ada' }}</li>
+                <li>Alamat Wali: {{ $student->wali->wali_address ?? 'Tidak ada' }}</li>
+                <li>No. Telp Wali: {{ $student->wali->wali_tel ?? 'Tidak ada' }}</li>
             @endif
 
             <!-- Tambahkan data lainnya -->
