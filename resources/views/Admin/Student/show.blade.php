@@ -56,6 +56,11 @@
                         <!-- Modal Wali -->
                         @include('components.modal-show-wali')
 
+                        <a class="btn btn-link link-success d-inline-block" title="Print Formulir{{ $student->fullname }}"
+                            href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
+                            <i class="bi bi-printer"></i> Print Data Siswa
+                        </a>
+
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">

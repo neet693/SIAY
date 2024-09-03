@@ -124,13 +124,17 @@
                         @foreach ($students as $student)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $student->fullname }}</td>
+                                <td>
+                                    <a href="{{ route('admin.student.show', ['unique_code' => $student->unique_code]) }}"
+                                        style="text-decoration: none; color: black;">
+                                        {{ $student->fullname }}
+                                    </a>
+                                </td>
                                 <td>{{ $student->schoolInformation->educationLevel->level_name }}</td>
                                 <td>{{ $student->schoolInformation->academicYear->name }}</td>
                                 <td>{{ $student->status_penerimaan }}</td>
                                 <td>
-                                    @if ($student->status_penerimaan == 'Diterima')
-                                    @else
+                                    @if ($student->status_penerimaan != 'Diterima')
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -153,16 +157,14 @@
                                                             class="link-danger text-decoration-none btn">Ditolak</button>
                                                     </form>
                                                 </li>
-                                                <li>
-                                                    <a class="btn btn-link link-success d-inline-block"
-                                                        title="Print Formulir{{ $student->fullname }}"
-                                                        href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
-                                                        <i class="bi bi-printer"></i>
-                                                    </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     @endif
+                                    <a class="btn btn-link link-success d-inline-block"
+                                        title="Print Formulir{{ $student->fullname }}"
+                                        href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
+                                        <i class="bi bi-printer"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
