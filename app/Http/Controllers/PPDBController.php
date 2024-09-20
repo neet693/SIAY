@@ -18,6 +18,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
@@ -51,184 +52,6 @@ class PPDBController extends Controller
     {
         return view('PPDB.create');
     }
-
-    // public function store(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'education_level_id' => 'required',
-    //         'academic_year_id' => 'required',
-    //         'news_from' => 'required',
-    //         'last_school' => 'required',
-    //         'fullname' => 'required',
-    //         'nickname' => 'required',
-    //         'citizenship' => 'required',
-    //         'gender' => 'required',
-    //         'birth_place' => 'required',
-    //         'birth_date' => 'required',
-    //         'religion_id' => 'required',
-    //         'church_domicile' => 'required',
-    //         // 'student_province' => 'required',
-    //         // 'student_regency' => 'required',
-    //         // 'student_district' => 'required',
-    //         // 'student_village' => 'required',
-    //         // 'address' => 'required',
-    //         'child_position' => 'required',
-    //         'child_number' => 'required',
-    //         'blood_type_id' => 'required',
-    //         'email' => 'required|email',
-    //         'residence_status_id' => 'required',
-    //         'dad_tel' => 'required',
-    //         'mom_tel' => 'required',
-    //         'dad_name' => 'required',
-    //         'mom_name' => 'required',
-    //         'dad_degree' => 'required',
-    //         'mom_degree' => 'required',
-    //         'dad_job' => 'required',
-    //         'mom_job' => 'required',
-    //         'parent_province' => 'required',
-    //         'parent_regency' => 'required',
-    //         'parent_district' => 'required',
-    //         'parent_village' => 'required',
-    //         'address' => 'required',
-    //         'parentStay' => 'required',
-    //         'transaction_type_id' => 'required',
-    //         'title' => 'required',
-    //         'interview_date' => 'required',
-    //         // 'start_time' => 'required',
-    //         // 'end_time' => 'required',
-    //         'method' => 'required',
-    //         // 'reason' => 'required',
-    //         // 'user_id' => 'required',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         // Jika terjadi kesalahan validasi, kembalikan data dengan pesan error dan input sebelumnya
-    //         return redirect()->back()->withErrors($validator)->withInput();
-    //     }
-
-
-    //     $schoolInformation = SchoolInformation::create([
-    //         'academic_year_id' => $request->input('academic_year_id'),
-    //         'education_level_id' => $request->input('education_level_id'),
-    //         'news_from' => $request->input('news_from'),
-    //         'last_school' => $request->input('last_school'),
-    //     ]);
-    //     $schoolInformation->save();
-
-    //     $email = $request->input('email');
-
-    //     if (User::where('email', $email)->exists()) {
-    //         return redirect()->back()->withErrors($validator);
-    //     }
-    //     //Create Student
-    //     $user = User::create([
-    //         'name' => $request->input('fullname'),
-    //         'email' => $request->input('email'),
-    //         'role_id' => 3,
-    //         'password' => 'sekolahyahya*',
-    //     ]);
-    //     $user->save();
-
-    //     //Generate Unique Code
-    //     $academicYear = substr($schoolInformation->academicYear->name, 2, 2) . substr($schoolInformation->academicYear->name, -2, 2);
-    //     $uniqueCode = $schoolInformation->educationLevel->level_name . '-' . $academicYear . '-' .  sprintf("%04d", $schoolInformation->id);
-
-    //     // Step 2: Save Student Information
-    //     $student = Student::create([
-    //         'user_id' => $user->id,
-    //         'school_information_id' => $schoolInformation->id,
-    //         'unique_code' => $uniqueCode,
-    //         'fullname' => $request->input('fullname'),
-    //         'nickname' => $request->input('nickname'),
-    //         'citizenship' => $request->input('citizenship'),
-    //         'gender' => $request->input('gender'),
-    //         'birth_place' => $request->input('birth_place'),
-    //         'birth_date' => $request->input('birth_date'),
-    //         'religion_id' => $request->input('religion_id'),
-    //         'church_domicile' => $request->input('church_domicile'),
-    //         'child_position' => $request->input('child_position'),
-    //         'child_number' => $request->input('child_number'),
-    //         'blood_type_id' => $request->input('blood_type_id'),
-    //         'email' => $request->input('email'),
-    //         'residence_status_id' => $request->input('residence_status_id'),
-    //         'status_penerimaan' => 'Menunggu Persetujuan',
-    //     ]);
-
-    //     // $student->studentAddress()->create([
-    //     //     'student_province' => $request->input('student_province_name'),
-    //     //     'student_regency' => $request->input('student_regency_name'),
-    //     //     'student_district' => $request->input('student_district_name'),
-    //     //     'student_village' => $request->input('student_village_name'),
-    //     //     'address' => $request->input('address'),
-    //     // ]);
-
-    //     // Step 3: Save Student Parent Information
-    //     $studentParent = StudentParent::create([
-    //         'student_id' => $student->id,
-    //         'dad_name' => $request->input('dad_name'),
-    //         'mom_name' => $request->input('mom_name'),
-    //         'dad_degree' => $request->input('dad_degree'),
-    //         'mom_degree' => $request->input('mom_degree'),
-    //         'dad_job' => $request->input('dad_job'),
-    //         'mom_job' => $request->input('mom_job'),
-    //         'dad_tel' => $request->input('dad_tel'),
-    //         'mom_tel' => $request->input('mom_tel'),
-    //     ]);
-    //     $studentParent->studentParentAddress()->create([
-    //         'parent_province' => $request->input('parent_province_name'),
-    //         'parent_regency' => $request->input('parent_regency_name'),
-    //         'parent_district' => $request->input('parent_district_name'),
-    //         'parent_village' => $request->input('parent_village_name'),
-    //         'address' => $request->input('address'),
-    //         'parentStay' => $request->input('parentStay'),
-    //     ]);
-
-    //     if ($request->input('residence_status_id') == 1) {
-    //         $studentParentAddress = $studentParent->studentParentAddress->first();
-    //         $student->studentAddress()->create([
-    //             'student_province' => $studentParentAddress->parent_province,
-    //             'student_regency' => $studentParentAddress->parent_regency,
-    //             'student_district' => $studentParentAddress->parent_district,
-    //             'student_village' => $studentParentAddress->parent_village,
-    //             'address' => $studentParentAddress->address,
-    //         ]);
-    //     } elseif ($student->residence_status_id == 2) {
-    //         $wali = Wali::create([
-    //             'student_id' => $student->id,
-    //             'wali_name' => $request->input('wali_name'),
-    //             'wali_degree' => $request->input('wali_degree'),
-    //             'wali_job' => $request->input('wali_job'),
-    //             'wali_address' => $request->input('wali_address'),
-    //             'wali_tel' => $request->input('wali_tel'),
-    //         ]);
-    //     } else {
-    //         $student->studentAddress()->create([
-    //             'student_province' => $request->input('student_province_name'),
-    //             'student_regency' => $request->input('student_regency_name'),
-    //             'student_district' => $request->input('student_district_name'),
-    //             'student_village' => $request->input('student_village_name'),
-    //             'address' => $request->input('address'),
-    //         ]);
-    //     }
-
-    //     // Step 3: Save Interview Information
-    //     $interview = Interview::create([
-    //         'title' => $request->input('title'),
-    //         'interview_date' => $request->input('interview_date'),
-    //         'start_time' => $request->input('start_time'),
-    //         'end_time' => $request->input('end_time'),
-    //         'method' => $request->input('method'),
-    //         'reason' => $request->input('reason'),
-    //         'user_id' => $user->id,
-    //     ]);
-
-    //     $student->school_information_id = $schoolInformation->id;
-    //     $student->save();
-    //     $interview->save();
-
-    //     $this->sendStudentCredential($student->id, $user->password);
-    //     return view('PPDB.success', compact('student'));
-    // }
 
     public function store(Request $request)
     {
@@ -423,6 +246,19 @@ class PPDBController extends Controller
         // Send student credentials
         $this->sendStudentCredential($student->id, $user->password);
 
+        //Send WAPPDBSendnotification
+        $admin_number = '6282350496224';
+        $fullname = $student->fullname;
+        $createdAt = $student->created_at;
+        $level = $student->schoolInformation->educationLevel->level_name;
+        $this->WAPPDBSendnotification($admin_number, $fullname, $createdAt);
+
+        //Send Telegram Notification
+        //$chatId = '1939486982';
+        $chatId = env('TELEGRAM_CHAT_IDS');
+        $message = "*Notifikasi Pendaftaran PPDB*\n👤 Nama Siswa: $fullname\n📚 Unit: $level\n🗓 Tanggal Daftar: " . $createdAt->format('d M Y');
+        $this->TelegramNotification($chatId, $message);
+
         // Return success view
         return view('PPDB.success', compact('student'));
     }
@@ -557,6 +393,65 @@ class PPDBController extends Controller
         Mail::to($student->email)->send(new PPDBRegistrationSuccess($student, $password, $interview));
         return redirect()->back()->with('success', 'Email kredensial telah dikirim ke student.');
     }
+
+    private function WAPPDBSendnotification($to, $fullname, $createdAt)
+    {
+        $url = 'https://graph.facebook.com/v20.0/362811720259067/messages';
+        $accessToken = env('WHATSAPP_ACCESS_TOKEN');
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+            'Content-Type'  => 'application/json',
+        ])->post($url, [
+            'messaging_product' => 'whatsapp',
+            'to'                => $to,
+            'type'              => 'template',
+            'template'          => [
+                'name'     => 'hello_world',
+                'language' => [
+                    'code' => 'en_US'
+                ],
+                'components' => [
+                    'type'       => 'body',
+                    'parameters' => [
+                        [
+                            'type' => 'text',
+                            'text' => $fullname // Nama siswa sebagai variabel pertama
+                        ],
+                        [
+                            'type' => 'text',
+                            'text' => $createdAt->format('d M Y')     // Tanggal daftar sebagai variabel kedua
+                        ]
+                    ]
+                ]
+            ]
+        ]);
+
+        if ($response->successful()) {
+            return response()->json(['status' => 'Message sent successfully']);
+        } else {
+            return response()->json(['status' => 'Failed to send message', 'error' => $response->body()]);
+        }
+    }
+
+
+    private function TelegramNotification($chatId, $message)
+    {
+        $url = 'https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN') . '/sendMessage';
+
+        $response = Http::post($url, [
+            'chat_id' => $chatId,
+            'text'    => $message,
+            'parse_mode' => 'Markdown', // Menggunakan Markdown untuk formatting jika diperlukan
+        ]);
+
+        if ($response->successful()) {
+            return response()->json(['status' => 'Message sent successfully']);
+        } else {
+            return response()->json(['status' => 'Failed to send message', 'error' => $response->body()]);
+        }
+    }
+
 
     public function print($uniqueCode)
     {
