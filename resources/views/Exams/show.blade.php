@@ -25,8 +25,8 @@
                             <div class="d-flex flex-column justify-content-between align-items-start">
                                 <h2 class="document-title">{{ $exam->title }}</h2>
 
-                                <span class="document-desc">{{ $exam->duration }} •
-                                    {{ $exam->schedule_at->format('d M Y') }}</span>
+                                <span class="document-desc">{{ $exam->description }} •
+                                    {{ $exam->interval }}</span>
                             </div>
                         </div>
 
@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-lg-6 mt-10">
+            <div class="col-12 col-lg-6">
                 <div class="statistics-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-column justify-content-between align-items-start">
@@ -59,10 +59,49 @@
                 </div>
             </div>
 
+            {{-- Tabel Siswa Ikut Ujian --}}
+            {{-- Daftar Siswa yang ikut Ujian --}}
+            <div class="col-12 mt-5">
+                <h2 class="content-title">Daftar Siswa</h2>
+                <div class="table-responsive">
+                    <table id="studentsAssignTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nama Siswa</th>
+                                <th scope="col">Kelas</th>
+                                <th scope="col">Total Score</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($assignedStudents as $student)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $student->fullname }}</td>
+                                    <td>{{ $student->schoolInformation->educationLevel->level_name }}</td>
+                                    <td>
+                                        @if ($student->scores->isEmpty())
+                                            Belum Ujian
+                                        @else
+                                            @foreach ($student->scores as $score)
+                                                {{ $score->mark }}
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td>Tombol Aksi</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            {{-- Tabel Pertanyaan --}}
             <div class="col-12 mt-5">
                 <h2 class="content-title">Daftar Pertanyaan</h2>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table id="questionsTable" class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -91,37 +130,6 @@
                     </table>
                 </div>
             </div>
-
-            {{-- Daftar Siswa yang ikut Ujian --}}
-            <div class="col-12 mt-5">
-                <h2 class="content-title">Daftar Siswa</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nama Siswa</th>
-                                <th scope="col">Kelas</th>
-                                <th scope="col">Total Score</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($assignedStudents as $student)
-                                <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $student->fullname }}</td>
-                                    <td>{{ $student->schoolInformation->educationLevel->level_name }}</td>
-                                    @foreach ($student->scores as $score)
-                                        <td>{{ $score->mark }}</td>
-                                    @endforeach
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
         </div>
     </div>
 @endsection

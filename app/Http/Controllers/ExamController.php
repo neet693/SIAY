@@ -6,6 +6,7 @@ use App\Models\Exam;
 use App\Models\Score;
 use App\Models\Student;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -15,7 +16,12 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $exams = Exam::all();
+        $exams = Exam::all()->map(function ($exam) {
+            $startDate = Carbon::parse($exam->start_date);
+            $endDate = Carbon::parse($exam->end_date);
+            $exam->interval = $startDate->diffForHumans($endDate, true); // Menyimpan interval ke objek exam
+            return $exam;
+        });
         return view('Exams.index', compact('exams'));
     }
 
@@ -31,8 +37,8 @@ class ExamController extends Controller
             'title' => 'required',
             'description' => 'required',
             'teacher_id' => 'required',
-            'duration' => 'required|integer',
-            'schedule_at' => 'required|date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
         ]);
 
         $exam = Exam::create($request->all());
@@ -42,8 +48,18 @@ class ExamController extends Controller
 
     public function show(Exam $exam)
     {
+        // Load questions relationship
         $exam->load('questions');
+
+        // Menghitung interval antara start_date dan end_date
+        $startDate = Carbon::parse($exam->start_date);
+        $endDate = Carbon::parse($exam->end_date);
+        $exam->interval = $startDate->diffForHumans($endDate, true); // Menyimpan interval
+
+        // Ambil data siswa
         $students = User::where('role_id', 3)->get();
+
+        // Ambil siswa yang ditugaskan pada ujian ini
         $assignedStudents = $exam->assignedStudents;
 
         return view('exams.show', compact('exam', 'students', 'assignedStudents'));
@@ -72,6 +88,7 @@ class ExamController extends Controller
 
     public function destroy(Exam $exam)
     {
+        $exam->questions()->delete();
         $exam->delete();
         return redirect()->route('admin.exam.index')->with('success', 'Exam deleted successfully.');
     }

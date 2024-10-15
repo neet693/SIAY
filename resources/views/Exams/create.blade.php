@@ -32,13 +32,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="duration">Durasi (menit):</label>
-                                <input type="number" name="duration" id="duration" class="form-control" required>
+                                <label for="start_date">Jadwal Mulai:</label>
+                                <input type="datetime-local" name="start_date" id="start_date" class="form-control"
+                                    required>
                             </div>
 
                             <div class="form-group">
-                                <label for="schedule_at">Jadwal:</label>
-                                <input type="date" name="schedule_at" id="schedule_at" class="form-control" required>
+                                <label for="end_date">Jadwal Selesai:</label>
+                                <input type="datetime-local" name="end_date" id="end_date" class="form-control" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Simpan</button>

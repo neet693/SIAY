@@ -20,4 +20,9 @@ class AssignExam extends Model
     {
         return $this->belongsTo(Exam::class, 'exam_id');
     }
+    // Dalam model AssignedExam
+    public function scores()
+    {
+        return $this->hasMany(Score::class, 'exam_id'); // Pastikan ini sesuai dengan kolom yang kamu gunakan
+    }
 }

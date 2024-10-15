@@ -125,7 +125,7 @@
         </div>
 
         <div class="row mt-5">
-            {{-- Document Card --}}
+            {{-- Exam Card --}}
             <div class="col-12 col-lg-6">
                 <h2 class="content-title">Ujian</h2>
                 <h5 class="content-desc mb-4">Ujian yang Anda Ikuti</h5>
@@ -144,12 +144,19 @@
                                 </div>
                             </div>
 
-                            <!-- Button to take exam -->
-                            <a href="{{ route('student.take-exam', $assignedExam->exam->id) }}" class="btn-statistics">
-                                <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
-                            </a>
+                            @if ($assignedExam->studentScore)
+                                <span class="btn-statistics">
+                                    Nilai: {{ $assignedExam->studentScore->mark }}
+                                </span>
+                                <button class="btn btn-secondary" disabled>Taken</button> <!-- Tombol non-aktif -->
+                            @else
+                                <a href="{{ route('student.take-exam', $assignedExam->exam->id) }}" class="btn-statistics">
+                                    <img src="{{ asset('template/assets/img/global/download.svg') }}" alt="">
+                                </a>
+                            @endif
                         </div>
                     @endforeach
+
                 </div>
             </div>
 

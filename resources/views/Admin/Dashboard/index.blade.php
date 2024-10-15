@@ -320,13 +320,4 @@
 
         </div>
     </div>
-
-    <script>
-        $(document).ready(function() {
-            $('#transactionTable').DataTable(); // #example adalah ID tabel yang ingin Anda terapkan DataTables
-        });
-        $(document).ready(function() {
-            $('#studentTable').DataTable(); // #example adalah ID tabel yang ingin Anda terapkan DataTables
-        });
-    </script>
 @endsection

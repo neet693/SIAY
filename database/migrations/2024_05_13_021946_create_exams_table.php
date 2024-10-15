@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->foreignId('teacher_id')->constrained('users');
-            $table->integer('duration');
-            $table->date('schedule_at');
+            $table->dateTime('start_date'); // Change this to dateTime for more precision
+            $table->dateTime('end_date'); // New column for end date
             $table->softDeletes();
             $table->timestamps();
         });

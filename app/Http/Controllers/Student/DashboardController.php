@@ -16,11 +16,23 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $user  = Auth::user();
+        $user = Auth::user();
         $interview = Interview::where('user_id', $user->id)->first();
-        $assignedExams = $user->assignedExams()->with('exam')->get();
+
+        // Ambil ujian yang ditugaskan untuk siswa
+        $assignedExams = $user->assignedExams()->with(['exam', 'scores'])->get();
+
+        // Tambahkan skor ke setiap ujian yang ditugaskan
+        foreach ($assignedExams as $assignedExam) {
+            // Pastikan scores tidak null sebelum memanggil firstWhere
+            $assignedExam->studentScore = $assignedExam->scores ?
+                $assignedExam->scores->firstWhere('student_id', $user->student->id) : null;
+        }
+
         return view('Student.dashboard', compact('interview', 'assignedExams'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -145,6 +157,7 @@ class DashboardController extends Controller
     public function takeExam(Exam $exam)
     {
         $questions = $exam->questions;
+
         return view('Student.takeExam', compact('exam', 'questions'));
     }
 }

@@ -25,8 +25,8 @@
                                                 style="none">{{ $exam->title }}</a></td>
                                         <td>{{ $exam->description }}</td>
                                         <td>{{ $exam->teacher->name }}</td>
-                                        <td>{{ $exam->duration }}</td>
-                                        <td>{{ $exam->schedule_at->format('d M Y') }}</td>
+                                        <td>{{ $exam->interval }}</td>
+                                        <td>{{ $exam->created_at->format('d M Y') }}</td>
                                         <td>
 
                                             <form action="{{ route('admin.exam.destroy', $exam->id) }}" method="POST"
@@ -56,10 +56,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function() {
-            $('#examsTable').DataTable(); // #example adalah ID tabel yang ingin Anda terapkan DataTables
-        });
-    </script>
 @endsection
