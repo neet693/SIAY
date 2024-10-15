@@ -28,7 +28,7 @@ class ExamController extends Controller
     public function create()
     {
         $teachers = User::where('role_id', 2)->get();
-        return view('exams.create', compact('teachers'));
+        return view('Exams.create', compact('teachers'));
     }
 
     public function store(Request $request)

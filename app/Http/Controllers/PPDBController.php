@@ -255,9 +255,15 @@ class PPDBController extends Controller
 
         //Send Telegram Notification
         //$chatId = '1939486982';
-        $chatId = env('TELEGRAM_CHAT_IDS');
+        // Ambil chat IDs dari .env, lalu ubah menjadi array
+        $chatIds = explode(',', env('TELEGRAM_CHAT_IDS'));
+
         $message = "*Notifikasi Pendaftaran PPDB*\n👤 Nama Siswa: $fullname\n📚 Unit: $level\n🗓 Tanggal Daftar: " . $createdAt->format('d M Y');
-        $this->TelegramNotification($chatId, $message);
+
+        // Loop melalui setiap chat ID dan kirimkan notifikasi
+        foreach ($chatIds as $chatId) {
+            $this->TelegramNotification(trim($chatId), $message);
+        }
 
         // Return success view
         return view('PPDB.success', compact('student'));

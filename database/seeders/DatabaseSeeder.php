@@ -34,14 +34,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        //admin account
-        $user = User::create([
-            'name' => 'Admin',
-            'email' => 'admin@siay.com',
-            'password' => bcrypt('admin1siay'),
-            'role_id' => 1, //role admin
-        ]);
-
         //teacher account
         $user = User::create([
             'name' => 'guru',
