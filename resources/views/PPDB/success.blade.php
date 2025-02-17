@@ -20,7 +20,8 @@
                         <strong>0813-2210-8575</strong> dan
                         <strong>0852-9011-8600</strong>.
                     </h5>
-                    <a href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
+                    <a class="btn btn-master btn-warning text-white "
+                        href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
                         Print Formulir PPDB
                     </a>
                 </div>
