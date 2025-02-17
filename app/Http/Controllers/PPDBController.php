@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePPDBRequest;
 use App\Mail\PPDBRegistrationSuccess;
 use App\Models\Interview;
 use App\Models\PPDB;
@@ -19,6 +20,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
@@ -53,16 +55,16 @@ class PPDBController extends Controller
         return view('PPDB.create');
     }
 
-    public function store(Request $request)
+    public function store(StorePPDBRequest $request)
     {
         // Validasi input
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'education_level_id' => 'required',
             'academic_year_id' => 'required',
             'news_from' => 'required',
             'last_school' => 'required',
-            'fullname' => 'required',
-            'nickname' => 'required',
+            'fullname' => 'required|string|max:255',
+            'nickname' => 'required|string|max:255',
             'citizenship' => 'required',
             'gender' => 'required',
             'birth_place' => 'required',
@@ -76,8 +78,8 @@ class PPDBController extends Controller
             'residence_status_id' => 'required',
             'dad_tel' => 'required',
             'mom_tel' => 'required',
-            'dad_name' => 'required',
-            'mom_name' => 'required',
+            'dad_name' => 'required|string|max:255',
+            'mom_name' => 'required|string|max:255',
             'dad_degree' => 'required',
             'mom_degree' => 'required',
             'dad_job' => 'required',
@@ -93,11 +95,6 @@ class PPDBController extends Controller
             'interview_date' => 'required',
             'method' => 'required',
         ]);
-
-        if ($validator->fails()) {
-            // Jika terjadi kesalahan validasi, kembalikan data dengan pesan error dan input sebelumnya
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         // Step 1: Create School Information
         $schoolInformation = SchoolInformation::create([
@@ -245,25 +242,7 @@ class PPDBController extends Controller
 
         // Send student credentials
         $this->sendStudentCredential($student->id, $user->password);
-
-        //Send WAPPDBSendnotification
-        $admin_number = '6282350496224';
-        $fullname = $student->fullname;
-        $createdAt = $student->created_at;
-        $level = $student->schoolInformation->educationLevel->level_name;
-        $this->WAPPDBSendnotification($admin_number, $fullname, $createdAt);
-
-        //Send Telegram Notification
-        //$chatId = '1939486982';
-        // Ambil chat IDs dari .env, lalu ubah menjadi array
-        $chatIds = explode(',', env('TELEGRAM_CHAT_IDS'));
-
-        $message = "*Notifikasi Pendaftaran PPDB*\n👤 Nama Siswa: $fullname\n📚 Unit: $level\n🗓 Tanggal Daftar: " . $createdAt->format('d M Y');
-
-        // Loop melalui setiap chat ID dan kirimkan notifikasi
-        foreach ($chatIds as $chatId) {
-            $this->TelegramNotification(trim($chatId), $message);
-        }
+        $this->sendTelegramNotification($student);
 
         // Return success view
         return view('PPDB.success', compact('student'));
@@ -400,61 +379,34 @@ class PPDBController extends Controller
         return redirect()->back()->with('success', 'Email kredensial telah dikirim ke student.');
     }
 
-    private function WAPPDBSendnotification($to, $fullname, $createdAt)
+    private function sendTelegramNotification($student)
     {
-        $url = 'https://graph.facebook.com/v20.0/362811720259067/messages';
-        $accessToken = env('WHATSAPP_ACCESS_TOKEN');
+        $fullname = $student->fullname;
+        $level = $student->schoolInformation->educationLevel->level_name;
+        $createdAt = $student->created_at->timezone('Asia/Jakarta');
+        $telegramToken = env('TELEGRAM_BOT_TOKEN');
+        $chatIds = env('TELEGRAM_CHAT_IDS');
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $accessToken,
-            'Content-Type'  => 'application/json',
-        ])->post($url, [
-            'messaging_product' => 'whatsapp',
-            'to'                => $to,
-            'type'              => 'template',
-            'template'          => [
-                'name'     => 'hello_world',
-                'language' => [
-                    'code' => 'en_US'
-                ],
-                'components' => [
-                    'type'       => 'body',
-                    'parameters' => [
-                        [
-                            'type' => 'text',
-                            'text' => $fullname // Nama siswa sebagai variabel pertama
-                        ],
-                        [
-                            'type' => 'text',
-                            'text' => $createdAt->format('d M Y')     // Tanggal daftar sebagai variabel kedua
-                        ]
-                    ]
-                ]
-            ]
-        ]);
+        $message = "*Notifikasi Pendaftaran PPDB*\n👤 Nama Siswa: $fullname\n📚 Unit: $level\n🗓 Tanggal Daftar: " . $createdAt->format('d M Y');
 
-        if ($response->successful()) {
-            return response()->json(['status' => 'Message sent successfully']);
-        } else {
-            return response()->json(['status' => 'Failed to send message', 'error' => $response->body()]);
+        // Loop melalui setiap chat ID dan kirimkan notifikasi
+        if (!$telegramToken || !$chatIds) {
+            Log::warning('Telegram notification skipped due to missing credentials.');
+            return;
         }
-    }
 
+        try {
+            // Mengubah $chatIds menjadi array jika belum dalam bentuk array
+            $chatIdsArray = explode(',', $chatIds); // Asumsi $chatIds dipisahkan koma dalam .env
 
-    private function TelegramNotification($chatId, $message)
-    {
-        $url = 'https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN') . '/sendMessage';
-
-        $response = Http::post($url, [
-            'chat_id' => $chatId,
-            'text'    => $message,
-            'parse_mode' => 'Markdown', // Menggunakan Markdown untuk formatting jika diperlukan
-        ]);
-
-        if ($response->successful()) {
-            return response()->json(['status' => 'Message sent successfully']);
-        } else {
-            return response()->json(['status' => 'Failed to send message', 'error' => $response->body()]);
+            foreach ($chatIdsArray as $chatId) {
+                Http::post("https://api.telegram.org/bot{$telegramToken}/sendMessage", [
+                    'chat_id' => $chatId,
+                    'text' => $message
+                ]);
+            }
+        } catch (Exception $e) {
+            Log::error('Failed to send Telegram notification: ' . $e->getMessage());
         }
     }
 

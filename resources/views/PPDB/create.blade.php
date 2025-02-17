@@ -42,10 +42,13 @@
                                                     {{ old('education_level_id') == 4 ? 'selected' : '' }}>SMA</option>
                                                 <!-- Add more options as needed -->
                                             </select>
-                                            @if ($errors->has('education_level_id'))
+                                            @error('education_level_id')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('education_level_id'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('education_level_id') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
 
@@ -69,10 +72,13 @@
                                                 </option>
                                                 <!-- Add more options as needed -->
                                             </select>
-                                            @if ($errors->has('academic_year_id'))
+                                            @error('academic_year_id')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('academic_year_id'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('academic_year_id') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
 
@@ -84,10 +90,13 @@
                                                 {{ $errors->has('news_from') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: Dari Teman" id="yahyaNews" name="news_from"
                                                 value="{{ old('news_from') }}" required />
-                                            @if ($errors->has('news_from'))
+                                            @error('news_from')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('news_from'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('news_from') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
 
@@ -99,10 +108,14 @@
                                                 {{ $errors->has('last_school') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: TK Yahya" id="lastSchool" name="last_school"
                                                 value="{{ old('last_school') }}" required />
-                                            @if ($errors->has('last_school'))
+                                            @error('last_school')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+
+                                            {{-- @if ($errors->has('last_school'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('last_school') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                 </div>
@@ -115,10 +128,9 @@
                             <div class="step" id="step2">
                                 <h2>Step 2: Informasi Siswa</h2>
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    <strong>Pengumuman!</strong>Jika Kabupaten, Kota, Desa tidak muncul pilihannya.
-                                    Pilih
-                                    Provinsi lain
-                                    untuk mentrigger.
+                                    <strong>Pengumuman!</strong><br>
+                                    Jika Kabupaten, Kota, Desa tidak muncul pilihannya. Pilih Provinsi lain untuk
+                                    mentrigger.
                                 </div>
 
                                 <div class="row">
@@ -130,10 +142,13 @@
                                             {{ $errors->has('fullname') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: John Doe" id="fullName" name="fullname"
                                                 value="{{ old('fullname') }}" required />
-                                            @if ($errors->has('fullname'))
+                                            @error('fullname')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('fullname'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('fullname') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                         <div class="form-group">
                                             <label for="nickName">Nama Panggilan:</label>
@@ -141,10 +156,13 @@
                                                 class="form-control {{ $errors->has('nickname') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: John" id="nickName" name="nickname"
                                                 value="{{ old('nickname') }}" required />
-                                            @if ($errors->has('nickname'))
+                                            @error('nickname')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('nickname'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('nickname') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -162,10 +180,13 @@
                                                     {{ old('citizenship') == 'wna' ? 'checked' : '' }} required>
                                                 <label class="form-check-label" for="wna">WNA</label>
                                             </div>
-                                            @if ($errors->has('citizenship'))
+                                            @error('citizenship')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('citizenship'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('citizenship') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
 
                                         <div class="form-group">
@@ -183,10 +204,13 @@
                                                         {{ old('gender') == 'female' ? 'checked' : '' }} />
                                                     <label class="form-check-label" for="female"> Perempuan </label>
                                                 </div>
-                                                @if ($errors->has('gender'))
+                                                @error('gender')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
+                                                {{-- @if ($errors->has('gender'))
                                                     <p class="text-danger invalid-feedback" role="alert">
                                                         {{ $errors->first('gender') }}</p>
-                                                @endif
+                                                @endif --}}
                                             </div>
                                         </div>
 
@@ -200,9 +224,12 @@
                                             <input type="text" class="form-control" id="birthPlace"
                                                 placeholder="Ex: Bandung" name="birth_place"
                                                 value="{{ old('birth_place') }}" required />
-                                            @if ($errors->has('birth_place'))
+                                            @error('birth_place')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('birth_place'))
                                                 <p class="text-danger">{{ $errors }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                         <div class="form-group">
                                             <label for="birthDate">Tanggal Lahir:</label>
@@ -211,10 +238,13 @@
                                             {{ $errors->has('birth_date') ? 'is-invalid' : '' }}"
                                                 id="birthDate" name="birth_date" value="{{ old('birth_date') }}"
                                                 required />
-                                            @if ($errors->has('birth_date'))
+                                            @error('birth_date')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('birth_date'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('birth_date') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
 
@@ -239,10 +269,13 @@
                                                     Konghucu</option>
                                                 <!-- Add more options as needed -->
                                             </select>
-                                            @if ($errors->has('religion_id'))
+                                            @error('region_id')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('religion_id'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('religion_id') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                         <div class="form-group">
                                             <label for="chruchDomicile">Berjemaat di:</label>
@@ -251,10 +284,13 @@
                                             {{ $errors->has('church_domicile') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: GKI Taman Cibunut" id="chruchDomicile"
                                                 name="church_domicile" value="{{ old('church_domicile') }}" required />
-                                            @if ($errors->has('church_domicile'))
+                                            @error('church_domicile')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('church_domicile'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('church_domicile') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
 
@@ -265,10 +301,13 @@
                                                 class="form-control {{ $errors->has('child_position') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: 1" min="1" max="20" id="childPosition"
                                                 name="child_position" value="{{ old('child_position') }}" required />
-                                            @if ($errors->has('child_position'))
+                                            @error('child_position')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('child_position'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('child_position') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                         <div class="form-group">
                                             <label for="childNumber">Dari Berapa Saudara:</label>
@@ -276,10 +315,13 @@
                                                 class="form-control {{ $errors->has('child_number') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: 1" min="1" max="20" id="childNumber"
                                                 name="child_number" value="{{ old('child_number') }}" required />
-                                            @if ($errors->has('child_number'))
+                                            @error('child_number')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('child_number'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('child_number') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
 
@@ -299,10 +341,13 @@
                                                 </option>
                                                 <!-- Add more options as needed -->
                                             </select>
-                                            @if ($errors->has('blood_type_id'))
+                                            @error('blood_type_id')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('blood_type_id'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('blood_type_id') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                         <div class="form-group">
                                             <label for="userStay">Status Tinggal:</label>
@@ -322,10 +367,13 @@
                                                     {{ old('residence_status_id') == 4 ? 'selected' : '' }}>Kost</option>
                                                 <!-- Add more options as needed -->
                                             </select>
-                                            @if ($errors->has('residence_status_id'))
+                                            @error('residence_status_id')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('residence_status_id'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('residence_status_id') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -336,10 +384,13 @@
                                                 id="userEmail" name="email" placeholder="name@gmail.com"
                                                 pattern="[a-zA-Z0-9._%+-]+@gmail\.com" value="{{ old('email') }}"
                                                 required />
-                                            @if ($errors->has('email'))
+                                            @error('email')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('email'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('email') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                 </div>
@@ -353,9 +404,12 @@
                                                     <option selected disabled>Pilih Provinsi</option>
                                                     <!-- Options will be added dynamically by JavaScript -->
                                                 </select>
-                                                @if ($errors->has('student_province'))
+                                                @error('student_province')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
+                                                {{-- @if ($errors->has('student_province'))
                                                     <p class="text-danger">{{ $errors }}</p>
-                                                @endif
+                                                @endif --}}
                                                 <input type="hidden" id="student_province" name="province" />
                                                 <input type="hidden" id="student_province_name"
                                                     name="student_province_name" readonly />
@@ -369,6 +423,9 @@
                                                     <option selected disabled>Pilih Kabupaten / Kota</option>
                                                     <!-- Options will be added dynamically by JavaScript -->
                                                 </select>
+                                                @error('student_regency')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
                                                 <input type="hidden" id="student_regency" name="regency" />
                                                 <input type="hidden" id="student_regency_name"
                                                     name="student_regency_name" readonly />
@@ -382,6 +439,9 @@
                                                     <option selected disabled>Pilih Kecamatan</option>
                                                     <!-- Options will be added dynamically by JavaScript -->
                                                 </select>
+                                                @error('student_district')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
                                                 <input type="hidden" id="student_district" name="district" />
                                                 <input type="hidden" id="student_district_name"
                                                     name="student_district_name" readonly />
@@ -395,6 +455,9 @@
                                                     <option selected disabled>Pilih Desa / Kelurahan</option>
                                                     <!-- Options will be added dynamically by JavaScript -->
                                                 </select>
+                                                @error('student_village')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
 
                                                 <input type="hidden" id="student_village" name="village" />
                                                 <input type="hidden" id="student_village_name"
@@ -408,11 +471,13 @@
                                                 <input type="textarea"
                                                     class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}"
                                                     placeholder="Ex: Jl. Riau No.71A" id="address" name="address" />
-
-                                                @if ($errors->has('address'))
+                                                @error('address')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
+                                                {{-- @if ($errors->has('address'))
                                                     <p class="text-danger invalid-feedback" role="alert">
                                                         {{ $errors->first('address') }}</p>
-                                                @endif
+                                                @endif --}}
                                             </div>
                                         </div>
                                     </div>
@@ -435,10 +500,8 @@
                                 <h2>Step 3: Informasi Orangtua</h2>
                                 <div class="row mb-3">
                                     <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                        <strong>Pengumuman!</strong>Jika Kabupaten, Kota, Desa tidak muncul pilihannya.
-                                        Pilih
-                                        Provinsi lain
-                                        untuk mentrigger.
+                                        <strong>Pengumuman!</strong><br>Jika Kabupaten, Kota, Desa tidak muncul
+                                        pilihannya.Pilih Provinsi lain untuk mentrigger.
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -448,11 +511,14 @@
                                             <input type="text"
                                                 class="form-control {{ $errors->has('dad_name') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: John Doe" id="dadName" name="dad_name"
-                                                value="{{ old('mom_name') }}" required />
-                                            @if ($errors->has('dad_name'))
+                                                value="{{ old('dad_name') }}" required />
+                                            @error('dad_name')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('dad_name'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('dad_name') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
 
@@ -463,10 +529,13 @@
                                                 class="form-control {{ $errors->has('mom_name') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: Nina Doe" id="momName" name="mom_name"
                                                 value="{{ old('mom_name') }}" required />
-                                            @if ($errors->has('mom_name'))
+                                            @error('mom_name')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('mom_name'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('mom_name') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
 
@@ -498,10 +567,13 @@
                                                 </option>
                                                 <!-- Add more options as needed -->
                                             </select>
-                                            @if ($errors->has('dad_degree'))
+                                            @error('dad_degree')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('dad_degree'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('dad_degree') }}</p>
-                                            @endif
+                                            @endif --}}
 
                                         </div>
                                     </div>
@@ -533,10 +605,13 @@
                                                 </option>
                                                 <!-- Add more options as needed -->
                                             </select>
-                                            @if ($errors->has('mom_degree'))
+                                            @error('mom_degree')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('mom_degree'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('mom_degree') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                     <!-- Pendidikan Orangtua -->
@@ -549,10 +624,13 @@
                                                 class="form-control {{ $errors->has('dad_job') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: Guru" id="dadJob" name="dad_job"
                                                 value="{{ old('dad_job') }}" required />
-                                            @if ($errors->has('dad_job'))
+                                            @error('dad_job')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('dad_job'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('dad_job') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
 
@@ -563,10 +641,13 @@
                                                 class="form-control {{ $errors->has('mom_job') ? 'is-invalid' : '' }}"
                                                 placeholder="Ex: Guru" id="momJob" name="mom_job"
                                                 value="{{ old('mom_job') }}" required />
-                                            @if ($errors->has('mom_job'))
+                                            @error('mom_job')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('mom_job'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('mom_job') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                     <!-- Akhir Pekerjaan Orangtua -->
@@ -579,10 +660,13 @@
                                                     class="form-control {{ $errors->has('dad_tel') ? 'is-invalid' : '' }}"
                                                     name="dad_tel" placeholder="0823xxxxxxx" id="dadphoneNumber"
                                                     pattern="0\d{9,15}" value="{{ old('dad_tel') }}" required />
-                                                @if ($errors->has('dad_tel'))
+                                                @error('dad_tel')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
+                                                {{-- @if ($errors->has('dad_tel'))
                                                     <p class="text-danger invalid-feedback" role="alert">
                                                         {{ $errors->first('dad_tel') }}</p>
-                                                @endif
+                                                @endif --}}
                                             </div>
                                         </div>
                                     </div>
@@ -595,10 +679,13 @@
                                                     class="form-control {{ $errors->has('mom_tel') ? 'is-invalid' : '' }}"
                                                     name="mom_tel" placeholder="0823xxxxxxx" id="momphoneNumber"
                                                     pattern="0\d{9,15}" value="{{ old('mom_tel') }}" required />
-                                                @if ($errors->has('mom_tel'))
+                                                @error('mom_tel')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
+                                                {{-- @if ($errors->has('mom_tel'))
                                                     <p class="text-danger invalid-feedback" role="alert">
                                                         {{ $errors->first('mom_tel') }}</p>
-                                                @endif
+                                                @endif --}}
                                             </div>
                                         </div>
                                     </div>
@@ -612,10 +699,9 @@
                                                 <option selected disabled>Pilih Provinsi</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
-                                            @if ($errors->has('parent_province'))
-                                                <p class="text-danger">{{ $errors }}</p>
-                                            @endif
-
+                                            @error('parent_province')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
                                             <input type="hidden" id="parent_province" name="provinceParent" />
                                             <input type="hidden" id="parent_province_name" name="parent_province"
                                                 readonly />
@@ -630,6 +716,9 @@
                                                 <option selected disabled>Pilih Kabupaten / Kota</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
+                                            @error('parent_regency')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
                                             <input type="hidden" id="parent_regency" name="regencyParent" />
                                             <input type="hidden" id="parent_regency_name" name="parent_regency"
                                                 readonly />
@@ -644,6 +733,9 @@
                                                 <option selected disabled>Pilih Kecamatan</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
+                                            @error('parent_district')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
                                             <input type="hidden" id="parent_district" name="districtParent" />
                                             <input type="hidden" id="parent_district_name" name="parent_district"
                                                 readonly />
@@ -657,6 +749,9 @@
                                                 <option selected disabled>Pilih Desa / Kelurahan</option>
                                                 <!-- Options will be added dynamically by JavaScript -->
                                             </select>
+                                            @error('parent_village')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
                                             <input type="hidden" id="parent_village" name="villageParent" />
                                             <input type="hidden" id="parent_village_name" name="parent_village"
                                                 readonly />
@@ -670,9 +765,9 @@
                                             <input type="textarea" class="form-control"
                                                 placeholder="Ex: Jl. Riau No. 71A" id="addressParent" name="address"
                                                 value="{{ old('address') }}" />
-                                            @if ($errors->has('address'))
-                                                <p class="text-danger">{{ $errors }}</p>
-                                            @endif
+                                            @error('address')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -694,10 +789,13 @@
                                                     Kost
                                                 </option>
                                             </select>
-                                            @if ($errors->has('parentStay'))
+                                            @error('parentStay')
+                                                <p class="text-danger" role="alert">{{ $message }}</p>
+                                            @enderror
+                                            {{-- @if ($errors->has('parentStay'))
                                                 <p class="text-danger invalid-feedback" role="alert">
                                                     {{ $errors->first('parentStay') }}</p>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                     </div>
                                     <!-- Akhir Bagian Address -->
@@ -710,6 +808,9 @@
                                                 <label for="waliName">Nama Wali:</label>
                                                 <input type="text" class="form-control" id="waliName"
                                                     name="wali_name" value="{{ old('wali_name') }}" />
+                                                @error('wali_name')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -748,6 +849,9 @@
                                                     </option>
                                                     <!-- Add more options as needed -->
                                                 </select>
+                                                @error('wali_degree')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -756,6 +860,9 @@
                                                 <label for="waliJob">Pekerjaan Wali:</label>
                                                 <input type="text" class="form-control" id="waliJob"
                                                     name="wali_job" value="{{ old('wali_job') }}" />
+                                                @error('wali_job')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -766,9 +873,9 @@
                                                     <input type="tel" class="form-control" id="waliphoneNumber"
                                                         name="wali_tel" placeholder="0823xxxxxxx" pattern="0\d{9,15}"
                                                         value="{{ old('wali_tel') }}" />
-                                                    @if ($errors->has('wali_tel'))
-                                                        <p class="text-danger">{{ $errors }}</p>
-                                                    @endif
+                                                    @error('wali_tel')
+                                                        <p class="text-danger" role="alert">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -777,6 +884,9 @@
                                                 <label for="waliAddress">Alamat Wali:</label>
                                                 <input type="textarea" class="form-control" id="waliAddress"
                                                     name="wali_address" value="{{ old('wali_address') }}" />
+                                                @error('wali_address')
+                                                    <p class="text-danger" role="alert">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
