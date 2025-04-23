@@ -401,9 +401,12 @@ class PPDBController extends Controller
 
             foreach ($chatIdsArray as $chatId) {
                 Http::post("https://api.telegram.org/bot{$telegramToken}/sendMessage", [
-                    'chat_id' => $chatId,
-                    'text' => $message
+                    'chat_id' => trim($chatId),
+                    'text' => $message,
+                    'parse_mode' => 'Markdown' // opsional, kalau kamu pakai format bold/italic
                 ]);
+
+                usleep(300000); // delay 300ms antar request
             }
         } catch (Exception $e) {
             Log::error('Failed to send Telegram notification: ' . $e->getMessage());
