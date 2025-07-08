@@ -384,32 +384,41 @@ class PPDBController extends Controller
         $fullname = $student->fullname;
         $level = $student->schoolInformation->educationLevel->level_name;
         $createdAt = $student->created_at->timezone('Asia/Jakarta');
+        $dadTel = $student->studentParent->dad_tel ?? '-';
+        $momTel = $student->studentParent->mom_tel ?? '-';
+
+        $urlPrint = route('print-formmulir-ppdb', $student->unique_code);
+
+        $message = "*Notifikasi Pendaftaran PPDB*\n"
+            . "👤 Nama: $fullname\n"
+            . "📚 Unit: $level\n"
+            . "🗓 Tanggal Daftar: " . $createdAt->format('d M Y') . "\n"
+            . "📞 Telp Ayah: $dadTel\n"
+            . "📞 Telp Ibu: $momTel\n"
+            . "🖨 Formulir: [Klik untuk Cetak]($urlPrint)";
+
         $telegramToken = env('TELEGRAM_BOT_TOKEN');
         $chatIds = env('TELEGRAM_CHAT_IDS');
 
-        $message = "*Notifikasi Pendaftaran PPDB*\n👤 Nama Siswa: $fullname\n📚 Unit: $level\n🗓 Tanggal Daftar: " . $createdAt->format('d M Y');
-
-        // Loop melalui setiap chat ID dan kirimkan notifikasi
         if (!$telegramToken || !$chatIds) {
-            Log::warning('Telegram notification skipped due to missing credentials.');
+            Log::warning('Telegram skipped: missing credentials.');
             return;
         }
 
         try {
-            // Mengubah $chatIds menjadi array jika belum dalam bentuk array
-            $chatIdsArray = explode(',', $chatIds); // Asumsi $chatIds dipisahkan koma dalam .env
-
+            $chatIdsArray = explode(',', $chatIds);
             foreach ($chatIdsArray as $chatId) {
                 Http::post("https://api.telegram.org/bot{$telegramToken}/sendMessage", [
                     'chat_id' => trim($chatId),
                     'text' => $message,
-                    'parse_mode' => 'Markdown' // opsional, kalau kamu pakai format bold/italic
+                    'parse_mode' => 'Markdown',
+                    'disable_web_page_preview' => true
                 ]);
 
-                usleep(300000); // delay 300ms antar request
+                usleep(300000);
             }
         } catch (Exception $e) {
-            Log::error('Failed to send Telegram notification: ' . $e->getMessage());
+            Log::error('Telegram Error: ' . $e->getMessage());
         }
     }
 

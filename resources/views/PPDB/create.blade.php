@@ -15,7 +15,7 @@
             @endif
         </div>
 
-        <div class="row mb-3 pt-70">
+        <div class="mb-3 row pt-70">
             <div class="col-lg-12">
                 <form action="{{ route('ppdb.store') }}" method="post">
                     @csrf
@@ -24,7 +24,7 @@
                         <div class="col-lg-12">
                             <div class="step" id="step1">
                                 <h2>Step 1: Informasi Sekolah</h2>
-                                <div class="row mb-3">
+                                <div class="mb-3 row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="grade">Jenjang:</label>
@@ -191,7 +191,7 @@
 
                                         <div class="form-group">
                                             <label>Gender:</label>
-                                            <div class="row px-3">
+                                            <div class="px-3 row">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="gender"
                                                         id="male" value="male"
@@ -484,7 +484,7 @@
                                 </div>
 
 
-                                <div class="col mt-3">
+                                <div class="mt-3 col">
                                     <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
                                         Sebelumnya
                                     </button>
@@ -498,13 +498,13 @@
                         <div class="col-lg-12">
                             <div class="step" id="step3">
                                 <h2>Step 3: Informasi Orangtua</h2>
-                                <div class="row mb-3">
+                                <div class="mb-3 row">
                                     <div class="alert alert-info alert-dismissible fade show" role="alert">
                                         <strong>Pengumuman!</strong><br>Jika Kabupaten, Kota, Desa tidak muncul
                                         pilihannya.Pilih Provinsi lain untuk mentrigger.
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="mb-3 row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="dadName">Nama Ayah:</label>
@@ -802,7 +802,7 @@
                                 </div>
 
                                 <div id="WaliRow" style="display: none;">
-                                    <div class="row mb-3">
+                                    <div class="mb-3 row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="waliName">Nama Wali:</label>
@@ -967,5 +967,38 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector("form");
+            const submitButton = form.querySelector("button[type='submit']");
+
+            // Fungsi untuk cek validitas form
+            function toggleSubmitButton() {
+                if (form.checkValidity()) {
+                    submitButton.disabled = false;
+                } else {
+                    submitButton.disabled = true;
+                }
+            }
+
+            // Saat pertama kali halaman diload
+            toggleSubmitButton();
+
+            // Saat ada input berubah
+            form.addEventListener("input", toggleSubmitButton);
+
+            // Saat form ingin disubmit
+            form.addEventListener("submit", function(e) {
+                if (!form.checkValidity()) {
+                    e.preventDefault(); // Hentikan pengiriman
+                    e.stopPropagation();
+                    alert("⚠️ Mohon lengkapi semua data yang wajib diisi sebelum submit.");
+                }
+
+                form.classList.add("was-validated"); // Optional: Tambah style bootstrap validasi
+            });
+        });
+    </script>
+
     @include('components.script')
 @endsection
