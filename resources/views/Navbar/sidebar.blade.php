@@ -13,25 +13,49 @@
     <h5 class="sidebar-title">Daily Use</h5>
     @if (Auth::check() && Auth::user()->role_id == 1)
         {{-- <a href="{{ route('admin.dashboard.index') }}" --}}
+
         <a href="{{ route('admin.dashboard') }}"
             class="sidebar-item {{ request()->is('admin/dashboard*') ? 'active' : '' }}" onclick="toggleActive(this)">
             <!-- <img src="./assets/img/global/grid.svg" alt=""> -->
 
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 14H14V21H21V14Z" stroke="white" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                <path d="M10 14H3V21H10V14Z" stroke="white" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                <path d="M21 3H14V10H21V3Z" stroke="white" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                <path d="M10 3H3V10H10V3Z" stroke="white" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-boxes" viewBox="0 0 16 16">
+                <path
+                    d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z" />
             </svg>
 
             <span>Dashboard</span>
         </a>
 
-        <a href="{{ route('admin.exam.index') }}"
+        <a href="{{ route('admin.infomuridbaru') }}"
+            class="sidebar-item {{ request()->is('admin/infomuridbaru*') ? 'active' : '' }}"
+            onclick="toggleActive(this)">
+            <!-- <img src="./assets/img/global/grid.svg" alt=""> -->
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-mortarboard" viewBox="0 0 16 16">
+                <path
+                    d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917zM8 8.46 1.758 5.965 8 3.052l6.242 2.913z" />
+                <path
+                    d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46z" />
+            </svg>
+            <span>Info Murid Baru</span>
+        </a>
+        <a href="{{ route('admin.keuangan') }}"
+            class="sidebar-item {{ request()->is('admin/keuangan*') ? 'active' : '' }}" onclick="toggleActive(this)">
+            <!-- <img src="./assets/img/global/grid.svg" alt=""> -->
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-cash-stack" viewBox="0 0 16 16">
+                <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                <path
+                    d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z" />
+            </svg>
+
+            <span>Keuangan</span>
+        </a>
+
+        {{-- <a href="{{ route('admin.exam.index') }}"
             class="sidebar-item {{ request()->is('admin/exam*') ? 'active' : '' }}" onclick="toggleActive(this)">
             <!-- <img src="./assets/img/global/grid.svg" alt=""> -->
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +66,7 @@
             </svg>
 
             <span>Exam</span>
-        </a>
+        </a> --}}
 
         {{-- <a href="{{ route('admin.interviews.index') }}" --}}
         <a href="{{ route('interview.index') }}" class="sidebar-item {{ request()->is('interview*') ? 'active' : '' }}"

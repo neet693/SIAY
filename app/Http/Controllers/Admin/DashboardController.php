@@ -15,10 +15,13 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $students = Student::all();
-        $parents = StudentParent::all();
+        return view('Admin.Dashboard.index');
+    }
+    public function keuangan()
+    {
         $transactions = Transaction::all();
         $PaidTransaction = Transaction::where('payment_status', 'paid')
             ->sum('price');
@@ -26,13 +29,25 @@ class DashboardController extends Controller
         $PPDBUnpaid = Transaction::where('payment_status', 'pending')
             ->sum('price');
 
-        return view('Admin.Dashboard.index', compact(
-            'students',
-            'parents',
+        return view('Admin.Dashboard.keuangan', compact(
             'PaidTransaction',
             'PPDBUnpaid',
             'transactions',
 
+        ));
+    }
+
+    public function infomuridbaru()
+    {
+        $students = Student::all();
+        $parents = StudentParent::all();
+        $menunggu = Student::where('status_penerimaan', 'Menunggu Persetujuan')->count();
+        $diterima = Student::where('status_penerimaan', 'Diterima')->count();
+        return view('Admin.Dashboard.muridbaru', compact(
+            'students',
+            'parents',
+            'menunggu',
+            'diterima'
         ));
     }
 

@@ -33,6 +33,7 @@ Route::resource('transaction', TransactionController::class);
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
+
     // Interview routes
     Route::resource('interview', InterviewController::class)->parameters([
         'interview' => 'slug'
@@ -51,6 +52,8 @@ Route::middleware('auth')->group(function () {
     // Admin routes
     Route::prefix('admin')->name('admin.')->middleware('ensureStudentRole')->group(function () {
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('keuangan', [AdminDashboardController::class, 'keuangan'])->name('keuangan');
+        Route::get('infomuridbaru', [AdminDashboardController::class, 'infomuridbaru'])->name('infomuridbaru');
         Route::get('students/{unique_code}', [AdminStudentController::class, 'show'])->name('student.show');
         Route::post('set-paid/{booking_code}', [AdminDashboardController::class, 'adminSetPaid'])->name('set.paid');
         Route::post('ppdb/{unique_code}/accept', [PPDBController::class, 'acceptPPDB'])->name('set.accept');
