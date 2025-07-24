@@ -41,7 +41,7 @@
             </svg>
             <span>Info Murid Baru</span>
         </a>
-        <a href="{{ route('admin.keuangan') }}"
+        {{-- <a href="{{ route('admin.keuangan') }}"
             class="sidebar-item {{ request()->is('admin/keuangan*') ? 'active' : '' }}" onclick="toggleActive(this)">
             <!-- <img src="./assets/img/global/grid.svg" alt=""> -->
 
@@ -53,7 +53,7 @@
             </svg>
 
             <span>Keuangan</span>
-        </a>
+        </a> --}}
 
         {{-- <a href="{{ route('admin.exam.index') }}"
             class="sidebar-item {{ request()->is('admin/exam*') ? 'active' : '' }}" onclick="toggleActive(this)">
@@ -83,7 +83,7 @@
             <span>Interview</span>
         </a>
 
-        <a href="{{ route('transactiontype.index') }}"
+        {{-- <a href="{{ route('transactiontype.index') }}"
             class="sidebar-item {{ request()->is('transactiontype*') ? 'active' : '' }}" onclick="toggleActive(this)">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 12H21M3 16H21M3 8H21M10 4H14V8H10V4Z" stroke="white" stroke-width="2" stroke-linecap="round"
@@ -93,7 +93,7 @@
             </svg>
 
             <span>Jenis Transaksi</span>
-        </a>
+        </a> --}}
     @endif
 
     @if (Auth::check() && Auth::user()->role_id == 3)
