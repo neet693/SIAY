@@ -39,7 +39,7 @@ class DashboardController extends Controller
 
     public function infomuridbaru()
     {
-        $students = Student::all();
+        $students = Student::orderBy('created_at', 'desc')->get();
         $parents = StudentParent::all();
         $menunggu = Student::where('status_penerimaan', 'Menunggu Persetujuan')->count();
         $diterima = Student::where('status_penerimaan', 'Diterima')->count();
