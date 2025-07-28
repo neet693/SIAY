@@ -86,82 +86,102 @@
 
             </div>
         </div>
-        <!--Table Student -->
+        <!-- Table Student -->
         <div class="mt-5 row">
             <div class="container">
-                <table id="studentTable" class="table table-striped" style="width:100%; justify-content: center">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Nama</th>
-                            <th>Jenjang</th>
-                            <th>Tahun Ajaran</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($students as $student)
+                <div class="table-responsive">
+                    <table id="studentTable" class="table align-middle table-bordered table-hover">
+                        <thead class="text-center table-dark">
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    <a href="{{ route('admin.student.show', ['unique_code' => $student->unique_code]) }}"
-                                        style="text-decoration: none; color: black;">
-                                        {{ $student->fullname }}
-                                    </a>
-                                </td>
-                                <td>{{ $student->schoolInformation->educationLevel->level_name }}</td>
-                                <td>{{ $student->schoolInformation->academicYear->name }}</td>
-                                <td>{{ $student->status_penerimaan }}</td>
-                                <td>
-                                    @if ($student->status_penerimaan != 'Diterima')
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                Pilih Aksi
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="btn btn-link link-warning d-inline-block text-decoration-none"
-                                                        title="Print Formulir{{ $student->fullname }}"
-                                                        href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
-                                                        Print Formulir
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <form method="POST"
-                                                        action="{{ route('admin.set.accept', ['unique_code' => $student->unique_code]) }}">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="link-success text-decoration-none btn">Diterima</button>
-                                                    </form>
-                                                </li>
-                                                <li>
-                                                    <form method="POST" class="d-inline"
-                                                        action="{{ route('admin.set.reject', ['unique_code' => $student->unique_code]) }}">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="link-danger text-decoration-none btn">Ditolak</button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    @endif
-                                </td>
+                                <th>No.</th>
+                                <th>Nama Lengkap</th>
+                                <th>Jenjang</th>
+                                <th>Tahun Ajaran</th>
+                                <th>Status Penerimaan</th>
+                                <th>Aksi</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>No.</th>
-                            <th>Nama</th>
-                            <th>Jenjang</th>
-                            <th>Tahun Ajaran</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($students as $student)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.student.show', ['unique_code' => $student->unique_code]) }}"
+                                            class="text-decoration-none text-dark fw-semibold">
+                                            {{ $student->fullname }}
+                                        </a>
+                                        <br>
+                                        <small class="text-muted">Kode: {{ $student->unique_code }}</small>
+                                        <br>
+                                        <small class="text-muted">Tanggal Daftar:
+                                            {{ $student->created_at->translatedFormat('d F Y, H:i') }}</small>
+                                    </td>
+                                    <td class="text-center">{{ $student->schoolInformation->educationLevel->level_name }}
+                                    </td>
+                                    <td class="text-center">{{ $student->schoolInformation->academicYear->name }}</td>
+                                    <td class="text-center">
+                                        @php
+                                            $status = $student->status_penerimaan;
+                                            $badgeClass = match ($status) {
+                                                'Diterima' => 'success',
+                                                'Batal' => 'danger',
+                                                default => 'secondary',
+                                            };
+                                        @endphp
+                                        <span class="badge bg-{{ $badgeClass }}">{{ $status }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        @if ($student->status_penerimaan != 'Diterima')
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Pilih Aksi
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <a class="dropdown-item text-warning"
+                                                            title="Print Formulir {{ $student->fullname }}"
+                                                            href="{{ route('print-formmulir-ppdb', ['unique_code' => $student->unique_code]) }}">
+                                                            🖨️ Print Formulir
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <form method="POST"
+                                                            action="{{ route('admin.set.accept', ['unique_code' => $student->unique_code]) }}">
+                                                            @csrf
+                                                            <button type="submit" class="dropdown-item text-success">✅
+                                                                Diterima</button>
+                                                        </form>
+                                                    </li>
+                                                    <li>
+                                                        <form method="POST"
+                                                            action="{{ route('admin.set.reject', ['unique_code' => $student->unique_code]) }}">
+                                                            @csrf
+                                                            <button type="submit" class="dropdown-item text-danger">❌
+                                                                Batal</button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @else
+                                            <span class="text-success">✔ Sudah Diterima</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot class="text-center table-light">
+                            <tr>
+                                <th>No.</th>
+                                <th>Nama Lengkap</th>
+                                <th>Jenjang</th>
+                                <th>Tahun Ajaran</th>
+                                <th>Status Penerimaan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
 

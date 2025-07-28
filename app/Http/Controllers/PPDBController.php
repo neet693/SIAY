@@ -365,10 +365,10 @@ class PPDBController extends Controller
     public function rejectPPDB(Request $request, $uniqueCode)
     {
         $student = Student::where('unique_code', $uniqueCode)->firstOrFail();
-        $student->status_penerimaan = 'Ditolak';
+        $student->status_penerimaan = 'Batal';
         $student->save();
 
-        return redirect()->back()->with('success', 'PPDB ditolak');
+        return redirect()->back()->with('success', 'Murid Telah Batal mendaftarkan diri / di batalkan oleh admin');
     }
 
     public function sendStudentCredential($student_id, $password)
