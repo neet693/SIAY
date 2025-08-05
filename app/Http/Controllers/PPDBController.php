@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePPDBRequest;
 use App\Mail\PPDBRegistrationSuccess;
+use App\Models\AcademicYear;
 use App\Models\Interview;
 use App\Models\PPDB;
 use App\Models\SchoolInformation;
@@ -52,7 +53,9 @@ class PPDBController extends Controller
      */
     public function create()
     {
-        return view('PPDB.create');
+        $academicYears = AcademicYear::where('is_active', true)->get();
+
+        return view('PPDB.create', compact('academicYears'));
     }
 
     public function store(StorePPDBRequest $request)

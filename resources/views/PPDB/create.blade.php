@@ -59,18 +59,12 @@
                                                 class="form-control {{ $errors->has('academic_year_id') ? 'is-invalid' : '' }}"
                                                 id="academicYear" name="academic_year_id" required>
                                                 <option selected disabled>Tahun Ajaran</option>
-                                                <option value="1" {{ old('academic_year_id') == 1 ? 'selected' : '' }}>
-                                                    2024 - 2025</option>
-                                                <option value="2"
-                                                    {{ old('academic_year_id') == 2 ? 'selected' : '' }}>
-                                                    2025 - 2026</option>
-                                                <option value="3"
-                                                    {{ old('academic_year_id') == 3 ? 'selected' : '' }}>
-                                                    2026 - 2027</option>
-                                                <option value="4"
-                                                    {{ old('academic_year_id') == 4 ? 'selected' : '' }}>2027 - 2028
-                                                </option>
-                                                <!-- Add more options as needed -->
+                                                @foreach ($academicYears as $year)
+                                                    <option value="{{ $year->id }}"
+                                                        {{ old('academic_year_id') == $year->id ? 'selected' : '' }}>
+                                                        {{ $year->name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                             @error('academic_year_id')
                                                 <p class="text-danger" role="alert">{{ $message }}</p>
