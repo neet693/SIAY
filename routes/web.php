@@ -24,7 +24,8 @@ Route::get('ppdb/{unique_code}/print', [PPDBController::class, 'print'])->name('
 // Midtrans routes
 Route::resource('ppdb', PPDBController::class);
 Route::get('/callback', [PPDBController::class, 'callback']);
-Route::post('/callback', [PPDBController::class, 'callback']);
+Route::post('/callback', [PPDBController::class, 'callback'])
+    ->middleware('throttle:5,1');
 
 // Transaction routes
 Route::resource('transaction', TransactionController::class);
@@ -38,15 +39,20 @@ Route::middleware('auth')->group(function () {
     Route::resource('interview', InterviewController::class)->parameters([
         'interview' => 'slug'
     ]);
-    Route::post('/end-interview/{slug}', [InterviewController::class, 'accept'])->name('end-interview');
-    Route::post('/set-zoom/{slug}', [InterviewController::class, 'setZoom'])->name('set-zoom');
+    Route::post('/end-interview/{slug}', [InterviewController::class, 'accept'])->name('end-interview')
+        ->middleware('throttle:10,1');
+    Route::post('/set-zoom/{slug}', [InterviewController::class, 'setZoom'])->name('set-zoom')
+        ->middleware('throttle:10,1');
     Route::resource('transactiontype', TransactionTypeController::class);
 
     // Payment routes
-    Route::post('/pay-now', [PaymentController::class, 'payNow'])->name('pay-now');
-    Route::post('/process-payment', [PaymentController::class, 'process'])->name('process-payment');
+    Route::post('/pay-now', [PaymentController::class, 'payNow'])->name('pay-now')
+        ->middleware('throttle:10,1');;
+    Route::post('/process-payment', [PaymentController::class, 'process'])->name('process-payment')
+        ->middleware('throttle:10,1');;
     Route::get('/callback', [PaymentController::class, 'callback']);
-    Route::post('/callback', [PaymentController::class, 'callback']);
+    Route::post('/callback', [PaymentController::class, 'callback'])
+        ->middleware('throttle:20,1');;
 
 
     // Admin routes
@@ -55,14 +61,19 @@ Route::middleware('auth')->group(function () {
         Route::get('keuangan', [AdminDashboardController::class, 'keuangan'])->name('keuangan');
         Route::get('infomuridbaru', [AdminDashboardController::class, 'infomuridbaru'])->name('infomuridbaru');
         Route::get('students/{unique_code}', [AdminStudentController::class, 'show'])->name('student.show');
-        Route::post('set-paid/{booking_code}', [AdminDashboardController::class, 'adminSetPaid'])->name('set.paid');
-        Route::post('ppdb/{unique_code}/accept', [PPDBController::class, 'acceptPPDB'])->name('set.accept');
-        Route::post('ppdb/{unique_code}/reject', [PPDBController::class, 'rejectPPDB'])->name('set.reject');
+        Route::post('set-paid/{booking_code}', [AdminDashboardController::class, 'adminSetPaid'])->name('set.paid')
+            ->middleware('throttle:5,1');
+        Route::post('ppdb/{unique_code}/accept', [PPDBController::class, 'acceptPPDB'])->name('set.accept')
+            ->middleware('throttle:5,1');
+        Route::post('ppdb/{unique_code}/reject', [PPDBController::class, 'rejectPPDB'])->name('set.reject')
+            ->middleware('throttle:5,1');
         Route::get('assign-payment', [AdminDashboardController::class, 'assignPaymentChecklist'])->name('assignment.payment');
-        Route::post('assign-payment', [AdminDashboardController::class, 'assignPayment'])->name('payment.assign');
+        Route::post('assign-payment', [AdminDashboardController::class, 'assignPayment'])->name('payment.assign')
+            ->middleware('throttle:5,1');;
         Route::resource('exam', ExamController::class);
         Route::resource('question', QuestionController::class);
-        Route::post('exams/{exam}/assign', [ExamController::class, 'assignExam'])->name('exams.assign');
+        Route::post('exams/{exam}/assign', [ExamController::class, 'assignExam'])->name('exams.assign')
+            ->middleware('throttle:5,1');
 
 
 
@@ -83,7 +94,8 @@ Route::middleware('auth')->group(function () {
         //Student take the exam Route
         Route::get('take-exam/{exam}', [StudentDashboardController::class, 'takeExam'])->name('take-exam');
         // Student Submit exam
-        Route::post('submit-exam/{exam}', [ResponseController::class, 'store'])->name('submit-exam');
+        Route::post('submit-exam/{exam}', [ResponseController::class, 'store'])->name('submit-exam')
+            ->middleware('throttle:5,1');;
 
         // Student Profile routes
         Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
