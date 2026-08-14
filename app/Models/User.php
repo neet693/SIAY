@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -44,13 +45,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getRedirectRoute()
+    public function getRedirectRoute(): string
     {
-        return match ((int)$this->role_id) {
-            1 => 'admin/dashboard',
-            2 => 'teacher/dashboard',
-            3 => 'student/dashboard',
-            // ...
+        return match ((int) $this->role_id) {
+            Role::IS_ADMIN => 'admin.dashboard',
+            Role::IS_GURU => 'teacher.dashboard',
+            Role::IS_STUDENT => 'student.dashboard',
+            default => 'welcome',
         };
     }
 
@@ -68,6 +69,4 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(AssignExam::class, Student::class);
     }
-
-
 }

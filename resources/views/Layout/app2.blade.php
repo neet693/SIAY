@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    @include('Navbar.app-navbar')
+    {{-- @include('Navbar.app-navbar') --}}
 
     @yield('content')
 

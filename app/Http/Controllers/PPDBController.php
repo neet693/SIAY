@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
 use Illuminate\Support\Str;
+use App\Http\Controllers\SchoolBannerController;
 
 class PPDBController extends Controller
 {
@@ -45,7 +46,10 @@ class PPDBController extends Controller
     public function index()
     {
         $students = Student::where('status_penerimaan', 'Diterima')->get();
-        return view('welcome', compact('students'));
+
+        return view('welcome', compact(
+            'students',
+        ));
     }
 
     /**

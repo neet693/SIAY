@@ -14,10 +14,13 @@ use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionTypeController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [PPDBController::class, 'index'])->name('welcome');
+// Route::get('/', [PPDBController::class, 'index'])->name('welcome');
+Route::get('/', [WelcomeController::class, 'index'])
+    ->name('welcome');
 Route::get('invoice', [PPDBController::class, 'invoice'])->name('invoice');
 Route::get('ppdb/{unique_code}/print', [PPDBController::class, 'print'])->name('print-formmulir-ppdb');
 
