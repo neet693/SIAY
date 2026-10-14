@@ -30,5 +30,18 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    
+    'wa_gateway' => [
+    'url' => env('WA_GATEWAY_URL'),
+    'api_key' => env('WA_GATEWAY_API_KEY'),
+    ],
+    
+    'ppdb' => [
+    'admin_whatsapp' => env('PPDB_ADMIN_WHATSAPP'),
+    ],
+    
+    'spmb' => [
+    'api_key' => env('SPMB_API_KEY'),
+],
 
 ];

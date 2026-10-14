@@ -3,6 +3,7 @@
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PPDBController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/ppdb/new-registrations', [
+    PPDBController::class,
+    'newRegistrations'
+]);
+
+Route::post('/ppdb/{student}/notification-sent', [
+    PPDBController::class,
+    'notificationSent'
+]);

@@ -33,6 +33,7 @@ return new class extends Migration
             $table->enum('status_penerimaan', ['Diterima', 'Batal', 'Menunggu Persetujuan'])->default('Menunggu Persetujuan');
             // $table->string('snap_token')->nullable();
             // $table->enum('payment_status', ['pending', 'success', 'failed'])->default('pending');
+            $table->boolean('whatsapp_notification_sent')->default(false);
             $table->timestamps();
         });
     }

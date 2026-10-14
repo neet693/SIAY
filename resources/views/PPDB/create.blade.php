@@ -2763,295 +2763,379 @@
     {{-- =========================================================
     SCRIPT
     ========================================================= --}}
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {
 
-            const form = document.querySelector("form");
+        const form = document.querySelector("form");
 
-            const submitButton =
-                form.querySelector("button[type='submit']");
+        const submitButton =
+            form.querySelector("button[type='submit']");
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | INITIAL STEP
+        |--------------------------------------------------------------------------
+        */
+
+        const steps =
+            document.querySelectorAll(".step");
+
+        steps.forEach(step => {
+            step.classList.remove("active");
+        });
+
+        const firstStep =
+            document.getElementById("step1");
+
+        if (firstStep) {
+            firstStep.classList.add("active");
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FORM VALIDATION & DOUBLE SUBMIT PROTECTION
+        |--------------------------------------------------------------------------
+        */
+
+        let isSubmitting = false;
+
+
+        function toggleSubmitButton() {
+
+            if (!submitButton) return;
 
             /*
-            |--------------------------------------------------------------------------
-            | INITIAL STEP
-            |--------------------------------------------------------------------------
+            | Jika form sedang dikirim,
+            | jangan izinkan tombol kembali aktif.
             */
+            if (isSubmitting) {
 
-            const steps =
-                document.querySelectorAll(".step");
+                submitButton.disabled = true;
 
-            steps.forEach(step => {
-                step.classList.remove("active");
-            });
-
-            const firstStep =
-                document.getElementById("step1");
-
-            if (firstStep) {
-                firstStep.classList.add("active");
-            }
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | FORM VALIDATION
-            |--------------------------------------------------------------------------
-            */
-
-            function toggleSubmitButton() {
-
-                if (!submitButton) return;
-
-                submitButton.disabled = !form.checkValidity();
+                return;
 
             }
 
+            submitButton.disabled =
+                !form.checkValidity();
 
-            toggleSubmitButton();
-
-
-            form.addEventListener(
-                "input",
-                toggleSubmitButton
-            );
+        }
 
 
-            form.addEventListener(
-                "change",
-                toggleSubmitButton
-            );
+        toggleSubmitButton();
 
 
-            form.addEventListener(
-                "submit",
-                function(e) {
+        form.addEventListener(
+            "input",
+            toggleSubmitButton
+        );
 
-                    if (!form.checkValidity()) {
 
-                        e.preventDefault();
+        form.addEventListener(
+            "change",
+            toggleSubmitButton
+        );
 
-                        e.stopPropagation();
 
-                        alert(
-                            "⚠️ Mohon lengkapi semua data yang wajib diisi sebelum submit."
-                        );
+        form.addEventListener(
+            "submit",
+            function(e) {
 
-                    }
+                /*
+                |--------------------------------------------------------------------------
+                | CEGAH SUBMIT KEDUA
+                |--------------------------------------------------------------------------
+                */
+
+                if (isSubmitting) {
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    return;
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | VALIDASI FORM
+                |--------------------------------------------------------------------------
+                */
+
+                if (!form.checkValidity()) {
+
+                    e.preventDefault();
+                    e.stopPropagation();
 
                     form.classList.add(
                         "was-validated"
                     );
 
+                    alert(
+                        "⚠️ Mohon lengkapi semua data yang wajib diisi sebelum submit."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | KUNCI SUBMIT
+                |--------------------------------------------------------------------------
+                */
+
+                isSubmitting = true;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | DISABLE BUTTON
+                |--------------------------------------------------------------------------
+                */
+
+                submitButton.disabled = true;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | UBAH TAMPILAN BUTTON
+                |--------------------------------------------------------------------------
+                */
+
+                submitButton.innerHTML = `
+                    <span>
+                        Menyimpan Pendaftaran...
+                    </span>
+
+                    <span class="button-arrow">
+                        ⏳
+                    </span>
+                `;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | VALIDATED STATE
+                |--------------------------------------------------------------------------
+                */
+
+                form.classList.add(
+                    "was-validated"
+                );
+
+            }
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | METHOD INTERVIEW
+        |--------------------------------------------------------------------------
+        */
+
+        const method =
+            document.getElementById("method");
+
+        const onlineReason =
+            document.getElementById("onlineReason");
+
+
+        if (method) {
+
+            method.addEventListener(
+                "change",
+                function() {
+
+                    if (this.value === "online") {
+
+                        onlineReason.style.display =
+                            "";
+
+                    } else {
+
+                        onlineReason.style.display =
+                            "none";
+
+                    }
+
                 }
             );
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | METHOD INTERVIEW
-            |--------------------------------------------------------------------------
-            */
-
-            const method =
-                document.getElementById("method");
-
-            const onlineReason =
-                document.getElementById("onlineReason");
-
-
-            if (method) {
-
-                method.addEventListener(
-                    "change",
-                    function() {
-
-                        if (this.value === "online") {
-
-                            onlineReason.style.display =
-                                "";
-
-                        } else {
-
-                            onlineReason.style.display =
-                                "none";
-
-                        }
-
-                    }
-                );
-
-            }
-
-        });
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | UPDATE PROGRESS
-        |--------------------------------------------------------------------------
-        */
-
-        function updateProgress(step) {
-
-            document
-                .querySelectorAll(".progress-item")
-                .forEach(item => {
-
-                    const itemStep =
-                        parseInt(
-                            item.dataset.step
-                        );
-
-                    item.classList.remove(
-                        "active",
-                        "completed"
-                    );
-
-
-                    if (itemStep === step) {
-
-                        item.classList.add(
-                            "active"
-                        );
-
-                    }
-
-
-                    if (itemStep < step) {
-
-                        item.classList.add(
-                            "completed"
-                        );
-
-                    }
-
-                });
-
         }
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | NEXT STEP
-        |--------------------------------------------------------------------------
-        */
-
-        function nextStep(step) {
-
-            const currentStep =
-                document.querySelector(
-                    ".step.active"
-                );
+    });
 
 
-            if (currentStep) {
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE PROGRESS
+    |--------------------------------------------------------------------------
+    */
 
-                const inputs =
-                    currentStep.querySelectorAll(
-                        "input, select, textarea"
+    function updateProgress(step) {
+
+        document
+            .querySelectorAll(".progress-item")
+            .forEach(item => {
+
+                const itemStep =
+                    parseInt(
+                        item.dataset.step
                     );
 
-
-                let valid = true;
-
-
-                inputs.forEach(input => {
-
-                    if (
-                        input.offsetParent !== null &&
-                        !input.checkValidity()
-                    ) {
-
-                        input.reportValidity();
-
-                        valid = false;
-
-                    }
-
-                });
-
-
-                if (!valid) {
-                    return;
-                }
-
-
-                currentStep.classList.remove(
-                    "active"
-                );
-
-            }
-
-
-            const next =
-                document.getElementById(
-                    "step" + step
+                item.classList.remove(
+                    "active",
+                    "completed"
                 );
 
 
-            if (next) {
+                if (itemStep === step) {
 
-                next.classList.add(
-                    "active"
-                );
-
-                updateProgress(step);
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | PREVIOUS STEP
-        |--------------------------------------------------------------------------
-        */
-
-        function prevStep(step) {
-
-            document
-                .querySelectorAll(".step")
-                .forEach(item => {
-
-                    item.classList.remove(
+                    item.classList.add(
                         "active"
                     );
 
-                });
+                }
 
 
-            const previous =
-                document.getElementById(
-                    "step" + step
+                if (itemStep < step) {
+
+                    item.classList.add(
+                        "completed"
+                    );
+
+                }
+
+            });
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | NEXT STEP
+    |--------------------------------------------------------------------------
+    */
+
+    function nextStep(step) {
+
+        const currentStep =
+            document.querySelector(
+                ".step.active"
+            );
+
+
+        if (currentStep) {
+
+            const inputs =
+                currentStep.querySelectorAll(
+                    "input, select, textarea"
                 );
 
 
-            if (previous) {
+            let valid = true;
 
-                previous.classList.add(
+
+            inputs.forEach(input => {
+
+                if (
+                    input.offsetParent !== null &&
+                    !input.checkValidity()
+                ) {
+
+                    input.reportValidity();
+
+                    valid = false;
+
+                }
+
+            });
+
+
+            if (!valid) {
+                return;
+            }
+
+
+            currentStep.classList.remove(
+                "active"
+            );
+
+        }
+
+
+        const next =
+            document.getElementById(
+                "step" + step
+            );
+
+
+        if (next) {
+
+            next.classList.add(
+                "active"
+            );
+
+            updateProgress(step);
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | PREVIOUS STEP
+    |--------------------------------------------------------------------------
+    */
+
+    function prevStep(step) {
+
+        document
+            .querySelectorAll(".step")
+            .forEach(item => {
+
+                item.classList.remove(
                     "active"
                 );
 
-                updateProgress(step);
+            });
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
 
-            }
+        const previous =
+            document.getElementById(
+                "step" + step
+            );
+
+
+        if (previous) {
+
+            previous.classList.add(
+                "active"
+            );
+
+            updateProgress(step);
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
         }
-    </script>
 
-
+    }
+</script>
     @include('components.script')
 
 @endsection
