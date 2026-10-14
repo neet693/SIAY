@@ -1,8 +1,6 @@
-@extends('Layout.app2')
-
-@section('content')
-
-    <div class="ppdb-page">
+<x-app-layout>
+<script src="https://cdn.tailwindcss.com"></script>
+<div class="ppdb-page">
 
         {{-- =========================================================
         HEADER
@@ -1351,8 +1349,7 @@
                                                 Provinsi
                                             </label>
 
-                                            <select class="form-control-modern" id="provinceParent"
-                                                name="parent_province">
+                                            <select class="form-control-modern" id="provinceParent">
 
                                                 <option selected disabled>
                                                     Pilih Provinsi
@@ -1383,7 +1380,7 @@
                                                 Kabupaten / Kota
                                             </label>
 
-                                            <select class="form-control-modern" id="regencyParent" name="parent_regency">
+                                            <select class="form-control-modern" id="regencyParent">
 
                                                 <option selected disabled>
                                                     Pilih Kabupaten / Kota
@@ -1414,8 +1411,7 @@
                                                 Kecamatan
                                             </label>
 
-                                            <select class="form-control-modern" id="districtParent"
-                                                name="parent_district">
+                                            <select class="form-control-modern" id="districtParent">
 
                                                 <option selected disabled>
                                                     Pilih Kecamatan
@@ -1446,7 +1442,7 @@
                                                 Desa / Kelurahan
                                             </label>
 
-                                            <select class="form-control-modern" id="villageParent" name="parent_village">
+                                            <select class="form-control-modern" id="villageParent">
 
                                                 <option selected disabled>
                                                     Pilih Desa / Kelurahan
@@ -1759,7 +1755,9 @@
                                             </label>
 
                                             <input type="text" name="title" id="title"
-                                                class="form-control-modern" value="{{ old('title') }}" required>
+                                                class="form-control-modern" value="{{ old('title', 'Wawancara PPDB') }}"
+                                                readonly required aria-describedby="titleHelp">
+                                            <small id="titleHelp" class="form-hint">Judul dibuat otomatis berdasarkan nama lengkap siswa.</small>
 
                                             @error('title')
                                                 <p class="form-error">
@@ -1922,6 +1920,44 @@
     {{-- =========================================================
     STYLE
     ========================================================= --}}
+
+    <style>
+        .ppdb-page { background:#faf9fc; min-height:100vh; color:#202020; }
+        .ppdb-page .container { width:min(100% - 2rem, 1120px); margin-inline:auto; }
+        .ppdb-page .row { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:1.5rem; }
+        .ppdb-page [class*="col-"] { min-width:0; grid-column:span 12 / span 12; }
+        .ppdb-page .col-md-4 { grid-column:span 4 / span 4; }
+        .ppdb-page .col-md-6 { grid-column:span 6 / span 6; }
+        .ppdb-page .col-md-8 { grid-column:span 8 / span 8; }
+        .ppdb-page .col-12 { grid-column:span 12 / span 12; }
+        .ppdb-page .g-4 { gap:1.5rem; }
+        .ppdb-page .step { display:none; }
+        .ppdb-page .step.active { display:block; animation:stepFade .25s ease; }
+        .ppdb-page .form-control-modern { box-sizing:border-box; }
+        .ppdb-page .step-actions { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-top:2rem; }
+        .ppdb-page .ppdb-progress { display:flex; align-items:center; overflow-x:auto; }
+        .ppdb-page .progress-item { flex-shrink:0; }
+        .ppdb-page .progress-line { flex-shrink:0; }
+        .ppdb-page button { font:inherit; }
+        .ppdb-page .ppdb-button { display:inline-flex; align-items:center; justify-content:center; gap:.75rem; padding:.9rem 1.25rem; border:0; border-radius:12px; font-weight:600; cursor:pointer; transition:.2s ease; }
+        .ppdb-page .ppdb-button-primary { background:#191522; color:white; }
+        .ppdb-page .ppdb-button-primary:hover { background:#8b5cf6; color:white; }
+        .ppdb-page .ppdb-button-secondary { background:#f5f3f8; color:#55505e; }
+        .ppdb-page .ppdb-button:disabled { opacity:.55; cursor:not-allowed; }
+        .ppdb-page .form-error { color:#dc2626; font-size:.8rem; margin-top:.4rem; }
+        .ppdb-page .form-control-modern.is-invalid { border-color:#dc2626; }
+        .ppdb-page .ppdb-alert-danger { background:#fff5f5; border:1px solid #f3d4d4; color:#842029; border-radius:14px; padding:1rem 1.25rem; margin-bottom:1.5rem; }
+        @keyframes stepFade { from {opacity:0;transform:translateY(6px)} to {opacity:1;transform:translateY(0)} }
+        @media(max-width:768px) {
+            .ppdb-page .col-md-4,.ppdb-page .col-md-6,.ppdb-page .col-md-8 { grid-column:span 12 / span 12; }
+            .ppdb-page .ppdb-card { padding:1.5rem 1rem; }
+            .ppdb-page .progress-text { display:none; }
+            .ppdb-page .step-actions { flex-direction:column-reverse; align-items:stretch; }
+            .ppdb-page .ppdb-button { width:100%; }
+            .ppdb-page .step-header h2 { font-size:1.9rem; }
+        }
+    </style>
+
     <style>
         /* =====================================================
                    BASE
@@ -2764,378 +2800,614 @@
     SCRIPT
     ========================================================= --}}
     
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-
-        const form = document.querySelector("form");
-
-        const submitButton =
-            form.querySelector("button[type='submit']");
+    
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | INITIAL STEP
-        |--------------------------------------------------------------------------
-        */
+    <style>
+        .ppdb-page {
+            background: #F7F9FC;
+            color: #172033;
+            min-height: 100vh;
+        }
 
-        const steps =
-            document.querySelectorAll(".step");
+        .ppdb-page .ppdb-header {
+            background: linear-gradient(135deg, #2B6EFF 0%, #1D4ED8 100%);
+        }
 
-        steps.forEach(step => {
-            step.classList.remove("active");
+        .ppdb-page .ppdb-header .ppdb-label {
+            color: #DBEAFE;
+        }
+
+        .ppdb-page .ppdb-header h1 {
+            color: #FFFFFF;
+        }
+
+        .ppdb-page .ppdb-header h1 span {
+            color: #DBEAFE;
+        }
+
+        .ppdb-page .ppdb-header p {
+            color: #EFF6FF;
+        }
+
+        .ppdb-page .ppdb-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 16px 45px rgba(23, 32, 51, .08);
+        }
+
+        .ppdb-page .step-header h2,
+        .ppdb-page .form-section-title {
+            color: #172033;
+        }
+
+        .ppdb-page .step-header p,
+        .ppdb-page .ppdb-info p,
+        .ppdb-page .ppdb-final-message p {
+            color: #475569;
+        }
+
+        .ppdb-page .form-group-modern label {
+            color: #172033;
+        }
+
+        .ppdb-page .form-control-modern {
+            background: #FFFFFF;
+            color: #172033;
+            border: 1px solid #CBD5E1;
+            border-radius: 10px;
+        }
+
+        .ppdb-page .form-control-modern::placeholder {
+            color: #64748B;
+            opacity: 1;
+        }
+
+        .ppdb-page .form-control-modern:focus {
+            border-color: #2B6EFF;
+            box-shadow: 0 0 0 3px rgba(43, 110, 255, .16);
+            outline: none;
+        }
+
+        .ppdb-page .form-control-modern:disabled {
+            background: #F1F5F9;
+            color: #64748B;
+            cursor: not-allowed;
+        }
+
+        .ppdb-page .progress-number {
+            color: #475569;
+            border-color: #CBD5E1;
+        }
+
+        .ppdb-page .progress-item.active .progress-number,
+        .ppdb-page .progress-item.completed .progress-number {
+            background: #1D4ED8;
+            border-color: #1D4ED8;
+            color: #FFFFFF;
+        }
+
+        .ppdb-page .progress-text strong {
+            color: #172033;
+        }
+
+        .ppdb-page .progress-text small {
+            color: #64748B;
+        }
+
+        .ppdb-page .progress-line {
+            background: #CBD5E1;
+        }
+
+        .ppdb-page .ppdb-button-primary {
+            background: #1D4ED8;
+            color: #FFFFFF;
+        }
+
+        .ppdb-page .ppdb-button-primary:hover {
+            background: #1E40AF;
+            color: #FFFFFF;
+        }
+
+        .ppdb-page .ppdb-button-secondary {
+            background: #EAF1FF;
+            color: #1E40AF;
+        }
+
+        .ppdb-page .ppdb-button-secondary:hover {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .ppdb-page .ppdb-info,
+        .ppdb-page .ppdb-final-message {
+            background: #EAF1FF;
+            border-color: #BFDBFE;
+            color: #172033;
+        }
+
+        .ppdb-page .form-error {
+            color: #B42318;
+        }
+
+        .ppdb-page .form-hint {
+            display: block;
+            margin-top: 7px;
+            color: #64748B;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .ppdb-page .form-control-modern.is-invalid {
+            border-color: #DC2626 !important;
+            background-color: #FEF2F2;
+        }
+
+        .ppdb-page .form-group-modern:has(.is-invalid) > label {
+            color: #B91C1C;
+        }
+
+        .ppdb-page .field-error-summary {
+            margin: 0 0 1.5rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid #FECACA;
+            border-radius: 14px;
+            background: #FEF2F2;
+            color: #991B1B;
+        }
+
+        .ppdb-page .field-error-summary a {
+            color: #1D4ED8;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .ppdb-page .radio-card span {
+            color: #334155;
+            border-color: #CBD5E1;
+        }
+
+        .ppdb-page .radio-card input:checked + span {
+            background: #EAF1FF;
+            border-color: #2B6EFF;
+            color: #1D4ED8;
+        }
+
+        .ppdb-page .ppdb-button:focus-visible,
+        .ppdb-page .form-control-modern:focus-visible {
+            outline: 3px solid #93C5FD;
+            outline-offset: 2px;
+        }
+
+        .ppdb-page .step { display: none; }
+        .ppdb-page .step.active { display: block; }
+        .ppdb-page [id$="AddressRow"].is-visible { display: block !important; }
+
+        @media (max-width: 768px) {
+            .ppdb-page .ppdb-card { padding: 1.5rem 1rem; }
+        }
+    </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const API = 'https://www.emsifa.com/api-wilayah-indonesia/v2';
+    const $ = id => document.getElementById(id);
+    const form = document.querySelector('.ppdb-page form');
+    const panels = [...document.querySelectorAll('.ppdb-page .step')];
+    const progress = [...document.querySelectorAll('.ppdb-page .progress-item')];
+    const DRAFT_KEY = 'yahya_ppdb_form_draft_v2';
+
+    async function getRegions(path) {
+        const response = await fetch(`${API}/${path}.json`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const json = await response.json();
+        if (!Array.isArray(json.data)) throw new Error('Format data wilayah tidak valid');
+        return json.data;
+    }
+
+    function resetSelect(select, label, disabled = true) {
+        if (!select) return;
+        select.replaceChildren(new Option(label, ''));
+        select.disabled = disabled;
+    }
+
+    function fillSelect(select, items, label) {
+        if (!select) return;
+        select.replaceChildren(new Option(label, ''));
+        items.forEach(item => select.add(new Option(item.name, String(item.id))));
+        select.disabled = items.length === 0;
+    }
+
+    function hiddenValue(id, value) {
+        const input = $(id);
+        if (input) input.value = value || '';
+    }
+
+    function setupAddress(ids) {
+        const province = $(ids.province);
+        const regency = $(ids.regency);
+        const district = $(ids.district);
+        const village = $(ids.village);
+        if (!province || !regency || !district || !village) return;
+        let provinceRequest = 0, regencyRequest = 0, districtRequest = 0;
+
+        function update(select, idField, nameField) {
+            const option = select.options[select.selectedIndex];
+            hiddenValue(idField, select.value);
+            hiddenValue(nameField, select.value ? option.text : '');
+        }
+
+        function clearFrom(level) {
+            if (level <= 1) {
+                resetSelect(regency, 'Pilih kabupaten/kota');
+                update(regency, ids.regencyId, ids.regencyName);
+            }
+            if (level <= 2) {
+                resetSelect(district, 'Pilih kecamatan');
+                update(district, ids.districtId, ids.districtName);
+            }
+            if (level <= 3) {
+                resetSelect(village, 'Pilih desa/kelurahan');
+                update(village, ids.villageId, ids.villageName);
+            }
+        }
+
+        province.addEventListener('change', async () => {
+            const request = ++provinceRequest;
+            clearFrom(1);
+            update(province, ids.provinceId, ids.provinceName);
+            if (!province.value) { saveDraft(); return; }
+            resetSelect(regency, 'Memuat kabupaten/kota...');
+            try {
+                const data = await getRegions(`regencies/${province.value}`);
+                if (request === provinceRequest) fillSelect(regency, data, 'Pilih kabupaten/kota');
+            } catch (error) {
+                if (request === provinceRequest) resetSelect(regency, 'Gagal memuat. Coba pilih provinsi lagi.');
+                console.error(error);
+                showNotice('Kabupaten/kota gagal dimuat. Periksa koneksi internet lalu coba lagi.');
+            }
+            saveDraft();
         });
 
-        const firstStep =
-            document.getElementById("step1");
-
-        if (firstStep) {
-            firstStep.classList.add("active");
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | FORM VALIDATION & DOUBLE SUBMIT PROTECTION
-        |--------------------------------------------------------------------------
-        */
-
-        let isSubmitting = false;
-
-
-        function toggleSubmitButton() {
-
-            if (!submitButton) return;
-
-            /*
-            | Jika form sedang dikirim,
-            | jangan izinkan tombol kembali aktif.
-            */
-            if (isSubmitting) {
-
-                submitButton.disabled = true;
-
-                return;
-
+        regency.addEventListener('change', async () => {
+            const request = ++regencyRequest;
+            clearFrom(2);
+            update(regency, ids.regencyId, ids.regencyName);
+            if (!regency.value) { saveDraft(); return; }
+            resetSelect(district, 'Memuat kecamatan...');
+            try {
+                const data = await getRegions(`districts/${regency.value}`);
+                if (request === regencyRequest) fillSelect(district, data, 'Pilih kecamatan');
+            } catch (error) {
+                if (request === regencyRequest) resetSelect(district, 'Gagal memuat kecamatan');
+                console.error(error);
+                showNotice('Kecamatan gagal dimuat. Silakan coba lagi.');
             }
+            saveDraft();
+        });
 
-            submitButton.disabled =
-                !form.checkValidity();
-
-        }
-
-
-        toggleSubmitButton();
-
-
-        form.addEventListener(
-            "input",
-            toggleSubmitButton
-        );
-
-
-        form.addEventListener(
-            "change",
-            toggleSubmitButton
-        );
-
-
-        form.addEventListener(
-            "submit",
-            function(e) {
-
-                /*
-                |--------------------------------------------------------------------------
-                | CEGAH SUBMIT KEDUA
-                |--------------------------------------------------------------------------
-                */
-
-                if (isSubmitting) {
-
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    return;
-
-                }
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | VALIDASI FORM
-                |--------------------------------------------------------------------------
-                */
-
-                if (!form.checkValidity()) {
-
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    form.classList.add(
-                        "was-validated"
-                    );
-
-                    alert(
-                        "⚠️ Mohon lengkapi semua data yang wajib diisi sebelum submit."
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | KUNCI SUBMIT
-                |--------------------------------------------------------------------------
-                */
-
-                isSubmitting = true;
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | DISABLE BUTTON
-                |--------------------------------------------------------------------------
-                */
-
-                submitButton.disabled = true;
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | UBAH TAMPILAN BUTTON
-                |--------------------------------------------------------------------------
-                */
-
-                submitButton.innerHTML = `
-                    <span>
-                        Menyimpan Pendaftaran...
-                    </span>
-
-                    <span class="button-arrow">
-                        ⏳
-                    </span>
-                `;
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | VALIDATED STATE
-                |--------------------------------------------------------------------------
-                */
-
-                form.classList.add(
-                    "was-validated"
-                );
-
+        district.addEventListener('change', async () => {
+            const request = ++districtRequest;
+            clearFrom(3);
+            update(district, ids.districtId, ids.districtName);
+            if (!district.value) { saveDraft(); return; }
+            resetSelect(village, 'Memuat desa/kelurahan...');
+            try {
+                const data = await getRegions(`villages/${district.value}`);
+                if (request === districtRequest) fillSelect(village, data, 'Pilih desa/kelurahan');
+            } catch (error) {
+                if (request === districtRequest) resetSelect(village, 'Gagal memuat desa/kelurahan');
+                console.error(error);
+                showNotice('Desa/kelurahan gagal dimuat. Silakan coba lagi.');
             }
-        );
+            saveDraft();
+        });
 
+        village.addEventListener('change', () => {
+            update(village, ids.villageId, ids.villageName);
+            saveDraft();
+        });
+    }
 
-        /*
-        |--------------------------------------------------------------------------
-        | METHOD INTERVIEW
-        |--------------------------------------------------------------------------
-        */
-
-        const method =
-            document.getElementById("method");
-
-        const onlineReason =
-            document.getElementById("onlineReason");
-
-
-        if (method) {
-
-            method.addEventListener(
-                "change",
-                function() {
-
-                    if (this.value === "online") {
-
-                        onlineReason.style.display =
-                            "";
-
-                    } else {
-
-                        onlineReason.style.display =
-                            "none";
-
-                    }
-
-                }
-            );
-
+    function showNotice(message) {
+        let notice = $('ppdbRuntimeNotice');
+        if (!notice) {
+            notice = document.createElement('div');
+            notice.id = 'ppdbRuntimeNotice';
+            notice.className = 'ppdb-alert ppdb-alert-danger';
+            notice.setAttribute('role', 'alert');
+            const section = document.querySelector('.ppdb-form-section .container');
+            section?.prepend(notice);
         }
+        notice.textContent = message;
+    }
 
+    function showStep(number, scroll = true) {
+        const target = Math.min(4, Math.max(1, Number(number) || 1));
+        panels.forEach(panel => panel.classList.toggle('active', panel.id === `step${target}`));
+        progress.forEach(item => {
+            const n = Number(item.dataset.step);
+            item.classList.toggle('active', n === target);
+            item.classList.toggle('completed', n < target);
+            if (n === target) item.setAttribute('aria-current', 'step');
+            else item.removeAttribute('aria-current');
+        });
+        if (scroll) {
+            const heading = $(`step${target}`)?.querySelector('.step-header h2');
+            heading?.setAttribute('tabindex', '-1');
+            heading?.focus({ preventScroll: true });
+            window.scrollTo({ top: Math.max(0, document.querySelector('.ppdb-page')?.offsetTop || 0), behavior: 'smooth' });
+        }
+    }
+
+    function firstInvalid(panel) {
+        return [...panel.querySelectorAll('input, select, textarea')].find(input => {
+            if (!input.willValidate || input.disabled) return false;
+            if (input.type === 'radio') {
+                const group = [...panel.querySelectorAll(`input[type="radio"][name="${CSS.escape(input.name)}"]`)];
+                if (group.some(radio => radio.checked)) return false;
+                return input === group[0] && input.required;
+            }
+            return input.offsetParent !== null && !input.checkValidity();
+        });
+    }
+
+    function validatePanel(panel) {
+        const invalid = firstInvalid(panel);
+        if (invalid) {
+            invalid.classList.add('is-invalid');
+            invalid.reportValidity();
+            invalid.focus({ preventScroll: true });
+            invalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return false;
+        }
+        return true;
+    }
+
+    window.nextStep = number => {
+        const current = document.querySelector('.ppdb-page .step.active');
+        if (!current || !validatePanel(current)) return;
+        showStep(number);
+        saveDraft();
+    };
+    window.prevStep = number => showStep(number);
+
+    progress.forEach(item => {
+        item.style.cursor = 'pointer';
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        const go = () => {
+            const target = Number(item.dataset.step);
+            const current = document.querySelector('.ppdb-page .step.active');
+            const currentNumber = current ? Number(current.id.replace('step', '')) : 1;
+            if (target > currentNumber) {
+                for (let n = currentNumber; n < target; n++) {
+                    const panel = $(`step${n}`);
+                    if (panel && !validatePanel(panel)) { showStep(n, false); return; }
+                }
+            }
+            showStep(target);
+        };
+        item.addEventListener('click', go);
+        item.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); go(); }
+        });
     });
 
+    setupAddress({
+        province: 'province', regency: 'regency', district: 'district', village: 'village',
+        provinceId: 'student_province', provinceName: 'student_province_name',
+        regencyId: 'student_regency', regencyName: 'student_regency_name',
+        districtId: 'student_district', districtName: 'student_district_name',
+        villageId: 'student_village', villageName: 'student_village_name'
+    });
+    setupAddress({
+        province: 'provinceParent', regency: 'regencyParent', district: 'districtParent', village: 'villageParent',
+        provinceId: 'parent_province', provinceName: 'parent_province_name',
+        regencyId: 'parent_regency', regencyName: 'parent_regency_name',
+        districtId: 'parent_district', districtName: 'parent_district_name',
+        villageId: 'parent_village', villageName: 'parent_village_name'
+    });
 
-    /*
-    |--------------------------------------------------------------------------
-    | UPDATE PROGRESS
-    |--------------------------------------------------------------------------
-    */
-
-    function updateProgress(step) {
-
-        document
-            .querySelectorAll(".progress-item")
-            .forEach(item => {
-
-                const itemStep =
-                    parseInt(
-                        item.dataset.step
-                    );
-
-                item.classList.remove(
-                    "active",
-                    "completed"
-                );
-
-
-                if (itemStep === step) {
-
-                    item.classList.add(
-                        "active"
-                    );
-
+    // Simpan draft hanya pada tab browser ini agar input tidak hilang saat refresh.
+    // Data draft dihapus saat submit dimulai; bila validasi server gagal, old() akan mengisi ulang form.
+    let restoringDraft = false;
+    function getFormControls() {
+        return [...(form?.querySelectorAll('input, select, textarea') || [])].filter(el =>
+            el.id && !['_token', '_method'].includes(el.name) && el.type !== 'submit' && el.type !== 'button' && el.type !== 'password'
+        );
+    }
+    function saveDraft() {
+        if (restoringDraft || !form) return;
+        try {
+            const draft = {};
+            getFormControls().forEach(el => {
+                if (!el.id) return;
+                if (el.type === 'radio' || el.type === 'checkbox') {
+                    if (el.checked) draft[el.id] = el.value;
+                } else if (!el.matches('select:disabled')) {
+                    draft[el.id] = el.value;
                 }
-
-
-                if (itemStep < step) {
-
-                    item.classList.add(
-                        "completed"
-                    );
-
-                }
-
             });
-
+            draft.__step = Number(document.querySelector('.ppdb-page .step.active')?.id.replace('step', '') || 1);
+            sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+        } catch (error) {
+            console.warn('Draft PPDB tidak dapat disimpan pada sesi browser ini.', error);
+        }
     }
 
+    function restoreDraft() {
+        let draft;
+        try { draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || 'null'); }
+        catch { draft = null; }
+        if (!draft) return 1;
+        restoringDraft = true;
+        Object.entries(draft).forEach(([id, value]) => {
+            if (id.startsWith('__')) return;
+            const el = $(id);
+            if (!el || el.matches('select')) return; // Wilayah dipulihkan setelah API selesai memuat.
+            if (el.type === 'radio' || el.type === 'checkbox') el.checked = el.value === value;
+            else el.value = value ?? '';
+        });
+        // Restore ordinary selects first; address selects are restored by the region loader.
+        Object.entries(draft).forEach(([id, value]) => {
+            const el = $(id);
+            if (el?.tagName === 'SELECT' && !['province','regency','district','village','provinceParent','regencyParent','districtParent','villageParent'].includes(id)) el.value = value;
+        });
+        restoringDraft = false;
+        return Number(draft.__step) || 1;
+    }
 
-    /*
-    |--------------------------------------------------------------------------
-    | NEXT STEP
-    |--------------------------------------------------------------------------
-    */
+    const oldStudentProvince = @json(old('student_province'));
+    const oldParentProvince = @json(old('provinceParent'));
+    const oldStudentRegency = @json(old('student_regency'));
+    const oldStudentDistrict = @json(old('student_district'));
+    const oldStudentVillage = @json(old('student_village'));
+    const oldParentRegency = @json(old('regencyParent'));
+    const oldParentDistrict = @json(old('districtParent'));
+    const oldParentVillage = @json(old('villageParent'));
 
-    function nextStep(step) {
-
-        const currentStep =
-            document.querySelector(
-                ".step.active"
-            );
-
-
-        if (currentStep) {
-
-            const inputs =
-                currentStep.querySelectorAll(
-                    "input, select, textarea"
-                );
-
-
-            let valid = true;
-
-
-            inputs.forEach(input => {
-
-                if (
-                    input.offsetParent !== null &&
-                    !input.checkValidity()
-                ) {
-
-                    input.reportValidity();
-
-                    valid = false;
-
-                }
-
+    async function restoreRegionChain(prefix, ids, values) {
+        const province = $(ids.province), regency = $(ids.regency), district = $(ids.district), village = $(ids.village);
+        if (!province || !values.province) return;
+        province.value = String(values.province);
+        province.dispatchEvent(new Event('change'));
+        try {
+            const regencies = await getRegions(`regencies/${values.province}`);
+            fillSelect(regency, regencies, 'Pilih kabupaten/kota');
+            if (!values.regency) return;
+            regency.value = String(values.regency);
+            regency.dispatchEvent(new Event('change'));
+            const districts = await getRegions(`districts/${values.regency}`);
+            fillSelect(district, districts, 'Pilih kecamatan');
+            if (!values.district) return;
+            district.value = String(values.district);
+            district.dispatchEvent(new Event('change'));
+            const villages = await getRegions(`villages/${values.district}`);
+            fillSelect(village, villages, 'Pilih desa/kelurahan');
+            if (values.village) village.value = String(values.village);
+            const mapping = prefix === 'student' ? {
+                provinceId:'student_province', provinceName:'student_province_name', regencyId:'student_regency', regencyName:'student_regency_name', districtId:'student_district', districtName:'student_district_name', villageId:'student_village', villageName:'student_village_name'
+            } : {
+                provinceId:'parent_province', provinceName:'parent_province_name', regencyId:'parent_regency', regencyName:'parent_regency_name', districtId:'parent_district', districtName:'parent_district_name', villageId:'parent_village', villageName:'parent_village_name'
+            };
+            [[province,mapping.provinceId,mapping.provinceName],[regency,mapping.regencyId,mapping.regencyName],[district,mapping.districtId,mapping.districtName],[village,mapping.villageId,mapping.villageName]].forEach(([select,id,name]) => {
+                const option = select.options[select.selectedIndex];
+                hiddenValue(id, select.value);
+                hiddenValue(name, select.value ? option?.text : '');
             });
+        } catch (error) {
+            console.error('Gagal memulihkan data wilayah:', error);
+        }
+    }
 
+    async function loadProvinces(draft) {
+        const selects = [$('province'), $('provinceParent')].filter(Boolean);
+        selects.forEach(select => resetSelect(select, 'Memuat provinsi...'));
+        try {
+            const data = await getRegions('provinces');
+            selects.forEach(select => fillSelect(select, data, 'Pilih provinsi'));
+            const studentProvince = oldStudentProvince || draft?.province || '';
+            const parentProvince = oldParentProvince || draft?.provinceParent || '';
+            await restoreRegionChain('student', {province:'province',regency:'regency',district:'district',village:'village'}, {
+                province:studentProvince, regency:oldStudentRegency || draft?.regency || '', district:oldStudentDistrict || draft?.district || '', village:oldStudentVillage || draft?.village || ''
+            });
+            await restoreRegionChain('parent', {province:'provinceParent',regency:'regencyParent',district:'districtParent',village:'villageParent'}, {
+                province:parentProvince, regency:oldParentRegency || draft?.regencyParent || '', district:oldParentDistrict || draft?.districtParent || '', village:oldParentVillage || draft?.villageParent || ''
+            });
+        } catch (error) {
+            console.error(error);
+            selects.forEach(select => resetSelect(select, 'Gagal memuat provinsi'));
+            showNotice('Data provinsi gagal dimuat. Periksa koneksi internet lalu coba muat ulang halaman. Data lain yang sudah diisi tetap tersimpan di sesi tab ini.');
+        }
+    }
 
-            if (!valid) {
-                return;
+    const residence = $('userStay');
+    const studentAddressRow = $('studentAddressRow');
+    const waliRow = $('WaliRow') || $('waliRow');
+    function updateResidenceFields() {
+        const needsStudentAddress = residence && residence.value && residence.value !== '1';
+        if (studentAddressRow) studentAddressRow.style.display = needsStudentAddress ? '' : 'none';
+        if (waliRow) waliRow.style.display = needsStudentAddress ? '' : 'none';
+    }
+    residence?.addEventListener('change', () => { updateResidenceFields(); saveDraft(); });
+    updateResidenceFields();
+
+    const method = $('method');
+    const onlineReason = $('onlineReason');
+    function updateReason() {
+        if (!method || !onlineReason) return;
+        const isOnline = method.value === 'online';
+        onlineReason.style.display = isOnline ? '' : 'none';
+        const reason = $('online_reason');
+        if (reason) reason.required = isOnline;
+    }
+    method?.addEventListener('change', () => { updateReason(); saveDraft(); });
+    updateReason();
+
+    // Judul wawancara mengikuti nama lengkap siswa dan tidak perlu diketik manual.
+    const titleInput = $('title');
+    const studentNameInput = $('fullName');
+    function updateInterviewTitle() {
+        if (!titleInput) return;
+        const name = studentNameInput?.value.trim();
+        titleInput.value = name ? `Wawancara PPDB - ${name}` : 'Wawancara PPDB';
+    }
+    studentNameInput?.addEventListener('input', () => { updateInterviewTitle(); saveDraft(); });
+    updateInterviewTitle();
+
+    // Hilangkan status invalid ketika pengguna mulai memperbaiki field.
+    form?.querySelectorAll('input,select,textarea').forEach(input => {
+        input.addEventListener('input', () => input.classList.remove('is-invalid'));
+        input.addEventListener('change', () => input.classList.remove('is-invalid'));
+        if (!['submit','button','radio','checkbox','hidden'].includes(input.type)) input.addEventListener('input', saveDraft);
+        input.addEventListener('change', saveDraft);
+    });
+
+    const draft = restoreDraft();
+    loadProvinces(draft).finally(() => {
+        updateResidenceFields();
+        updateReason();
+        updateInterviewTitle();
+        const errorStep = panels.find(panel => panel.querySelector('.form-error, .is-invalid'));
+        if (errorStep) {
+            showStep(Number(errorStep.id.replace('step','')), false);
+            const firstError = errorStep.querySelector('.is-invalid, .form-error')?.closest('.form-group-modern')?.querySelector('input,select,textarea');
+            if (firstError && firstError.offsetParent !== null) firstError.focus({ preventScroll: true });
+        } else {
+            const hasOldInput = @json($errors->any());
+            showStep(hasOldInput ? (errorStep ? Number(errorStep.id.replace('step','')) : 1) : draft, false);
+        }
+        saveDraft();
+    });
+
+    if (form) {
+        let submitting = false;
+        form.addEventListener('submit', event => {
+            if (submitting) { event.preventDefault(); return; }
+            // Periksa setiap langkah satu per satu dan buka langkah pertama yang bermasalah.
+            for (const panel of panels) {
+                const invalid = firstInvalid(panel);
+                if (invalid) {
+                    event.preventDefault();
+                    showStep(Number(panel.id.replace('step','')));
+                    invalid.classList.add('is-invalid');
+                    invalid.reportValidity();
+                    invalid.focus({ preventScroll: true });
+                    invalid.scrollIntoView({ behavior:'smooth', block:'center' });
+                    return;
+                }
             }
-
-
-            currentStep.classList.remove(
-                "active"
-            );
-
-        }
-
-
-        const next =
-            document.getElementById(
-                "step" + step
-            );
-
-
-        if (next) {
-
-            next.classList.add(
-                "active"
-            );
-
-            updateProgress(step);
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        }
-
+            submitting = true;
+            try { sessionStorage.removeItem(DRAFT_KEY); } catch {}
+            const button = $('submitButton');
+            if (button) {
+                button.disabled = true;
+                button.innerHTML = '<span>Mengirim pendaftaran...</span><span aria-hidden="true">⏳</span>';
+            }
+        });
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | PREVIOUS STEP
-    |--------------------------------------------------------------------------
-    */
-
-    function prevStep(step) {
-
-        document
-            .querySelectorAll(".step")
-            .forEach(item => {
-
-                item.classList.remove(
-                    "active"
-                );
-
-            });
-
-
-        const previous =
-            document.getElementById(
-                "step" + step
-            );
-
-
-        if (previous) {
-
-            previous.classList.add(
-                "active"
-            );
-
-            updateProgress(step);
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        }
-
-    }
+});
 </script>
-    @include('components.script')
 
-@endsection
+</x-app-layout>
